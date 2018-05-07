@@ -14,3 +14,15 @@ Input format:
   The next n arguments are the prefix for the category and the number of documents in that
   category. Files should be named with the prefix followed by a three digit number.
     Example File Names for business category with two files: 'b001.txt' 'b002.txt'
+
+Output:
+  Output will be formatted as a list of words, followed by their term frequency in each of
+  n categories.
+    Example Output:
+      num categories: n
+      category 0 prefix: num docs in category
+      ...
+      category n-1 prefix: num docs in category
+      word0: [tf category 0]...[tf category n-1]
+      ...
+      wordm-1: [tf category 0]...[tf category n-1]

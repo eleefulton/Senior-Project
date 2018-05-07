@@ -6,18 +6,6 @@
   measured by total number of words in all documents in
   that category.
 
-  The number of categories will be input as the first
-  command line argument, and then each category prefix
-  and the number of documents in that category will
-  follow, seperated by spaces.
-
-  Example Input: 2 b 5 e 7
-  means there are two categories, one with the prefix
-  'b' which has 5 documents in it and one with the prefix
-  'e' which has 7 documents in int
-
-  Max number of categories that can be input is 5
-
 */ 
 #include <stdio.h>
 #include <stdlib.h>
