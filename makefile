@@ -10,4 +10,4 @@ tfidf: $(OBJ)
 
 .PHONY: clean
 clean:
-	-rm $(OBJ)
+	-rm $(OBJ) tfidf

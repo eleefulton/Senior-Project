@@ -45,7 +45,7 @@ int in_list(Word found_words[], char *string, int num_words)
 
 int main(int argc, char *argv[])
 {
-  int num_categories = atoi(argv[1]);
+  int num_categories = atoi(argv[2]);
   if(num_categories > MAX_CATEGORIES)
   {
     printf("Error: too many categories\n");
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     category_lengths[i] = 0;
   }
 
-  for(int i = 0, c = 2; i < num_categories; i++, c+=2)
+  for(int i = 0, c = 3; i < num_categories; i++, c+=2)
   {
     categories[i] = argv[c];
     category_docs[i] = atoi(argv[c+1]);
@@ -82,9 +82,10 @@ int main(int argc, char *argv[])
       int current_file_num = 1;                                                // current file in set
       int index;
       int current_file_length = 0;                                             // length of current document (words)
-      char *file_name = malloc(sizeof(char)*9);
+      char *file_name = malloc(sizeof(char)*(strlen(argv[1])+9));
       char *string;
       FILE *fp;
+      strncat(file_name, argv[1], strlen(argv[1]));
       strncat(file_name, categories[i], 1);
       strncat(file_name, build_name(j+1), 7);
       printf("%s\n", file_name);
