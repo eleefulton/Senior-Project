@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g
+CFLAGS = -g -lm
 DEPS = build_name.h parse_file.h
 OBJ = tfidf.o build_name.o parse_file.o
 

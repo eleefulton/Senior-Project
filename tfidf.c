@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <math.h>
 #include "parse_file.h"
 #include "build_name.h"
 
@@ -142,9 +143,9 @@ int main(int argc, char *argv[])
     printf("%s: ", found_words[i].string);
     for(int j = 0;  j < num_categories; j++)
     {
-      printf("[%f]", found_words[i].tf[j]);
+      printf("[%f]", found_words[i].tf[j] * log(found_words[i].idf));
     }
-    printf(" idf: %f\n", found_words[i].idf);
+    printf("\n");
   }
 
 

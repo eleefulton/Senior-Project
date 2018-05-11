@@ -19,8 +19,8 @@ Example Input:
   $ ./tfidf 2 b 5 e 7
 
 Output:
-  Output will be formatted as a list of words, followed by their term frequency in each of
-  n categories and the words inverse document frequency.
+  Output will be formatted as n categories and how many documents are in each, followed by 
+  a list of m words and their tf-idf for each category.
     Example Output:
       num categories: n
       category 0 prefix: num docs in category
