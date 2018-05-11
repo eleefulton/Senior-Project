@@ -21,7 +21,7 @@
 
 typedef struct{
   char string[50];
-  float term_frequency[MAX_CATEGORIES];
+  float tf[MAX_CATEGORIES];
 }Word;
 
 // search array of found words for given string, if it is found
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     printf("Error: too many categories\n");
     return -1;
   }
-  printf("num categories %d\n", num_categories);
+  printf("num categories: %d\n", num_categories);
   char *categories[num_categories];
   int category_docs[num_categories];                                           // number of documents in each category
   int category_lengths[num_categories];                                        // total number of words in all documents in category
@@ -101,13 +101,13 @@ int main(int argc, char *argv[])
           current_file_length++;
           if((index = in_list(found_words, string, unique_words)) >= 0)        // check found_words[] for string
           {
-            found_words[index].term_frequency[i]++;                            // if in found_words[], increment count for this category
+            found_words[index].tf[i]++;                            // if in found_words[], increment count for this category
           }
           else                                                                 // otherwise, add string to found_words[]
           {
             unique_words++;                                                    // increment count of total unique words
             strncpy(found_words[unique_words-1].string, string, 50);           // copy string to found_words[]
-            found_words[unique_words-1].term_frequency[i]++;                    // increment count for current category
+            found_words[unique_words-1].tf[i]++;                    // increment count for current category
           }
         }
       }
@@ -122,8 +122,8 @@ int main(int argc, char *argv[])
   {                                                                            // (term count across all docs / total words in category)
     for(int j = 0; j < unique_words; j++)
     {
-      found_words[j].term_frequency[i] = 
-        (float)found_words[j].term_frequency[i] / category_lengths[i];
+      found_words[j].tf[i] = 
+        (float)found_words[j].tf[i] / category_lengths[i];
     }
   }
 
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
     printf("%s: ", found_words[i].string);
     for(int j = 0;  j < num_categories; j++)
     {
-      printf("[%f]", found_words[i].term_frequency[j]);
+      printf("[%f]", found_words[i].tf[j]);
     }
     printf("\n");
   }
