@@ -20,12 +20,12 @@ Example Input:
 
 Output:
   Output will be formatted as a list of words, followed by their term frequency in each of
-  n categories.
+  n categories and the words inverse document frequency.
     Example Output:
       num categories: n
       category 0 prefix: num docs in category
       ...
       category n-1 prefix: num docs in category
-      word0: [tf category 0]...[tf category n-1]
+      word0: [tf category 0]...[tf category n-1] idf: x
       ...
-      wordm-1: [tf category 0]...[tf category n-1]
+      wordm-1: [tf category 0]...[tf category n-1] idf: x

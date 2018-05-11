@@ -22,6 +22,7 @@
 typedef struct{
   char string[50];
   float tf[MAX_CATEGORIES];
+  float idf;
 }Word;
 
 // search array of found words for given string, if it is found
@@ -101,13 +102,13 @@ int main(int argc, char *argv[])
           current_file_length++;
           if((index = in_list(found_words, string, unique_words)) >= 0)        // check found_words[] for string
           {
-            found_words[index].tf[i]++;                            // if in found_words[], increment count for this category
+            found_words[index].tf[i]++;                                        // if in found_words[], increment count for this category
           }
           else                                                                 // otherwise, add string to found_words[]
           {
             unique_words++;                                                    // increment count of total unique words
             strncpy(found_words[unique_words-1].string, string, 50);           // copy string to found_words[]
-            found_words[unique_words-1].tf[i]++;                    // increment count for current category
+            found_words[unique_words-1].tf[i]++;                               // increment count for current category
           }
         }
       }
@@ -124,7 +125,16 @@ int main(int argc, char *argv[])
     {
       found_words[j].tf[i] = 
         (float)found_words[j].tf[i] / category_lengths[i];
+      if(found_words[j].tf[i])
+      {
+        found_words[j].idf++;
+      }
     }
+  }
+
+  for(int i = 0; i < unique_words; i++)
+  {
+    found_words[i].idf = num_categories / found_words[i].idf;
   }
 
   for(int i = 0; i < unique_words; i++)                                        // print term frequencies
@@ -134,7 +144,7 @@ int main(int argc, char *argv[])
     {
       printf("[%f]", found_words[i].tf[j]);
     }
-    printf("\n");
+    printf(" idf: %f\n", found_words[i].idf);
   }
 
 
