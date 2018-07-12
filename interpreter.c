@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
   system("c4.5 -f golf > golf.dt");
   system("c4.5rules -f golf > golf.r");
 
-  fp = fopen("golf.r", "r");                                                   // open rules file
+  fp = fopen("golf.r", "r");                                               // open rules file
   if(fp == NULL)
   {
     printf("Failed to oepn file\n");
