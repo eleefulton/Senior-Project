@@ -33,7 +33,8 @@ $ ./tfidf ./path/to/files/ 2 b 5 e 7
 Output:
   Output will be formatted as n categories and how many documents are in each, followed by 
   a list of m words and their tf-idf for each category.
-    Example Output:
+  
+Example Output:
 ```
 num categories: n
 category 0 prefix: num docs in category
