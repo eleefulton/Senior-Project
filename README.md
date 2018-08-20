@@ -9,12 +9,12 @@ Program Description:
   
 How to Compile:
 ```
-    $ make
+$ make
 ```
 
 How to Run:
 ```
-    $ ./tfidf /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
+$ ./tfidf /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
 ```
 
 Input format:
@@ -27,19 +27,19 @@ Example File Names for business category with two files: 'b001.txt' 'b002.txt' .
 
 Example Input:
 ```
-  $ ./tfidf ./path/to/files/ 2 b 5 e 7
-  ```
+$ ./tfidf ./path/to/files/ 2 b 5 e 7
+```
 
 Output:
   Output will be formatted as n categories and how many documents are in each, followed by 
   a list of m words and their tf-idf for each category.
     Example Output:
-    ```
-      num categories: n
-      category 0 prefix: num docs in category
-      ...
-      category n-1 prefix: num docs in category
-      word0: [tf category 0]...[tf category n-1] idf: x
-      ...
-      wordm-1: [tf category 0]...[tf category n-1] idf: x
-   ```
+```
+num categories: n
+category 0 prefix: num docs in category
+...
+category n-1 prefix: num docs in category
+word0: [tf category 0]...[tf category n-1] idf: x
+...
+wordm-1: [tf category 0]...[tf category n-1] idf: x
+```
