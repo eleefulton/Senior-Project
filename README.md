@@ -8,10 +8,10 @@ Program Description:
   frequency of the word (total number of categories / number of categories that word appears in).
   
 How to Compile:
-  $ make
+    $ make
 
 How to Run:
-  $ ./tfidf /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
+    $ ./tfidf /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
 
 Input format:
   The first command line argument is the directory in which the training files are located.
