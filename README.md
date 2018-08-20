@@ -3,9 +3,9 @@ tf-idf tool
 
 Program Description:
   This program computes TF-IDF for words in a category of documents by computing term frequency
-  across all documents in a category (number of times word appears in category / number of total
+  across all documents in a category (number of times word appears in category divided by number of total
   length of category measured in words), then multiplying that by the log of the inverse category 
-  frequency of the word (total number of categories / number of categories that word appears in).
+  frequency of the word (total number of categories divided by number of categories that word appears in).
   
 How to Compile:
 ```
