@@ -22,6 +22,7 @@
 
 typedef struct{
   char string[50];
+  int count[MAX_CATEGORIES];
   float tf[MAX_CATEGORIES];
   float idf;
   float tfidf[MAX_CATEGORIES];
@@ -119,13 +120,13 @@ int main(int argc, char *argv[])
           current_file_length++;
           if((index = in_list(found_words, string, unique_words)) >= 0)        // check found_words[] for string
           {
-            found_words[index].tf[i]++;                                        // if in found_words[], increment count for this category
+            found_words[index].count[i]++;                                     // if in found_words[], increment count for this category
           }
           else                                                                 // otherwise, add string to found_words[]
           {
             unique_words++;                                                    // increment count of total unique words
             strncpy(found_words[unique_words-1].string, string, 50);           // copy string to found_words[]
-            found_words[unique_words-1].tf[i]++;                               // increment count for current category
+            found_words[unique_words-1].count[i]++;                            // increment count for current category
           }
         }
       }
@@ -137,11 +138,11 @@ int main(int argc, char *argv[])
   }
 
   for(int i = 0; i < num_categories; i++)                                      // compute term frequency per category
-  {                                                                            // (term count across all docs / total words in category)
+  {                                                                            // (term count across all docs in category / total words in category)
     for(int j = 0; j < unique_words; j++)
     {
       found_words[j].tf[i] = 
-        (float)found_words[j].tf[i] / category_lengths[i];
+        (float)found_words[j].count[i] / category_lengths[i];
       if(found_words[j].tf[i])
       {
         found_words[j].idf++;
@@ -180,12 +181,20 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
   { 
-    printf("[%s]\n", categories[i]);                                           // print current category
+    char *output_location = malloc(sizeof(char)*15);                           // create file name for output of 50 words for category
+    strncat(output_location, "./output/", 9);
+    strncat(output_location, categories[i], 1);
+    strncat(output_location, ".out", 4);
+    FILE *fp = fopen(output_location, "w+");                                   // open file to store 50 most important words
     for(int j = 0; j < unique_words; j++)
       simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
     qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
-    for(int j = 0; j < 50; j++)                                                // print 50 top words for category
-      printf("%s, %f\n", simple_array[j].string, simple_array[j].tfidf);
+    for(int j = 0; j < 50; j++)                                                // print 50 top words for category to file
+    {
+      fprintf(fp, "%s\n", simple_array[j].string);
+    }
+    fclose(fp);                                                                // close file
+    free(output_location);                                                     // free name
   }
 
   return 0;

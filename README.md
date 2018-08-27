@@ -31,23 +31,5 @@ $ ./tfidf ./path/to/files/ 2 b 5 e 7
 ```
 
 Output:
-  Output will be formatted as a list of each category and it's assiciated 50-most-important-words,
-  and each word's tfidf.
-
-Example Output:
-```
- num categories: 2
-  b: 2
-  e: 2
-  [b]
-  timewarner, 0.005961
-  aol, 0.005961
-  dollar, 0.005109
-  deficit, 0.005109
-  time, 0.004258
-  profit, 0.004258
-  profits, 0.004258
-  bn, 0.004258
-  ...
-  ```
-
+  Output will be stored in the /output folder. A seperate .out file will be created for each category
+  that will list the 50-most-important-words for that category.
