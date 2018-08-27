@@ -24,7 +24,13 @@ typedef struct{
   char string[50];
   float tf[MAX_CATEGORIES];
   float idf;
+  float tfidf[MAX_CATEGORIES];
 }Word;
+
+typedef struct{
+  char string[50];
+  float tfidf;
+}Simple_Word;
 
 // search array of found words for given string, if it is found
 // return its location, otherwise return -1
@@ -36,6 +42,15 @@ int in_list(Word found_words[], char *string, int num_words)
       return i;
   }
   return -1;
+}
+
+int compar(const void *p, const void *q)
+{
+  Simple_Word *w1 = (Simple_Word*)p;
+  Simple_Word *w2 = (Simple_Word*)q;
+  if(w1->tfidf < w2->tfidf) return 1;
+  else if(w1->tfidf > w2->tfidf) return -1;
+  else return 0;
 }
 
 /* prints the number of words in a file and the number
@@ -88,7 +103,7 @@ int main(int argc, char *argv[])
       strncat(file_name, argv[1], strlen(argv[1]));
       strncat(file_name, categories[i], 1);
       strncat(file_name, build_name(j+1), 7);
-      printf("%s\n", file_name);
+//      printf("%s\n", file_name);
       fp = fopen(file_name, "r");                                              // load file
 
       if(fp == NULL)                                                           // check file opened properly
@@ -134,21 +149,44 @@ int main(int argc, char *argv[])
     }
   }
 
-  for(int i = 0; i < unique_words; i++)
+  for(int i = 0; i < unique_words; i++)                                        // compute idf
   {
     found_words[i].idf = num_categories / found_words[i].idf;
   }
 
-  for(int i = 0; i < unique_words; i++)                                        // print term frequencies
+  for(int i = 0; i < unique_words; i++)                                        // compute tfidf
+  {
+    for(int j = 0;  j < num_categories; j++)
+    {
+      found_words[i].tfidf[j] = found_words[i].tf[j] * log(found_words[i].idf);
+    }
+  }
+
+/*  for(int i = 0; i < unique_words; i++)                                        // print tfidf
   {
     printf("%s: ", found_words[i].string);
     for(int j = 0;  j < num_categories; j++)
     {
-      printf("[%f]", found_words[i].tf[j] * log(found_words[i].idf));
+      printf("[%f]", found_words[i].tfidf[j]);
     }
     printf("\n");
-  }
+  }*/
 
+ Simple_Word simple_array[unique_words];
+ for(int j = 0; j < unique_words; j++)
+ {
+   strncpy(simple_array[j].string, found_words[j].string, 50);                 // copy string from found words to simple array
+ }
+
+  for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
+  { 
+    printf("[%s]\n", categories[i]);                                           // print current category
+    for(int j = 0; j < unique_words; j++)
+      simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
+    qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
+    for(int j = 0; j < 50; j++)                                                // print 50 top words for category
+      printf("%s, %f\n", simple_array[j].string, simple_array[j].tfidf);
+  }
 
   return 0;
 }

@@ -25,13 +25,20 @@ Example Input:
   $ ./tfidf ./path/to/files/ 2 b 5 e 7
 
 Output:
-  Output will be formatted as n categories and how many documents are in each, followed by 
-  a list of m words and their tf-idf for each category.
-    Example Output:
-      num categories: n
-      category 0 prefix: num docs in category
-      ...
-      category n-1 prefix: num docs in category
-      word0: [tf category 0]...[tf category n-1] idf: x
-      ...
-      wordm-1: [tf category 0]...[tf category n-1] idf: x
+  Output will be formatted as a list of each category and it's assiciated 50-most-important-words,
+  and each word's tfidf.
+
+Example Output:
+ num categories: 2
+  b: 2
+  e: 2
+  [b]
+  timewarner, 0.005961
+  aol, 0.005961
+  dollar, 0.005109
+  deficit, 0.005109
+  time, 0.004258
+  profit, 0.004258
+  profits, 0.004258
+  bn, 0.004258
+  ...
