@@ -6,4 +6,5 @@ How to run program:
 	$: make
 	$: ./interpreter
 
-
+Build data creates a .names file for the categories in the /50_words directory
+in the format required for the decision tree.
