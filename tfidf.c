@@ -1,6 +1,6 @@
 /*
   This program computes an array of each unique 
-  word found in a series of documents in a categoyr 
+  word found in a series of documents in a category 
   and the number of times that word appears in each category. 
   It also computes an array for the lengths of each category
   measured by total number of words in all documents in
@@ -181,8 +181,8 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
   { 
-    char *output_location = malloc(sizeof(char)*15);                           // create file name for output of 50 words for category
-    strncat(output_location, "./output/", 9);
+    char *output_location = malloc(sizeof(char)*17);                           // create file name for output of 50 words for category
+    strncat(output_location, "./50_words/", 11);
     strncat(output_location, categories[i], 1);
     strncat(output_location, ".out", 4);
     FILE *fp = fopen(output_location, "w+");                                   // open file to store 50 most important words

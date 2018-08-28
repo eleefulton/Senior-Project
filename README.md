@@ -31,5 +31,5 @@ $ ./tfidf ./path/to/files/ 2 b 5 e 7
 ```
 
 Output:
-  Output will be stored in the /output folder. A seperate .out file will be created for each category
+  Output will be stored in the /50_words folder. A seperate .out file will be created for each category
   that will list the 50-most-important-words for that category.
