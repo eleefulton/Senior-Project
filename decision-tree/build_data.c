@@ -11,9 +11,15 @@
 int main(int argc, char *argv[])
 {
   FILE* names_file = fopen("categories.names", "w+");                          // open .names file
+  FILE* combined_50_file = fopen("combined_50.txt", "w+");                     // open file to store combined 50-words
   if(names_file == NULL)                                                       // check .names file opened
   {
     printf("failed to open names file\n");
+    return -1;
+  }
+  if(combined_50_file == NULL)
+  {
+    printf("failed to open combined 50 file\n");
     return -1;
   }
   
@@ -44,14 +50,18 @@ int main(int argc, char *argv[])
       if(c == '\n')                                                            // if end of line add format for .names file
         fprintf(names_file, ": continuous.\n");
       else
-      fputc(c, names_file);
+      fputc(c, names_file);                                                    // else put char in names_file
 
-      c = fgetc(fp);
+      fputc(c, combined_50_file);                                              // add char to combined_50_file
+      c = fgetc(fp);                                                           // get next char
     }
 
     fclose(fp);                                                                // close file
     free(file);                                                                // free string from memory
   }
+
+  fclose(names_file);                                                          // close names_file
+  fclose(combined_50_file);                                                    // close combined_50_file
 
   return 0;
 }
