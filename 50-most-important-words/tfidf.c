@@ -42,14 +42,14 @@ int compar(const void *p, const void *q)
 
 void build_files(int unique_words, int num_categories, char *categories[], Word found_words[])
 {
- Simple_Word simple_array[unique_words];
- for(int j = 0; j < unique_words; j++)
- {
-   strncpy(simple_array[j].string, found_words[j].string, 50);                 // copy string from found words to simple array
- }
+  Simple_Word simple_array[unique_words];
+  for(int j = 0; j < unique_words; j++)
+  {
+    strncpy(simple_array[j].string, found_words[j].string, 50);               // copy string from found words to simple array
+  }
 
- FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
- FILE *docs_names = fopen("./50_words/docs.names", "w+");
+  FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
+  FILE *docs_names = fopen("./50_words/docs.names", "w+");
 
   for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
   { 
@@ -77,36 +77,10 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
    Input: number of files to scan
 */
 
-int tfidf(int argc, char *argv[])
+int tfidf(int num_categories, char *categories[], int category_docs[], int category_lengths[], char *directory)
 {
-  int num_categories = atoi(argv[2]);
-  if(num_categories > MAX_CATEGORIES)
-  {
-    printf("Error: too many categories\n");
-    return -1;
-  }
-  printf("num categories: %d\n", num_categories);
-  char *categories[num_categories];
-  int category_docs[num_categories];                                           // number of documents in each category
-  int category_lengths[num_categories];                                        // total number of words in all documents in category
   int unique_words = 0;                                                        // number of unique words found
-  Word *found_words = malloc(MAX_WORDS * sizeof(Word));
-
-  for(int i = 0; i < num_categories; i++)
-  {
-    category_lengths[i] = 0;
-  }
-
-  for(int i = 0, c = 3; i < num_categories; i++, c+=2)
-  {
-    categories[i] = argv[c];
-    category_docs[i] = atoi(argv[c+1]);
-  }
-
-  for(int i = 0; i < num_categories; i++)
-  {
-    printf("%s: %d\n", categories[i], category_docs[i]);
-  }
+  Word *found_words = malloc(MAX_WORDS * sizeof(Word));                        // array of found words
 
   for(int i = 0; i < num_categories; i++)
   {
@@ -116,10 +90,10 @@ int tfidf(int argc, char *argv[])
       int current_file_num = 1;                                                // current file in set
       int index;
       int current_file_length = 0;                                             // length of current document (words)
-      char *file_name = malloc(sizeof(char)*(strlen(argv[1])+9));
+      char *file_name = malloc(sizeof(char)*(strlen(directory)+9));
       char *string;
       FILE *fp;
-      strncat(file_name, argv[1], strlen(argv[1]));
+      strncat(file_name, directory, strlen(directory));
       strncat(file_name, categories[i], 1);
       strncat(file_name, build_name(j+1), 7);
 //      printf("%s\n", file_name);
@@ -192,8 +166,6 @@ int tfidf(int argc, char *argv[])
     }
     printf("\n");
   }*/
-
   return 0;
-
 }
 
