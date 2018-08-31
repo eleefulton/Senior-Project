@@ -179,6 +179,9 @@ int main(int argc, char *argv[])
    strncpy(simple_array[j].string, found_words[j].string, 50);                 // copy string from found words to simple array
  }
 
+ FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
+ FILE *docs_names = fopen("./50_words/docs.names", "w+");
+
   for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
   { 
     char *output_location = malloc(sizeof(char)*17);                           // create file name for output of 50 words for category
@@ -189,9 +192,11 @@ int main(int argc, char *argv[])
     for(int j = 0; j < unique_words; j++)
       simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
     qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
-    for(int j = 0; j < 50; j++)                                                // print 50 top words for category to file
+    for(int j = 0; j < 50; j++)                                                // print 50 top words to files
     {
-      fprintf(fp, "%s\n", simple_array[j].string);
+      fprintf(fp, "%s\n", simple_array[j].string);                             // print 50-words to individual files
+      fprintf(combined_50, "%s\n", simple_array[j].string);                    // print 50-words to combined file
+      fprintf(docs_names, "%s: continuous.\n", simple_array[j].string);        // print 50-words to .names file
     }
     fclose(fp);                                                                // close file
     free(output_location);                                                     // free name
