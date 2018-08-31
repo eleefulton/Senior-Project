@@ -40,6 +40,38 @@ int compar(const void *p, const void *q)
   else return 0;
 }
 
+void build_files(int unique_words, int num_categories, char *categories[], Word found_words[])
+{
+ Simple_Word simple_array[unique_words];
+ for(int j = 0; j < unique_words; j++)
+ {
+   strncpy(simple_array[j].string, found_words[j].string, 50);                 // copy string from found words to simple array
+ }
+
+ FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
+ FILE *docs_names = fopen("./50_words/docs.names", "w+");
+
+  for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
+  { 
+    char *output_location = malloc(sizeof(char)*17);                           // create file name for output of 50 words for category
+    strncat(output_location, "./50_words/", 11);
+    strncat(output_location, categories[i], 1);
+    strncat(output_location, ".out", 4);
+    FILE *fp = fopen(output_location, "w+");                                   // open file to store 50 most important words
+    for(int j = 0; j < unique_words; j++)
+      simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
+    qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
+    for(int j = 0; j < 50; j++)                                                // print 50 top words to files
+    {
+      fprintf(fp, "%s\n", simple_array[j].string);                             // print 50-words to individual files
+      fprintf(combined_50, "%s\n", simple_array[j].string);                    // print 50-words to combined file
+      fprintf(docs_names, "%s: continuous.\n", simple_array[j].string);        // print 50-words to .names file
+    }
+    fclose(fp);                                                                // close file
+    free(output_location);                                                     // free name
+  }
+}
+
 /* prints the number of words in a file and the number
    of times that word appears in the file
    Input: number of files to scan
@@ -149,6 +181,8 @@ int tfidf(int argc, char *argv[])
     }
   }
 
+  build_files(unique_words, num_categories, categories, found_words);
+
 /*  for(int i = 0; i < unique_words; i++)                                        // print tfidf
   {
     printf("%s: ", found_words[i].string);
@@ -159,34 +193,7 @@ int tfidf(int argc, char *argv[])
     printf("\n");
   }*/
 
- Simple_Word simple_array[unique_words];
- for(int j = 0; j < unique_words; j++)
- {
-   strncpy(simple_array[j].string, found_words[j].string, 50);                 // copy string from found words to simple array
- }
-
- FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
- FILE *docs_names = fopen("./50_words/docs.names", "w+");
-
-  for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
-  { 
-    char *output_location = malloc(sizeof(char)*17);                           // create file name for output of 50 words for category
-    strncat(output_location, "./50_words/", 11);
-    strncat(output_location, categories[i], 1);
-    strncat(output_location, ".out", 4);
-    FILE *fp = fopen(output_location, "w+");                                   // open file to store 50 most important words
-    for(int j = 0; j < unique_words; j++)
-      simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
-    qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
-    for(int j = 0; j < 50; j++)                                                // print 50 top words to files
-    {
-      fprintf(fp, "%s\n", simple_array[j].string);                             // print 50-words to individual files
-      fprintf(combined_50, "%s\n", simple_array[j].string);                    // print 50-words to combined file
-      fprintf(docs_names, "%s: continuous.\n", simple_array[j].string);        // print 50-words to .names file
-    }
-    fclose(fp);                                                                // close file
-    free(output_location);                                                     // free name
-  }
-
   return 0;
+
 }
+
