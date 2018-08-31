@@ -14,24 +14,10 @@
 #include <math.h>
 #include "parse_file.h"
 #include "build_name.h"
+#include "tfidf.h"
 
-#define NUM_FILES 1
-#define MAX_FILES 999
-#define MAX_WORDS 100000
-#define MAX_CATEGORIES 5
 
-typedef struct{
-  char string[50];
-  int count[MAX_CATEGORIES];
-  float tf[MAX_CATEGORIES];
-  float idf;
-  float tfidf[MAX_CATEGORIES];
-}Word;
 
-typedef struct{
-  char string[50];
-  float tfidf;
-}Simple_Word;
 
 // search array of found words for given string, if it is found
 // return its location, otherwise return -1
@@ -59,7 +45,7 @@ int compar(const void *p, const void *q)
    Input: number of files to scan
 */
 
-int main(int argc, char *argv[])
+int tfidf(int argc, char *argv[])
 {
   int num_categories = atoi(argv[2]);
   if(num_categories > MAX_CATEGORIES)

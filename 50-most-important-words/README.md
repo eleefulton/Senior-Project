@@ -9,12 +9,12 @@ Program Description:
   
 How to Compile:
 ```
-$ make
+$make
 ```
 
 How to Run:
 ```
-$ ./tfidf /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
+$./runner /path/to/files/ number_of_categories category_prefix number_of_docs_in_category ...
 ```
 
 Input format:
@@ -27,7 +27,7 @@ Example File Names for business category with two files: 'b001.txt' 'b002.txt' .
 
 Example Input:
 ```
-$ ./tfidf ./path/to/files/ 2 b 5 e 7
+$./runner ./bbc_files/ 5 b 510 e 386 p 417 s 511 t 401 
 ```
 
 Output:
