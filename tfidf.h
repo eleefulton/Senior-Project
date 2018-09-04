@@ -18,6 +18,6 @@ typedef struct{
 
 int in_list(Word found_words[], char *string, int num_words);
 int compar(const void *p, const void *q);
-int tfidf(int num_categories, char *categories[], int category_docs[], int category_lengths[], char *directory);
+int tfidf(int num_categories, char *categories[], int category_docs[], char *directory);
 void build_files(int unique_words, int num_categories, char *categories[], Word found_words[]);
 

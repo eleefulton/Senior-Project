@@ -31,6 +31,9 @@ int in_list(Word found_words[], char *string, int num_words)
   return -1;
 }
 
+/*
+  comparator function for qsort
+*/
 int compar(const void *p, const void *q)
 {
   Simple_Word *w1 = (Simple_Word*)p;
@@ -40,6 +43,10 @@ int compar(const void *p, const void *q)
   else return 0;
 }
 
+/*
+  generate a .out file for top 50 words in each category and a .names file
+  for use with the C4.5 decision tree
+*/
 void build_files(int unique_words, int num_categories, char *categories[], Word found_words[])
 {
   Simple_Word simple_array[unique_words];
@@ -70,6 +77,8 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
     fclose(fp);                                                                // close file
     free(output_location);                                                     // free name
   }
+  fclose(combined_50);
+  fclose(docs_names);
 }
 
 /* prints the number of words in a file and the number
@@ -77,10 +86,15 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
    Input: number of files to scan
 */
 
-int tfidf(int num_categories, char *categories[], int category_docs[], int category_lengths[], char *directory)
+int tfidf(int num_categories, char *categories[], int category_docs[], char *directory)
 {
+  int category_lengths[num_categories];                                        // total number of words in all documents in category
   int unique_words = 0;                                                        // number of unique words found
-  Word *found_words = malloc(MAX_WORDS * sizeof(Word));                        // array of found words
+  Word *found_words = malloc(sizeof(Word)*MAX_WORDS);                          // array of found words
+  for(int i = 0; i < num_categories; i++)                                      // initalize category lengths
+  {
+    category_lengths[i] = 0;
+  }
 
   for(int i = 0; i < num_categories; i++)
   {
@@ -96,7 +110,6 @@ int tfidf(int num_categories, char *categories[], int category_docs[], int categ
       strncat(file_name, directory, strlen(directory));
       strncat(file_name, categories[i], 1);
       strncat(file_name, build_name(j+1), 7);
-//      printf("%s\n", file_name);
       fp = fopen(file_name, "r");                                              // load file
 
       if(fp == NULL)                                                           // check file opened properly
@@ -157,15 +170,6 @@ int tfidf(int num_categories, char *categories[], int category_docs[], int categ
 
   build_files(unique_words, num_categories, categories, found_words);
 
-/*  for(int i = 0; i < unique_words; i++)                                        // print tfidf
-  {
-    printf("%s: ", found_words[i].string);
-    for(int j = 0;  j < num_categories; j++)
-    {
-      printf("[%f]", found_words[i].tfidf[j]);
-    }
-    printf("\n");
-  }*/
   return 0;
 }
 

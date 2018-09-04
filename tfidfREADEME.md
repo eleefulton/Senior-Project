@@ -23,7 +23,7 @@ Input format:
   The next n arguments are the prefix for the category and the number of documents in that
   category. Files should be named with the prefix followed by a three digit number.
 
-Example File Names for business category with two files: 'b001.txt' 'b002.txt' ...
+Example File Names for business category with two files: 'b001.txt' 'b002.txt'
 
 Example Input:
 ```
