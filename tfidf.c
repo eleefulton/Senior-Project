@@ -146,6 +146,7 @@ int tfidf(int num_categories, char *categories[], int category_docs[], char *dir
     }
   }
 
+  fclose(file_names);
   for(int i = 0; i < num_categories; i++)                                      // compute term frequency per category
   {                                                                            // (term count across all docs in category / total words in category)
     for(int j = 0; j < unique_words; j++)

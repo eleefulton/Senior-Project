@@ -9,35 +9,37 @@
 int main(int argc, char *argv[])
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
-  char *input[MAX_CATEGORIES * 2 + 2];
-  if(input_file == NULL)
+  char *input[MAX_CATEGORIES * 2 + 2];                                        // array for input strings
+  if(input_file == NULL)                                                      // check input file opened propperly
   {
     printf("Input file not opened.\n");
     return -1;
   }
 
-  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)
+  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)                              // allocate input array
   {
     input[i] = malloc(sizeof(char) * MAX_LENGTH);
   }
 
-  char c = fgetc(input_file);
+  printf("reading input file.\n");
+
+  char c = fgetc(input_file);                                                  // read char by char from input file storing into array
   int i = 0;
   int j = 0;
   while(c != EOF)
   {
-    if(c == ' ')
+    if(c == ' ')                                                               // if char is a space, move to next spot in array
     {
       input[i][j] = '\0';
       i++;
       j = 0;
     }
-    else
+    else                                                                       // otherwise add char to end of current string
     {
       input[i][j] = c;
       j++;
     }
-    c = fgetc(input_file);
+    c = fgetc(input_file);                                                     // get next char
   }
 
   int num_categories = atoi(input[1]);
@@ -64,7 +66,7 @@ int main(int argc, char *argv[])
   }
 
 
-  printf("computing tfidf\n");
+  printf("computing tfidf.\n");
   tfidf(num_categories, categories, category_docs, input[0]);                  // compute tfidf
 
   fclose(input_file);
@@ -73,9 +75,11 @@ int main(int argc, char *argv[])
     free(input[i]);
   }
 
-  printf("reading 50-words\n");
-  FILE *fp = fopen("./50_words/combined_50.out", "r");                         // open combined_50 file
-  if(fp == NULL)                                                               // check if combined_50 opened properly
+  fclose(input_file);                                                          // close input_file
+
+  printf("reading 50-words.\n");
+  FILE *combined_file = fopen("./50_words/combined_50.out", "r");              // open combined_50 file
+  if(combined_file == NULL)                                                    // check if combined_50 opened properly
   {
     printf("failed to open 50-words\n");
     return -1;
@@ -83,9 +87,9 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < num_categories * 50; i++)                                 // parse 50-words from combined file and store in array
   {
-    strncpy(fifty_words[i], parse_next_word(fp), MAX_LENGTH);
+    strncpy(fifty_words[i], parse_next_word(combined_file), MAX_LENGTH);
   }
-  fclose(fp);
+  fclose(combined_file);
 
 
   return 0;
