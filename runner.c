@@ -4,15 +4,46 @@
 #include <string.h>
 #include <math.h>
 #include "parse_file.h"
-#include "build_name.h"
 #include "tfidf.h"
 
 int main(int argc, char *argv[])
 {
-  int num_categories = atoi(argv[2]);                                          // number of categories
+  FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
+  char *input[MAX_CATEGORIES * 2 + 2];
+  if(input_file == NULL)
+  {
+    printf("Input file not opened.\n");
+    return -1;
+  }
+
+  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)
+  {
+    input[i] = malloc(sizeof(char) * MAX_LENGTH);
+  }
+
+  char c = fgetc(input_file);
+  int i = 0;
+  int j = 0;
+  while(c != EOF)
+  {
+    if(c == ' ')
+    {
+      input[i][j] = '\0';
+      i++;
+      j = 0;
+    }
+    else
+    {
+      input[i][j] = c;
+      j++;
+    }
+    c = fgetc(input_file);
+  }
+
+  int num_categories = atoi(input[1]);
   char *categories[num_categories];                                            // array of category prefix strings
   int category_docs[num_categories];                                           // number of documents in each category
-  char *fifty_words[num_categories*50];                                        // array to hold all 50-words once computed
+  char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -20,19 +51,27 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  for(int i = 0, c = 3; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
+  for(int i = 0, c = 2; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
   {
-    categories[i] = argv[c];
-    category_docs[i] = atoi(argv[c+1]);
+    categories[i] = input[c];
+    category_docs[i] = atoi(input[c+1]);
   }
+
 
   for(int i = 0; i < num_categories * 50; i++)
   {
-    fifty_words[i] = malloc(sizeof(char)*50);                                  // allocate fifty_words array;
+    fifty_words[i] = malloc(sizeof(char) * MAX_LENGTH);                        // allocate fifty_words array;
   }
 
+
   printf("computing tfidf\n");
-  tfidf(num_categories, categories, category_docs, argv[1]);                   // compute tfidf
+  tfidf(num_categories, categories, category_docs, input[0]);                  // compute tfidf
+
+  fclose(input_file);
+  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)
+  {
+    free(input[i]);
+  }
 
   printf("reading 50-words\n");
   FILE *fp = fopen("./50_words/combined_50.out", "r");                         // open combined_50 file
@@ -44,7 +83,7 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < num_categories * 50; i++)                                 // parse 50-words from combined file and store in array
   {
-    strncpy(fifty_words[i], parse_next_word(fp), 50);
+    strncpy(fifty_words[i], parse_next_word(fp), MAX_LENGTH);
   }
   fclose(fp);
 

@@ -4,7 +4,7 @@
 
 
 // build file name in form "000.txt" for n
-char * build_name(int n)
+char * build_file_name(int n)
 {
   static char name[8];
   name[2] = n%10 + 48;

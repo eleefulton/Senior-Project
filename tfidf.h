@@ -2,9 +2,10 @@
 #define MAX_FILES 999
 #define MAX_WORDS 100000
 #define MAX_CATEGORIES 5
+#define MAX_LENGTH 50
 
 typedef struct{
-  char string[50];
+  char string[MAX_LENGTH];
   int count[MAX_CATEGORIES];
   float tf[MAX_CATEGORIES];
   float idf;
@@ -12,7 +13,7 @@ typedef struct{
 }Word;
 
 typedef struct{
-  char string[50];
+  char string[MAX_LENGTH];
   float tfidf;
 }Simple_Word;
 

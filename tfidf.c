@@ -13,10 +13,8 @@
 #include <string.h>
 #include <math.h>
 #include "parse_file.h"
-#include "build_name.h"
+#include "build_file_name.h"
 #include "tfidf.h"
-
-
 
 
 // search array of found words for given string, if it is found
@@ -25,7 +23,7 @@ int in_list(Word found_words[], char *string, int num_words)
 {
   for(int i = 0; i < num_words; i++)
   {
-    if(strncmp(found_words[i].string, string, 50) == 0)
+    if(strncmp(found_words[i].string, string, MAX_LENGTH) == 0)
       return i;
   }
   return -1;
@@ -52,11 +50,18 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
   Simple_Word simple_array[unique_words];
   for(int j = 0; j < unique_words; j++)
   {
-    strncpy(simple_array[j].string, found_words[j].string, 50);               // copy string from found words to simple array
+    strncpy(simple_array[j].string, found_words[j].string, MAX_LENGTH);        // copy string from found words to simple array
   }
 
   FILE *combined_50 = fopen("./50_words/combined_50.out", "w+");
   FILE *docs_names = fopen("./50_words/docs.names", "w+");
+
+  for(int i = 0; i < num_categories; i++)                                      // print category names to .names file
+  {
+    if(i+1 == num_categories)
+      fprintf(docs_names, "%s.\n", categories[i]);
+    else fprintf(docs_names, "%s, ", categories[i]);
+  }
 
   for(int i = 0; i < num_categories; i++)                                      // sort an array of simple words for each category
   { 
@@ -68,7 +73,7 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
     for(int j = 0; j < unique_words; j++)
       simple_array[j].tfidf = found_words[j].tfidf[i];                         // copy tfidf from found words to simple array
     qsort(simple_array, unique_words, sizeof(Simple_Word), compar);            // sort simple array
-    for(int j = 0; j < 50; j++)                                                // print 50 top words to files
+    for(int j = 0; j < MAX_LENGTH; j++)                                        // print 50 top words to files
     {
       fprintf(fp, "%s\n", simple_array[j].string);                             // print 50-words to individual files
       fprintf(combined_50, "%s\n", simple_array[j].string);                    // print 50-words to combined file
@@ -81,8 +86,7 @@ void build_files(int unique_words, int num_categories, char *categories[], Word 
   fclose(docs_names);
 }
 
-/* prints the number of words in a file and the number
-   of times that word appears in the file
+/* computes tfidf of words in documents in given categories
    Input: number of files to scan
 */
 
@@ -109,7 +113,7 @@ int tfidf(int num_categories, char *categories[], int category_docs[], char *dir
       FILE *fp;
       strncat(file_name, directory, strlen(directory));
       strncat(file_name, categories[i], 1);
-      strncat(file_name, build_name(j+1), 7);
+      strncat(file_name, build_file_name(j+1), 7);
       fp = fopen(file_name, "r");                                              // load file
 
       if(fp == NULL)                                                           // check file opened properly
@@ -130,7 +134,7 @@ int tfidf(int num_categories, char *categories[], int category_docs[], char *dir
           else                                                                 // otherwise, add string to found_words[]
           {
             unique_words++;                                                    // increment count of total unique words
-            strncpy(found_words[unique_words-1].string, string, 50);           // copy string to found_words[]
+            strncpy(found_words[unique_words-1].string, string, MAX_LENGTH);   // copy string to found_words[]
             found_words[unique_words-1].count[i]++;                            // increment count for current category
           }
         }

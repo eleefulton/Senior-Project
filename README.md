@@ -22,22 +22,28 @@ with Ross Quinlan's C4.5 decision tree. The program then reads those all 50-word
 the combined file and stores it in an array.
 
 Input Format
-The program takes a number of command line arguments
+The program takes a .input file from the command line formatted in the following manner
   1. The directory in which the data files reside
   2. The number of categories
   3. n <= 5 category prefixs followed by the number of files in that category
+
 Files in the data directory must be formatted in the following manner:
   prefix of category followed by the file's number with leading zeros.
   Example: the first file in the 'Business' category 'b001.txt'.
 
-Example Input:
+Example Input File:
 ```
-$./runner ./bbc_files/ 5 b 510 e 386 p 417 s 511 t 401 
+./bbc_files/ 5 b 510 e 386 p 417 s 511 t 401
 ```
 
 How to Compile
 ```
 $make
+```
+
+How to Run
+```
+$./runner bbc.input
 ```
 
 Program Output
