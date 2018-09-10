@@ -1,0 +1,633 @@
+
+C4.5 [release 8] decision tree generator	Mon Sep 10 18:39:00 2018
+----------------------------------------
+
+    Options:
+	File stem <./50_words/docs>
+
+ERROR:  case 2223's class of '0' is illegal
+
+Read 2223 cases (250 attributes) from ./50_words/docs.data
+
+Decision Tree:
+
+tory > 0 : p (137.0)
+tory <= 0 :
+|   tories > 0 : p (43.0)
+|   tories <= 0 :
+|   |   actress > 0 : e (75.0)
+|   |   actress <= 0 :
+|   |   |   singer <= 0 :
+|   |   |   |   oscar > 0 : e (38.0/1.0)
+|   |   |   |   oscar <= 0 :
+|   |   |   |   |   chart <= 0 :
+|   |   |   |   |   |   bn <= 0 :
+|   |   |   |   |   |   |   economy <= 0 :
+|   |   |   |   |   |   |   |   portable > 0 : t (45.0)
+|   |   |   |   |   |   |   |   portable <= 0 :
+|   |   |   |   |   |   |   |   |   viruses > 0 : t (32.0)
+|   |   |   |   |   |   |   |   |   viruses <= 0 :
+|   |   |   |   |   |   |   |   |   |   analysts <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   prices <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   firms <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   band <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 0 :[S1]
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies > 0 :[S2]
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   band > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   slam > 0 : s (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   slam <= 0 :[S3]
+|   |   |   |   |   |   |   |   |   |   |   |   |   movie > 0 :[S4]
+|   |   |   |   |   |   |   |   |   |   |   |   firms > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies > 5 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 5 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   exports > 0 : b (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   exports <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   sec > 1 : b (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   sec <= 1 :[S5]
+|   |   |   |   |   |   |   |   |   |   |   prices > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   first > 1 : b (5.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   first <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   growth > 0 : b (7.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   growth <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   bank > 0 : b (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   bank <= 0 :[S6]
+|   |   |   |   |   |   |   |   |   |   analysts > 0 :
+|   |   |   |   |   |   |   |   |   |   |   mobiles > 0 : t (12.0)
+|   |   |   |   |   |   |   |   |   |   |   mobiles <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   computers > 0 : t (6.0)
+|   |   |   |   |   |   |   |   |   |   |   |   computers <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   hd > 0 : t (4.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   hd <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   awards > 2 : t (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   awards <= 2 :[S7]
+|   |   |   |   |   |   |   economy > 0 :
+|   |   |   |   |   |   |   |   manifesto > 0 : p (4.0)
+|   |   |   |   |   |   |   |   manifesto <= 0 :
+|   |   |   |   |   |   |   |   |   growth > 0 : b (60.0)
+|   |   |   |   |   |   |   |   |   growth <= 0 :
+|   |   |   |   |   |   |   |   |   |   analysts > 0 : b (8.0)
+|   |   |   |   |   |   |   |   |   |   analysts <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   currency > 0 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   currency <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   companies > 1 : b (3.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   companies <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   economist > 0 : b (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   economist <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   sales > 0 : b (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   sales <= 0 :[S8]
+|   |   |   |   |   |   bn > 0 :
+|   |   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   |   bn <= 1 :
+|   |   |   |   |   |   |   |   |   portable > 0 : t (2.0)
+|   |   |   |   |   |   |   |   |   portable <= 0 :
+|   |   |   |   |   |   |   |   |   |   dvd > 0 : e (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   dvd <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   councils > 0 : p (3.0)
+|   |   |   |   |   |   |   |   |   |   |   councils <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   rebate > 2 : p (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   rebate <= 2 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   imf > 0 : p (3.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   imf <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   prices > 0 : b (10.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   prices <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 0 :[S9]
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies > 0 :[S10]
+|   |   |   |   |   |   |   |   bn > 1 :
+|   |   |   |   |   |   |   |   |   companies <= 0 : b (141.0/7.0)
+|   |   |   |   |   |   |   |   |   companies > 0 :
+|   |   |   |   |   |   |   |   |   |   multimedia > 0 : t (3.0)
+|   |   |   |   |   |   |   |   |   |   multimedia <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   dvd > 4 : t (2.0)
+|   |   |   |   |   |   |   |   |   |   |   dvd <= 4 :
+|   |   |   |   |   |   |   |   |   |   |   |   blog <= 1 : b (51.0)
+|   |   |   |   |   |   |   |   |   |   |   |   blog > 1 : t (2.0)
+|   |   |   |   |   |   |   movie > 0 :
+|   |   |   |   |   |   |   |   dvd <= 0 : t (3.0/1.0)
+|   |   |   |   |   |   |   |   dvd > 0 : e (3.0)
+|   |   |   |   |   chart > 0 :
+|   |   |   |   |   |   halo > 0 : t (4.0)
+|   |   |   |   |   |   halo <= 0 :
+|   |   |   |   |   |   |   trillion <= 0 : e (33.0)
+|   |   |   |   |   |   |   trillion > 0 : t (2.0)
+|   |   |   singer > 0 :
+|   |   |   |   firms <= 0 : e (79.0/2.0)
+|   |   |   |   firms > 0 : t (2.0)
+
+
+Subtree [S1]
+
+computers <= 0 :
+|   sales <= 0 :
+|   |   awards <= 0 :
+|   |   |   bank <= 0 :
+|   |   |   |   championships > 0 : s (56.0)
+|   |   |   |   championships <= 0 :
+|   |   |   |   |   slam > 0 : s (46.0)
+|   |   |   |   |   slam <= 0 :
+|   |   |   |   |   |   activity <= 0 :
+|   |   |   |   |   |   |   referee > 0 : s (31.0)
+|   |   |   |   |   |   |   referee <= 0 :
+|   |   |   |   |   |   |   |   manifesto > 0 : p (16.0/1.0)
+|   |   |   |   |   |   |   |   manifesto <= 0 :
+|   |   |   |   |   |   |   |   |   athens > 0 : s (29.0)
+|   |   |   |   |   |   |   |   |   athens <= 0 :
+|   |   |   |   |   |   |   |   |   |   scrum > 0 : s (24.0)
+|   |   |   |   |   |   |   |   |   |   scrum <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   seed > 0 : s (24.0)
+|   |   |   |   |   |   |   |   |   |   |   seed <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   blunkett > 0 : p (14.0)
+|   |   |   |   |   |   |   |   |   |   |   |   blunkett <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   mourinho > 0 : s (18.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   mourinho <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   lions > 0 : s (18.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   lions <= 0 :[S11]
+|   |   |   |   |   |   activity > 0 :
+|   |   |   |   |   |   |   goldsmith > 0 : p (2.0)
+|   |   |   |   |   |   |   goldsmith <= 0 :
+|   |   |   |   |   |   |   |   first > 0 : t (4.0)
+|   |   |   |   |   |   |   |   first <= 0 :
+|   |   |   |   |   |   |   |   |   growth <= 1 : p (9.0/4.0)
+|   |   |   |   |   |   |   |   |   growth > 1 : t (2.0)
+|   |   |   bank > 0 :
+|   |   |   |   musical <= 1 : b (17.0/5.0)
+|   |   |   |   musical > 1 : e (2.0)
+|   |   awards > 0 :
+|   |   |   athletics > 0 : s (2.0)
+|   |   |   athletics <= 0 :
+|   |   |   |   federer > 0 : s (2.0)
+|   |   |   |   federer <= 0 :
+|   |   |   |   |   flanker > 0 : s (2.0)
+|   |   |   |   |   flanker <= 0 :
+|   |   |   |   |   |   awards <= 3 : e (13.0/1.0)
+|   |   |   |   |   |   awards > 3 :
+|   |   |   |   |   |   |   nominations <= 2 : t (2.0)
+|   |   |   |   |   |   |   nominations > 2 : e (2.0)
+|   sales > 0 :
+|   |   comedy > 0 : e (3.0)
+|   |   comedy <= 0 :
+|   |   |   awards > 0 : e (3.0)
+|   |   |   awards <= 0 :
+|   |   |   |   growth > 0 : b (7.0/1.0)
+|   |   |   |   growth <= 0 :
+|   |   |   |   |   sales <= 1 : t (15.0/6.0)
+|   |   |   |   |   sales > 1 : b (5.0/1.0)
+computers > 0 :
+|   nominated <= 0 : t (21.0/3.0)
+|   nominated > 0 : p (2.0)
+
+
+Subtree [S2]
+
+comedy > 1 : e (2.0)
+comedy <= 1 :
+|   sec > 1 : b (2.0)
+|   sec <= 1 :
+|   |   economic > 1 : b (2.0)
+|   |   economic <= 1 :
+|   |   |   theatre > 0 : e (2.0/1.0)
+|   |   |   theatre <= 0 :
+|   |   |   |   computers > 0 : t (8.0)
+|   |   |   |   computers <= 0 :
+|   |   |   |   |   computing > 0 : t (3.0)
+|   |   |   |   |   computing <= 0 :
+|   |   |   |   |   |   ceo > 0 : t (2.0)
+|   |   |   |   |   |   ceo <= 0 :
+|   |   |   |   |   |   |   spam > 2 : t (2.0)
+|   |   |   |   |   |   |   spam <= 2 :
+|   |   |   |   |   |   |   |   domain > 3 : t (2.0)
+|   |   |   |   |   |   |   |   domain <= 3 :
+|   |   |   |   |   |   |   |   |   nokia > 0 : t (2.0)
+|   |   |   |   |   |   |   |   |   nokia <= 0 :
+|   |   |   |   |   |   |   |   |   |   blog > 1 : t (4.0)
+|   |   |   |   |   |   |   |   |   |   blog <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   economic > 0 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   economic <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   companies > 2 : t (6.0/2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   companies <= 2 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 1 : t (14.0/8.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies > 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   first <= 0 : t (4.0/2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   first > 0 : b (2.0/1.0)
+
+
+Subtree [S3]
+
+companies <= 0 : e (21.0/2.0)
+companies > 0 : t (3.0/1.0)
+
+
+Subtree [S4]
+
+bittorrent > 1 : t (6.0)
+bittorrent <= 1 :
+|   companies > 0 : t (2.0)
+|   companies <= 0 :
+|   |   theatre > 0 : e (4.0)
+|   |   theatre <= 0 :
+|   |   |   pop > 0 : t (3.0/1.0)
+|   |   |   pop <= 0 :
+|   |   |   |   festival > 0 : e (3.0)
+|   |   |   |   festival <= 0 :
+|   |   |   |   |   starring > 1 : e (3.0)
+|   |   |   |   |   starring <= 1 :
+|   |   |   |   |   |   screened > 0 : e (2.0)
+|   |   |   |   |   |   screened <= 0 :
+|   |   |   |   |   |   |   first <= 1 : e (16.0/4.0)
+|   |   |   |   |   |   |   first > 1 : t (3.0/1.0)
+
+
+Subtree [S5]
+
+wto > 1 : b (2.0)
+wto <= 1 :
+|   firms > 1 : t (27.0)
+|   firms <= 1 :
+|   |   activity > 0 : t (4.0)
+|   |   activity <= 0 :
+|   |   |   consoles > 0 : t (3.0)
+|   |   |   consoles <= 0 :
+|   |   |   |   sales > 0 : b (3.0/1.0)
+|   |   |   |   sales <= 0 :
+|   |   |   |   |   domain > 3 : t (3.0)
+|   |   |   |   |   domain <= 3 :
+|   |   |   |   |   |   spam > 2 : t (2.0)
+|   |   |   |   |   |   spam <= 2 :
+|   |   |   |   |   |   |   wi > 4 : t (2.0)
+|   |   |   |   |   |   |   wi <= 4 :
+|   |   |   |   |   |   |   |   handset > 1 : t (2.0)
+|   |   |   |   |   |   |   |   handset <= 1 :
+|   |   |   |   |   |   |   |   |   growth <= 0 : t (27.0/10.0)
+|   |   |   |   |   |   |   |   |   growth > 0 :
+|   |   |   |   |   |   |   |   |   |   companies <= 0 : t (3.0/1.0)
+|   |   |   |   |   |   |   |   |   |   companies > 0 : b (2.0)
+
+
+Subtree [S6]
+
+dollar > 0 : b (2.0)
+dollar <= 0 :
+|   prices > 2 : t (3.0/1.0)
+|   prices <= 2 :
+|   |   first <= 0 : b (13.0/3.0)
+|   |   first > 0 :
+|   |   |   firms <= 0 : t (3.0/1.0)
+|   |   |   firms > 0 : b (2.0)
+
+
+Subtree [S7]
+
+sales > 0 : b (13.0)
+sales <= 0 :
+|   dollar > 0 : b (3.0)
+|   dollar <= 0 :
+|   |   bank > 0 : b (3.0)
+|   |   bank <= 0 :
+|   |   |   saudi > 0 : b (3.0)
+|   |   |   saudi <= 0 :
+|   |   |   |   first > 1 : t (2.0)
+|   |   |   |   first <= 1 :
+|   |   |   |   |   shareholders > 0 : b (2.0)
+|   |   |   |   |   shareholders <= 0 :
+|   |   |   |   |   |   sec > 1 : b (2.0)
+|   |   |   |   |   |   sec <= 1 :
+|   |   |   |   |   |   |   activity > 0 : b (2.0)
+|   |   |   |   |   |   |   activity <= 0 :
+|   |   |   |   |   |   |   |   companies <= 0 : b (10.0/2.0)
+|   |   |   |   |   |   |   |   companies > 0 : t (6.0/2.0)
+
+
+Subtree [S8]
+
+prices > 0 : p (2.0)
+prices <= 0 :
+|   economy > 1 : b (3.0)
+|   economy <= 1 :
+|   |   economic <= 0 : b (7.0/3.0)
+|   |   economic > 0 : p (2.0)
+
+
+Subtree [S9]
+
+analysts > 0 : b (14.0)
+analysts <= 0 :
+|   firms > 0 : b (8.0)
+|   firms <= 0 :
+|   |   irish > 0 : b (4.0)
+|   |   irish <= 0 :
+|   |   |   deutsche > 0 : b (2.0)
+|   |   |   deutsche <= 0 :
+|   |   |   |   bankruptcy > 1 : b (2.0)
+|   |   |   |   bankruptcy <= 1 :
+|   |   |   |   |   growth > 1 : b (2.0)
+|   |   |   |   |   growth <= 1 :
+|   |   |   |   |   |   shareholders <= 0 : p (15.0/7.0)
+|   |   |   |   |   |   shareholders > 0 : b (2.0)
+
+
+Subtree [S10]
+
+yukos > 0 : b (2.0)
+yukos <= 0 :
+|   growth <= 0 : b (8.0/1.0)
+|   growth > 0 :
+|   |   economy <= 0 : t (2.0)
+|   |   economy > 0 : b (2.0)
+
+
+Subtree [S11]
+
+benitez > 0 : s (13.0)
+benitez <= 0 :
+|   uefa > 0 : s (13.0)
+|   uefa <= 0 :
+|   |   irish > 0 : s (22.0/3.0)
+|   |   irish <= 0 :
+|   |   |   economic <= 0 :
+|   |   |   |   wenger > 0 : s (12.0)
+|   |   |   |   wenger <= 0 :
+|   |   |   |   |   winners > 0 : s (12.0/4.0)
+|   |   |   |   |   winners <= 0 :
+|   |   |   |   |   |   dvd <= 0 :
+|   |   |   |   |   |   |   doping > 0 : s (11.0)
+|   |   |   |   |   |   |   doping <= 0 :
+|   |   |   |   |   |   |   |   flanker > 0 : s (11.0)
+|   |   |   |   |   |   |   |   flanker <= 0 :
+|   |   |   |   |   |   |   |   |   first <= 2 :
+|   |   |   |   |   |   |   |   |   |   comedy > 0 : e (10.0)
+|   |   |   |   |   |   |   |   |   |   comedy <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   first <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   first <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   musical <= 0 : p (321.0/218.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   musical > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   musical <= 1 : t (5.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   musical > 1 : e (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   first > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   bmw > 1 : b (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   bmw <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   blog > 0 : t (5.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   blog <= 0 :[S12]
+|   |   |   |   |   |   |   |   |   |   |   first > 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   falconer > 0 : p (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   falconer <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   festival > 2 : e (2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   festival <= 2 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   mobiles > 0 : t (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   mobiles <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   blog <= 0 : s (24.0/10.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   blog > 0 : t (2.0)
+|   |   |   |   |   |   |   |   |   first > 2 :
+|   |   |   |   |   |   |   |   |   |   cult > 0 : s (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   cult <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   first <= 3 : s (12.0/4.0)
+|   |   |   |   |   |   |   |   |   |   |   first > 3 :
+|   |   |   |   |   |   |   |   |   |   |   |   first <= 4 : p (5.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   first > 4 : s (4.0/1.0)
+|   |   |   |   |   |   dvd > 0 :
+|   |   |   |   |   |   |   pop > 0 : t (2.0)
+|   |   |   |   |   |   |   pop <= 0 :
+|   |   |   |   |   |   |   |   first <= 0 : t (5.0/2.0)
+|   |   |   |   |   |   |   |   first > 0 : e (4.0)
+|   |   |   economic > 0 :
+|   |   |   |   deficit > 0 : b (2.0)
+|   |   |   |   deficit <= 0 :
+|   |   |   |   |   shareholder <= 0 : p (8.0/1.0)
+|   |   |   |   |   shareholder > 0 : b (2.0)
+
+
+Subtree [S12]
+
+margaret > 0 : p (5.0)
+margaret <= 0 :
+|   pop > 0 : e (3.0)
+|   pop <= 0 :
+|   |   lib > 1 : p (3.0)
+|   |   lib <= 1 :
+|   |   |   singles > 1 : s (4.0)
+|   |   |   singles <= 1 :
+|   |   |   |   starring > 0 : e (2.0)
+|   |   |   |   starring <= 0 :
+|   |   |   |   |   theatre > 1 : e (2.0)
+|   |   |   |   |   theatre <= 1 :
+|   |   |   |   |   |   xbox > 0 : t (2.0)
+|   |   |   |   |   |   xbox <= 0 :
+|   |   |   |   |   |   |   browser > 1 : t (2.0)
+|   |   |   |   |   |   |   browser <= 1 :
+|   |   |   |   |   |   |   |   detainees > 1 : p (2.0)
+|   |   |   |   |   |   |   |   detainees <= 1 :
+|   |   |   |   |   |   |   |   |   marketed <= 0 : s (88.0/52.0)
+|   |   |   |   |   |   |   |   |   marketed > 0 : e (2.0/1.0)
+
+
+Simplified Decision Tree:
+
+tory > 0 : p (137.0/1.4)
+tory <= 0 :
+|   tories > 0 : p (43.0/1.4)
+|   tories <= 0 :
+|   |   actress > 0 : e (75.0/1.4)
+|   |   actress <= 0 :
+|   |   |   singer <= 0 :
+|   |   |   |   oscar > 0 : e (38.0/2.6)
+|   |   |   |   oscar <= 0 :
+|   |   |   |   |   chart <= 0 :
+|   |   |   |   |   |   bn <= 0 :
+|   |   |   |   |   |   |   economy <= 0 :
+|   |   |   |   |   |   |   |   portable > 0 : t (45.0/1.4)
+|   |   |   |   |   |   |   |   portable <= 0 :
+|   |   |   |   |   |   |   |   |   viruses > 0 : t (32.0/1.4)
+|   |   |   |   |   |   |   |   |   viruses <= 0 :
+|   |   |   |   |   |   |   |   |   |   analysts <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   prices > 0 : b (38.0/10.4)
+|   |   |   |   |   |   |   |   |   |   |   prices <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   firms <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   band <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 0 :[S1]
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   companies > 0 :[S2]
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   band > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   slam > 0 : s (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   slam <= 0 :[S3]
+|   |   |   |   |   |   |   |   |   |   |   |   |   movie > 0 :[S4]
+|   |   |   |   |   |   |   |   |   |   |   |   firms > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies > 5 : b (2.0/1.8)
+|   |   |   |   |   |   |   |   |   |   |   |   |   companies <= 5 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   exports > 0 : b (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   exports <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   sec > 1 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   sec <= 1 :[S5]
+|   |   |   |   |   |   |   |   |   |   analysts > 0 :
+|   |   |   |   |   |   |   |   |   |   |   mobiles > 0 : t (12.0/1.3)
+|   |   |   |   |   |   |   |   |   |   |   mobiles <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   computers > 0 : t (6.0/1.2)
+|   |   |   |   |   |   |   |   |   |   |   |   computers <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   hd > 0 : t (4.0/1.2)
+|   |   |   |   |   |   |   |   |   |   |   |   |   hd <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   awards <= 2 : b (46.0/10.5)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   awards > 2 : t (2.0/1.0)
+|   |   |   |   |   |   |   economy > 0 :
+|   |   |   |   |   |   |   |   manifesto <= 0 : b (92.0/11.7)
+|   |   |   |   |   |   |   |   manifesto > 0 : p (4.0/1.2)
+|   |   |   |   |   |   bn > 0 :
+|   |   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   |   bn <= 1 :
+|   |   |   |   |   |   |   |   |   portable > 0 : t (2.0/1.0)
+|   |   |   |   |   |   |   |   |   portable <= 0 :
+|   |   |   |   |   |   |   |   |   |   dvd > 0 : e (2.0/1.8)
+|   |   |   |   |   |   |   |   |   |   dvd <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   councils > 0 : p (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   councils <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   rebate <= 2 : b (76.0/18.1)
+|   |   |   |   |   |   |   |   |   |   |   |   rebate > 2 : p (2.0/1.0)
+|   |   |   |   |   |   |   |   bn > 1 :
+|   |   |   |   |   |   |   |   |   companies <= 0 : b (141.0/9.6)
+|   |   |   |   |   |   |   |   |   companies > 0 :
+|   |   |   |   |   |   |   |   |   |   multimedia > 0 : t (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   multimedia <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   dvd > 4 : t (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   dvd <= 4 :
+|   |   |   |   |   |   |   |   |   |   |   |   blog <= 1 : b (51.0/1.4)
+|   |   |   |   |   |   |   |   |   |   |   |   blog > 1 : t (2.0/1.0)
+|   |   |   |   |   |   |   movie > 0 :
+|   |   |   |   |   |   |   |   dvd <= 0 : t (3.0/2.1)
+|   |   |   |   |   |   |   |   dvd > 0 : e (3.0/1.1)
+|   |   |   |   |   chart > 0 :
+|   |   |   |   |   |   halo > 0 : t (4.0/1.2)
+|   |   |   |   |   |   halo <= 0 :
+|   |   |   |   |   |   |   trillion <= 0 : e (33.0/1.4)
+|   |   |   |   |   |   |   trillion > 0 : t (2.0/1.0)
+|   |   |   singer > 0 :
+|   |   |   |   firms <= 0 : e (79.0/3.8)
+|   |   |   |   firms > 0 : t (2.0/1.0)
+
+
+Subtree [S1]
+
+computers <= 0 :
+|   sales <= 0 :
+|   |   awards <= 0 :
+|   |   |   bank <= 0 :
+|   |   |   |   activity <= 0 :
+|   |   |   |   |   manifesto > 0 : p (16.0/2.5)
+|   |   |   |   |   manifesto <= 0 :
+|   |   |   |   |   |   blunkett > 0 : p (14.0/1.3)
+|   |   |   |   |   |   blunkett <= 0 :
+|   |   |   |   |   |   |   economic <= 0 :
+|   |   |   |   |   |   |   |   dvd <= 0 :
+|   |   |   |   |   |   |   |   |   comedy > 0 : e (10.0/1.3)
+|   |   |   |   |   |   |   |   |   comedy <= 0 :
+|   |   |   |   |   |   |   |   |   |   first <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   musical <= 0 : s (482.0/231.1)
+|   |   |   |   |   |   |   |   |   |   |   musical > 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   musical <= 1 : t (5.0/2.3)
+|   |   |   |   |   |   |   |   |   |   |   |   musical > 1 : e (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   first > 0 :
+|   |   |   |   |   |   |   |   |   |   |   bmw > 1 : b (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   bmw <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   blog > 0 : t (7.0/1.3)
+|   |   |   |   |   |   |   |   |   |   |   |   blog <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   margaret > 0 : p (8.0/2.4)
+|   |   |   |   |   |   |   |   |   |   |   |   |   margaret <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   pop > 0 : e (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   pop <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   lib > 1 : p (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   lib <= 1 :[S6]
+|   |   |   |   |   |   |   |   dvd > 0 :
+|   |   |   |   |   |   |   |   |   pop > 0 : t (2.0/1.0)
+|   |   |   |   |   |   |   |   |   pop <= 0 :
+|   |   |   |   |   |   |   |   |   |   first <= 0 : t (5.0/3.2)
+|   |   |   |   |   |   |   |   |   |   first > 0 : e (4.0/1.2)
+|   |   |   |   |   |   |   economic > 0 :
+|   |   |   |   |   |   |   |   deficit > 0 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   deficit <= 0 :
+|   |   |   |   |   |   |   |   |   shareholder <= 0 : p (8.0/2.4)
+|   |   |   |   |   |   |   |   |   shareholder > 0 : b (2.0/1.0)
+|   |   |   |   activity > 0 :
+|   |   |   |   |   goldsmith > 0 : p (2.0/1.0)
+|   |   |   |   |   goldsmith <= 0 :
+|   |   |   |   |   |   first > 0 : t (4.0/1.2)
+|   |   |   |   |   |   first <= 0 :
+|   |   |   |   |   |   |   growth <= 1 : p (9.0/5.5)
+|   |   |   |   |   |   |   growth > 1 : t (2.0/1.0)
+|   |   |   bank > 0 :
+|   |   |   |   musical <= 1 : b (17.0/6.9)
+|   |   |   |   musical > 1 : e (2.0/1.0)
+|   |   awards > 0 :
+|   |   |   athletics > 0 : s (2.0/1.0)
+|   |   |   athletics <= 0 :
+|   |   |   |   federer > 0 : s (2.0/1.0)
+|   |   |   |   federer <= 0 :
+|   |   |   |   |   flanker > 0 : s (2.0/1.0)
+|   |   |   |   |   flanker <= 0 :
+|   |   |   |   |   |   awards <= 3 : e (13.0/2.5)
+|   |   |   |   |   |   awards > 3 :
+|   |   |   |   |   |   |   nominations <= 2 : t (2.0/1.0)
+|   |   |   |   |   |   |   nominations > 2 : e (2.0/1.0)
+|   sales > 0 :
+|   |   comedy > 0 : e (3.0/1.1)
+|   |   comedy <= 0 :
+|   |   |   awards > 0 : e (3.0/1.1)
+|   |   |   awards <= 0 :
+|   |   |   |   sales <= 1 : t (16.0/8.9)
+|   |   |   |   sales > 1 : b (11.0/3.6)
+computers > 0 :
+|   nominated <= 0 : t (21.0/4.8)
+|   nominated > 0 : p (2.0/1.0)
+
+
+Subtree [S2]
+
+comedy > 1 : e (2.0/1.0)
+comedy <= 1 :
+|   sec > 1 : b (2.0/1.0)
+|   sec <= 1 :
+|   |   economic <= 1 : t (53.0/18.9)
+|   |   economic > 1 : b (2.0/1.0)
+
+
+Subtree [S3]
+
+companies <= 0 : e (21.0/3.7)
+companies > 0 : t (3.0/2.1)
+
+
+Subtree [S4]
+
+bittorrent > 1 : t (6.0/1.2)
+bittorrent <= 1 :
+|   companies <= 0 : e (34.0/10.4)
+|   companies > 0 : t (2.0/1.0)
+
+
+Subtree [S5]
+
+wto <= 1 : t (78.0/18.1)
+wto > 1 : b (2.0/1.0)
+
+
+Subtree [S6]
+
+starring > 0 : e (2.0/1.0)
+starring <= 0 :
+|   theatre > 1 : e (2.0/1.0)
+|   theatre <= 1 :
+|   |   xbox > 0 : t (3.0/1.1)
+|   |   xbox <= 0 :
+|   |   |   browser > 1 : t (2.0/1.0)
+|   |   |   browser <= 1 :
+|   |   |   |   detainees > 1 : p (2.0/1.0)
+|   |   |   |   detainees <= 1 :
+|   |   |   |   |   marketed <= 0 : s (321.0/85.0)
+|   |   |   |   |   marketed > 0 : e (2.0/1.8)
+
+
+Tree saved
+
+
+Evaluation on training data (2223 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	 359  395(17.8%)    175  426(19.2%)    (24.9%)   <<

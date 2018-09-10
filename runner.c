@@ -7,6 +7,7 @@
 #include "tfidf.h"
 #include "randomize.h"
 #include "count_50_words.h"
+#include "interpreter.h"
 
 int main(int argc, char *argv[])
 {
@@ -138,11 +139,16 @@ int main(int argc, char *argv[])
     count_fifty_words(file_names_array[file_names_index[i]], fifty_words, output, num_categories * 50); //count 50-words
     for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
     {
-      if(j+1 == num_categories * 50)
-        fprintf(docs_data, "%d\n", output[j]);
+      if(j+1 == num_categories * 50)                                           // if last word print new line
+        fprintf(docs_data, "%d, %c\n", output[j], file_names_array[file_names_index[i]][strlen(input[0])]);
       else fprintf(docs_data, "%d, ", output[j]);
     }
   }
+
+  printf("done counting 50-words\n");
+  printf("running decision tree\n"); 
+  interpreter("./50_words/", "docs");
+  printf("decision tree finished\n");
 
   return 0;
 }
