@@ -29,6 +29,16 @@ int in_list(Word found_words[], char *string, int num_words)
   return -1;
 }
 
+int is_in_training(int n, int arr[], int m)
+{
+  for(int i = 0; i < m; i++)
+  {
+    if(n == arr[i])
+    return 1;
+  }
+  return 0;
+}
+
 /*
   comparator function for qsort
 */
@@ -107,7 +117,7 @@ int build_files(int unique_words, int num_categories, char *categories[], Word f
    Input: number of files to scan
 */
 
-int tfidf(int num_categories, char *categories[], char *directory, char *file_names_array[], int file_names_index[], int sample_size)
+int tfidf(int num_categories, char *categories[], char *directory, char *file_names_array[], int file_names_index[], int training_size, int population_size)
 {
   int category_lengths[num_categories];                                        // total number of words in all documents in category
   int unique_words = 0;                                                        // number of unique words found
@@ -117,12 +127,15 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
     category_lengths[i] = 0;
   }
 
-  for(int i = 0; i < sample_size; i++)
+  for(int i = 0; i < population_size; i++)
   {
+    if(is_in_training(i, file_names_index, training_size))                     // check if word is in training set
+    {
       int category = 0;
       int index;
       int current_file_length = 0;                                             // length of current document (words)
-      char *file_name = file_names_array[file_names_index[i]];
+      char *file_name = malloc(sizeof(char)*MAX_LENGTH);
+      strncpy(file_name, file_names_array[file_names_index[i]], MAX_LENGTH);
       char *string;
       FILE *fp;
       for(int j = 0; j < num_categories; j++)
@@ -161,6 +174,7 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
       free(file_name);
       category_lengths[category] = category_lengths[category] + current_file_length;// record length of this file (words)
       current_file_length = 0;                                                 // reset current_file_length
+    }
   }
 
   for(int i = 0; i < num_categories; i++)                                      // compute term frequency per category

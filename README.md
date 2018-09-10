@@ -19,7 +19,9 @@ by number of categories that word appears in). Once each unique word has an asso
 tfidf score, they are sorted and the top 50 for each category are stored into a .out 
 file for each category as well as a combined .out file and builds a .names file for use
 with Ross Quinlan's C4.5 decision tree. The program then reads those all 50-words from 
-the combined file and stores it in an array.
+the combined file and stores it in an array to then rescan each file in the sample and 
+count each occurance of the total 250 important words in each file and store that info 
+in a .data file..
 
 Input Format
 The program takes a .input file from the command line formatted in the following manner
@@ -48,5 +50,5 @@ $./runner bbc.input
 
 Program Output
 This program outputs a .out file for each of the given categories and stores them in the
-/50-words folder. It also creates a combined-50.out file and a categories.names file for
-use with the decision tree.
+/50-words folder. It also creates a combined-50.out file, docs.names file and docs.data 
+for use with the decision tree.

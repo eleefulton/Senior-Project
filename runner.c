@@ -6,6 +6,7 @@
 #include "parse_file.h"
 #include "tfidf.h"
 #include "randomize.h"
+#include "count_50_words.h"
 
 int main(int argc, char *argv[])
 {
@@ -74,8 +75,6 @@ int main(int argc, char *argv[])
 
 //  printf("randomizing file_names_array\n");
 //  randomize(file_names_index, population_size);
-  for(int i = 0; i < sample_size; i++)
-    printf("%s\n", file_names_array[file_names_index[i]]);
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -97,7 +96,7 @@ int main(int argc, char *argv[])
 
 
   printf("computing tfidf.\n");
-  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, sample_size) < 0)          // compute tfidf
+  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, training_size, population_size) < 0)          // compute tfidf
   {
     printf("tfidf failed\n");
     return -1;
@@ -105,10 +104,6 @@ int main(int argc, char *argv[])
   printf("tfidf complete\n");
 
   fclose(input_file);
-  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)
-  {
-    free(input[i]);
-  }
 
 
   printf("reading 50-words.\n");
@@ -125,6 +120,29 @@ int main(int argc, char *argv[])
   }
   fclose(combined_file);
 
+  printf("counting 50-words\n");
+  FILE *docs_data = fopen("./50_words/docs.data", "w+");
+  if(docs_data == NULL)
+  {
+    printf("failed to open docs.data\n");
+    return -1;
+  }
+
+  for(int i = 0; i < training_size; i++)
+  {
+    int output[num_categories * 50];
+    for(int j = 0; j < num_categories * 50; j++)
+    {  
+      output[j] = 0;
+    }
+    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, output, num_categories * 50);
+    for(int j = 0; j < num_categories * 50; j++)
+    {
+      if(j+1 == num_categories * 50)
+        fprintf(docs_data, "%d\n", output[j]);
+      else fprintf(docs_data, "%d, ", output[j]);
+    }
+  }
 
   return 0;
 }
