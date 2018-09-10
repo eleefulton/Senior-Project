@@ -118,25 +118,25 @@ int main(int argc, char *argv[])
   {
     strncpy(fifty_words[i], parse_next_word(combined_file), MAX_LENGTH);
   }
-  fclose(combined_file);
+  fclose(combined_file);                                                       // close combined file
 
   printf("counting 50-words\n");
-  FILE *docs_data = fopen("./50_words/docs.data", "w+");
-  if(docs_data == NULL)
+  FILE *docs_data = fopen("./50_words/docs.data", "w+");                       // open .data file
+  if(docs_data == NULL)                                                        // check .data file opened correctly
   {
     printf("failed to open docs.data\n");
     return -1;
   }
 
-  for(int i = 0; i < training_size; i++)
+  for(int i = 0; i < training_size; i++)                                       // count 50-words in training set of sample
   {
-    int output[num_categories * 50];
-    for(int j = 0; j < num_categories * 50; j++)
+    int output[num_categories * 50];                                           // array to store count output
+    for(int j = 0; j < num_categories * 50; j++)                               // initalize output array
     {  
       output[j] = 0;
     }
-    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, output, num_categories * 50);
-    for(int j = 0; j < num_categories * 50; j++)
+    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, output, num_categories * 50); //count 50-words
+    for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
     {
       if(j+1 == num_categories * 50)
         fprintf(docs_data, "%d\n", output[j]);
