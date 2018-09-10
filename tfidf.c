@@ -107,7 +107,7 @@ int build_files(int unique_words, int num_categories, char *categories[], Word f
    Input: number of files to scan
 */
 
-int tfidf(int num_categories, char *categories[], char *directory, char *file_names_array[], int file_names_index[], int sample_size, int population_size)
+int tfidf(int num_categories, char *categories[], char *directory, char *file_names_array[], int file_names_index[], int sample_size)
 {
   int category_lengths[num_categories];                                        // total number of words in all documents in category
   int unique_words = 0;                                                        // number of unique words found
@@ -119,17 +119,18 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
 
   for(int i = 0; i < sample_size; i++)
   {
-      int category;
+      int category = 0;
       int index;
       int current_file_length = 0;                                             // length of current document (words)
       char *file_name = file_names_array[file_names_index[i]];
       char *string;
       FILE *fp;
-      for(int j = 0; j < num_categories; j++)                                  // find category this file belongs to
+      for(int j = 0; j < num_categories; j++)
       {
         if(file_names_array[file_names_index[i]][strlen(directory)] == categories[j][0])
           category = j;
       }
+
       fp = fopen(file_name, "r");                                              // load file
 
       if(fp == NULL)                                                           // check file opened properly
@@ -141,7 +142,7 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
       while(!feof(fp))
       {
         string = parse_next_word(fp);                                          // parse next word
-        if(string[0] != '\0')
+        if(string[0] != '\0')                                                  // if string is not empty
         {
           current_file_length++;
           if((index = in_list(found_words, string, unique_words)) >= 0)        // check found_words[] for string
@@ -186,7 +187,6 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
     {
       found_words[i].tfidf[j] = found_words[i].tf[j] * log(found_words[i].idf);
     }
-    printf("\n");
   }
 
   if(build_files(unique_words, num_categories, categories, found_words) >= 0)

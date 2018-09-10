@@ -72,8 +72,8 @@ int main(int argc, char *argv[])
   }
   fclose(file_names_file);
 
-  printf("randomizing file_names_array\n");
-  randomize(file_names_index, population_size);
+//  printf("randomizing file_names_array\n");
+//  randomize(file_names_index, population_size);
   for(int i = 0; i < sample_size; i++)
     printf("%s\n", file_names_array[file_names_index[i]]);
 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
 
   printf("computing tfidf.\n");
-  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, sample_size, population_size) < 0)          // compute tfidf
+  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, sample_size) < 0)          // compute tfidf
   {
     printf("tfidf failed\n");
     return -1;
