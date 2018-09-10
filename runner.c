@@ -5,6 +5,7 @@
 #include <math.h>
 #include "parse_file.h"
 #include "tfidf.h"
+#include "randomize.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)                              // allocate input array
+  for(int i = 0; i < MAX_CATEGORIES * 2 + 5; i++)                              // allocate input array
   {
     input[i] = malloc(sizeof(char) * MAX_LENGTH);
   }
@@ -42,10 +43,39 @@ int main(int argc, char *argv[])
     c = fgetc(input_file);                                                     // get next char
   }
 
-  int num_categories = atoi(input[1]);
+  int num_categories = atoi(input[1]);                                         // total number of categories in data set
+  int population_size = atoi(input[2]);
+  int sample_size = atoi(input[3]);                                            // sample size to be used from data set
+  int training_size = atoi(input[4]);
   char *categories[num_categories];                                            // array of category prefix strings
   int category_docs[num_categories];                                           // number of documents in each category
   char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
+  char *file_names_array[population_size];                                     // array to store file names
+  int file_names_index[population_size];                                       // array to store a shuffled index of file names
+
+  printf("\npopulation size = %d\n", population_size);
+  printf("sample size = %d\n", sample_size);
+  printf("training size = %d\n\n", training_size);
+
+  printf("opening file_names.txt\n");                                          // open file that contains all bbc dataset file names
+  FILE *file_names_file = fopen("./bbc_files/file_names.txt", "r");
+  if(file_names_file == NULL)
+  {
+    printf("failed to open file_names.txt\n");
+    return -1;
+  }
+  for(int i = 0; i < population_size; i++)                                     // allocate space in file_names_array and read name
+  {
+    file_names_array[i] = malloc(sizeof(char)*MAX_LENGTH);
+    file_names_index[i] = i;                                                   // initalize file_names_index array
+    fscanf(file_names_file, "%s", file_names_array[i]);
+  }
+  fclose(file_names_file);
+
+  printf("randomizing file_names_array\n");
+  randomize(file_names_index, population_size);
+  for(int i = 0; i < sample_size; i++)
+    printf("%s\n", file_names_array[file_names_index[i]]);
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -53,7 +83,7 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  for(int i = 0, c = 2; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
+  for(int i = 0, c = 5; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
   {
     categories[i] = input[c];
     category_docs[i] = atoi(input[c+1]);
@@ -67,7 +97,12 @@ int main(int argc, char *argv[])
 
 
   printf("computing tfidf.\n");
-  tfidf(num_categories, categories, category_docs, input[0]);                  // compute tfidf
+  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, sample_size, population_size) < 0)          // compute tfidf
+  {
+    printf("tfidf failed\n");
+    return -1;
+  }
+  printf("tfidf complete\n");
 
   fclose(input_file);
   for(int i = 0; i < MAX_CATEGORIES * 2 + 2; i++)
@@ -75,7 +110,6 @@ int main(int argc, char *argv[])
     free(input[i]);
   }
 
-  fclose(input_file);                                                          // close input_file
 
   printf("reading 50-words.\n");
   FILE *combined_file = fopen("./50_words/combined_50.out", "r");              // open combined_50 file
