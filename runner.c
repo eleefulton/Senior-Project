@@ -73,8 +73,8 @@ int main(int argc, char *argv[])
   }
   fclose(file_names_file);
 
-//  printf("randomizing file_names_array\n");
-//  randomize(file_names_index, population_size);
+  printf("randomizing file_names_array\n");
+  randomize(file_names_index, population_size);
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {

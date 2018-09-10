@@ -21,26 +21,29 @@ file for each category as well as a combined .out file and builds a .names file 
 with Ross Quinlan's C4.5 decision tree. The program then reads those all 50-words from 
 the combined file and stores it in an array to then rescan each file in the sample and 
 count each occurance of the total 250 important words in each file and store that info 
-in a .data file..
+in a .data file.
 
 Input Format
 The program takes a .input file from the command line formatted in the following manner
   1. The directory in which the data files reside
   2. The number of categories
-  3. n <= 5 category prefixs followed by the number of files in that category
+  3. The number of files in the dataset (population)
+  4. The number of files in the sample
+  5. The number of files in the training sub-set of the sample
+  6. n <= 5 category prefixs followed by the number of files in that category
 
 Files in the data directory must be formatted in the following manner:
   prefix of category followed by the file's number with leading zeros.
-  Example: the first file in the 'Business' category 'b001.txt'.
+  Example: the first file in the 'Business' category woud be 'b001.txt'.
 
 Example Input File:
 ```
-./bbc_files/ 5 b 510 e 386 p 417 s 511 t 401
+./bbc_files/ 5 2225 2225 2225 b 510 e 386 p 417 s 511 t 401
 ```
 
 How to Compile
 ```
-$make
+$make && make -C ./c4.5/R8/Src
 ```
 
 How to Run

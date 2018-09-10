@@ -29,6 +29,9 @@ int in_list(Word found_words[], char *string, int num_words)
   return -1;
 }
 
+/*
+  search training set of size m for given index n
+*/
 int is_in_training(int n, int arr[], int m)
 {
   for(int i = 0; i < m; i++)
@@ -131,27 +134,25 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
   {
     if(is_in_training(i, file_names_index, training_size))                     // check if word is in training set
     {
-      int category = 0;
-      int index;
+      int category = 0;                                                        // category current doc belongs to
+      int index;                                                               // index of word in list
       int current_file_length = 0;                                             // length of current document (words)
-      char *file_name = malloc(sizeof(char)*MAX_LENGTH);
-      strncpy(file_name, file_names_array[file_names_index[i]], MAX_LENGTH);
-      char *string;
-      FILE *fp;
+      char *string;                                                            // string to hold parsed word
+      FILE *fp;                                                                // pointer to file to open
       for(int j = 0; j < num_categories; j++)
       {
-        if(file_names_array[file_names_index[i]][strlen(directory)] == categories[j][0])
+        if(file_names_array[i][strlen(directory)] == categories[j][0])
           category = j;
       }
 
-      fp = fopen(file_name, "r");                                              // load file
+      fp = fopen(file_names_array[i], "r");                  // load file
 
       if(fp == NULL)                                                           // check file opened properly
       {
-        printf("failed to open %s\n", file_name);
+        printf("failed to open %s\n", file_names_array[i]);
         return -1;
       }
-      printf("reading from %s in category %s\n", file_name, categories[category]);
+      printf("reading from %s in category %s\n", file_names_array[i], categories[category]);
       while(!feof(fp))
       {
         string = parse_next_word(fp);                                          // parse next word
@@ -171,7 +172,6 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
         }
       }
       fclose(fp);                                                              // close the file
-      free(file_name);
       category_lengths[category] = category_lengths[category] + current_file_length;// record length of this file (words)
       current_file_length = 0;                                                 // reset current_file_length
     }
