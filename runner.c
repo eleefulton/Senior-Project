@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
-  char *input[MAX_CATEGORIES * 2 + 2];                                        // array for input strings
+  char *input[MAX_CATEGORIES * 2 + 5];                                        // array for input strings
   if(input_file == NULL)                                                      // check input file opened propperly
   {
     printf("Input file not opened.\n");
