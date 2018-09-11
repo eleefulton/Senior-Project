@@ -59,4 +59,5 @@ $./runner bbc.input
 Program Output
 This program outputs a .out file for each of the given categories and stores them in the
 /50-words folder. It also creates a combined-50.out file, docs.names file and docs.data 
-for use with the decision tree.
+for use with the decision tree. Once the decision tree has run it will output a docs.dnf 
+file that contains the disjunctive normal form of the decision tree.
