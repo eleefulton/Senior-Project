@@ -148,15 +148,43 @@ int main(int argc, char *argv[])
 
   printf("done counting 50-words\n");
   printf("running decision tree\n"); 
-  char *dnf_file =  interpreter("./50_words/", "docs");
+  char *dnf_file =  interpreter("./50_words/", "docs");                        // run interpreter on decision tree output
   printf("decision tree finished\n");
 
-  printf("building literal layer\n");
-  build_literal_layer(dnf_file);
+  printf("building input layer\n");
+  rewind(docs_data);                                                           // rewind to beginning of docs file
+  Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
+  initialize_input_layer(fifty_words, input_layer, num_categories * 50);        // initialize input for first file
+  for(int i = 0; i < num_categories * 50; i++)                                 // print input layer tags
+  {
+    printf("%s\n", input_layer[i].tag);
+  }
+
+  printf("\nbuilding literal layer\n");
+  Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
+  int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
+  for(int i = 0; i < num_literals; i++)                                        // print literal layer tags
+  {
+    printf("%s\n", literal_layer[i].tag);
+  }
 
   printf("\nbuilding conjunctive layer\n");
-  build_conjunctive_layer(dnf_file);
+  Node *conjunctive_layer = malloc(sizeof(Node)*MAX_CONJUNCTS);                // create an array of Nodes for the conjunctive layer
+  int num_conjuncts = initialize_conjunctive_layer(dnf_file, conjunctive_layer);// initialize the conjunctive layer
+  for(int i = 0; i < num_conjuncts; i++)                                       // print conjunctive layer tags
+  {
+    printf("%s\n", conjunctive_layer[i].tag);
+  }
 
+  printf("\nbuilding output layer\n");
+  Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
+  initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
+  for(int i = 0; i < num_categories; i++)                                      // print output layer tags
+  {
+    printf("%s\n", output_layer[i].tag);
+  }
+
+  fclose(docs_data);
 
   return 0;
 }

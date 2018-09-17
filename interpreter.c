@@ -81,12 +81,13 @@ char* interpreter(char *path, char *name)
         if(!strncmp(line,"\t->", 3))                                           // skip lines that start with '	->', new rule
         {
           fseek(rules_condensed, -2L, SEEK_CUR);                               // move back two spots in file
+          fprintf(rules_condensed, "%.1s ", line + 11);                        // mark what the conjuncts expected output is
           fprintf(rules_condensed, "| ");                                      // print '|' to represent or
         }
         else if(strncmp(line, "\n", 1))                                        // skip lines that are blank
         {
           line[strlen(line)-1] = '\0';                                         // remove new line from end of string
-          fprintf(rules_condensed, "%s & ", line + 5);                          // print line to file
+          fprintf(rules_condensed, "%s & ", line + 5);                         // print line to file
         }
       }
   }
