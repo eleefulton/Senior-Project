@@ -8,6 +8,7 @@
 #include "randomize.h"
 #include "count_50_words.h"
 #include "interpreter.h"
+#include "build_layers.h"
 
 int main(int argc, char *argv[])
 {
@@ -147,8 +148,15 @@ int main(int argc, char *argv[])
 
   printf("done counting 50-words\n");
   printf("running decision tree\n"); 
-  interpreter("./50_words/", "docs");
+  char *dnf_file =  interpreter("./50_words/", "docs");
   printf("decision tree finished\n");
+
+  printf("building literal layer\n");
+  build_literal_layer(dnf_file);
+
+  printf("\nbuilding conjunctive layer\n");
+  build_conjunctive_layer(dnf_file);
+
 
   return 0;
 }

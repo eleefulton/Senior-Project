@@ -3,7 +3,8 @@
    their output in *.dt and *.r files
    respectively, then read from the .r file
    and print the disjunctive normal form
-   to the .dnf file
+   to the .dnf file and returns the name
+   of the .dnf file as a string
 */
 
 #include <stdio.h>
@@ -12,7 +13,7 @@
 #include "interpreter.h"
 #include "tfidf.h"
 
-void interpreter(char *path, char *name)
+char* interpreter(char *path, char *name)
 {
   FILE *rules_file;                                                            // file pointer for rules file
   FILE *rules_condensed;                                                       // file pointer for condensed rules file
@@ -93,4 +94,5 @@ void interpreter(char *path, char *name)
   fprintf(rules_condensed, "\n");
   fclose(rules_file);
   fclose(rules_condensed);
+  return rules_condensed_name;
 }

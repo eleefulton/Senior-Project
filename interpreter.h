@@ -1,1 +1,1 @@
-void interpreter(char *path, char *name);
+char * interpreter(char *path, char *name);
