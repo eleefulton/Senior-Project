@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "build_layers.h"
+#include <time.h>
+#include "build_network.h"
 #include "tfidf.h"
 
 /*
@@ -15,6 +16,11 @@ int in_layer_list(char* string, char *list[], int n)
       return 1;
   }
   return 0;
+}
+int min(int a, int b)
+{
+  if(a < b) return a;
+  else return b;
 }
 
 /*
@@ -151,4 +157,44 @@ int initialize_output_layer(char *categories[], Node *output_layer, int n)
     output_layer[i].tag = categories[i];
   }
   return n;
+}
+
+/*
+  set weights and biases based on nnidt criteria
+  if(value > attribute) bias = -alpha * value and weight = alpha
+  if(value <= attribute) bias = alpha * value and weight = -alpha
+  everything all remaining weights to +/- beta with equal probability
+*/
+void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_layer, int num_literals)
+{
+  srand(time(NULL));
+  for(int i = 0; i < num_input; i++)                                           // loop through all inputs
+  {
+    for(int j = 0; j < num_literals; j++)                                      // loop through all literals
+    {
+      if((strlen(literal_layer[j].tag) >= strlen(input_layer[i].tag)) &&       // first check if literal is longer than input
+            strncmp(literal_layer[j].tag, input_layer[i].tag,                  // then check if the input is in the literal
+            strlen(input_layer[i].tag)) == 0)
+      {
+        int k = strlen(literal_layer[j].tag) - 2;                              // mark where the equality is
+        if(literal_layer[j].tag[k] == '>')                                     // if(attribute > value)
+        {
+          literal_layer[j].bias = (literal_layer[j].tag[k+1] - 48) * (0-ALPHA);
+          input_layer[i].weights[j] = ALPHA;
+        }
+        else if(literal_layer[j].tag[k] == '=')                                // if(attribute <= value)
+        {
+          literal_layer[j].bias = (literal_layer[j].tag[k+1] - 48) * ALPHA;
+          input_layer[i].weights[j] = 0-ALPHA;
+        }
+      }
+      else                                                                     // set any other weight to +/- BETA
+      {
+        int random = rand() % 10;                                              // use an equal probablility for +/-
+        if(random <= 4)
+          input_layer[i].weights[j] = BETA;
+        else input_layer[i].weights[j] = 0-BETA;
+      }
+    }
+  }
 }

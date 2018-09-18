@@ -8,7 +8,7 @@
 #include "randomize.h"
 #include "count_50_words.h"
 #include "interpreter.h"
-#include "build_layers.h"
+#include "build_network.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +56,12 @@ int main(int argc, char *argv[])
   char *file_names_array[population_size];                                     // array to store file names
   int file_names_index[population_size];                                       // array to store a shuffled index of file names
 
+  if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
+  {
+    printf("Error: too many categories\n");
+    return -1;
+  }
+
   printf("\npopulation size = %d\n", population_size);
   printf("sample size = %d\n", sample_size);
   printf("training size = %d\n\n", training_size);
@@ -78,12 +84,6 @@ int main(int argc, char *argv[])
   printf("randomizing file_names_array\n");
   randomize(file_names_index, population_size);
 
-  if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
-  {
-    printf("Error: too many categories\n");
-    return -1;
-  }
-
   for(int i = 0, c = 5; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
   {
     categories[i] = input[c];
@@ -98,7 +98,8 @@ int main(int argc, char *argv[])
 
 
   printf("computing tfidf.\n");
-  if(tfidf(num_categories, categories, input[0], file_names_array, file_names_index, training_size, population_size) < 0)          // compute tfidf
+  if(tfidf(num_categories, categories, input[0], file_names_array, 
+      file_names_index, training_size, population_size) < 0)                   // compute tfidf
   {
     printf("tfidf failed\n");
     return -1;
@@ -123,7 +124,7 @@ int main(int argc, char *argv[])
   fclose(combined_file);                                                       // close combined file
 
   printf("counting 50-words\n");
-  FILE *docs_data = fopen("./50_words/docs.data", "w+");                       // open .data file
+  FILE *docs_data = fopen("./output/docs.data", "w+");                       // open .data file
   if(docs_data == NULL)                                                        // check .data file opened correctly
   {
     printf("failed to open docs.data\n");
@@ -137,18 +138,20 @@ int main(int argc, char *argv[])
     {  
       output[j] = 0;
     }
-    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, output, num_categories * 50); //count 50-words
+    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, 
+                        output, num_categories * 50);                          //count 50-words
     for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
     {
       if(j+1 == num_categories * 50)                                           // if last word print new line
-        fprintf(docs_data, "%d, %c\n", output[j], file_names_array[file_names_index[i]][strlen(input[0])]);
+        fprintf(docs_data, "%d, %c\n", output[j], 
+                  file_names_array[file_names_index[i]][strlen(input[0])]);
       else fprintf(docs_data, "%d, ", output[j]);
     }
   }
 
   printf("done counting 50-words\n");
   printf("running decision tree\n"); 
-  char *dnf_file =  interpreter("./50_words/", "docs");                        // run interpreter on decision tree output
+  char *dnf_file =  interpreter("./output/", "docs");                        // run interpreter on decision tree output
   printf("decision tree finished\n");
 
   printf("building input layer\n");
@@ -166,6 +169,14 @@ int main(int argc, char *argv[])
   for(int i = 0; i < num_literals; i++)                                        // print literal layer tags
   {
     printf("%s\n", literal_layer[i].tag);
+  }
+  for(int i = 0; i < num_categories*50; i++)
+  {
+    input_layer[i].weights = malloc(sizeof(float)*num_literals);
+    for(int j = 0; j < num_literals; j++)
+    {
+      input_layer[i].weights[j] = 0;
+    }
   }
 
   printf("\nbuilding conjunctive layer\n");
@@ -185,6 +196,13 @@ int main(int argc, char *argv[])
   }
 
   fclose(docs_data);
+  printf("setting weights and biases from input to literal layer\n");
+  set_wb_input_to_literal(input_layer, num_categories * 50, literal_layer, num_literals);
+  for(int i = 0; i < num_literals; i++)
+    printf("%s bias %f\n", literal_layer[i].tag, literal_layer[i].bias);
+  for(int i = 0; i < num_categories*50; i++)
+    for(int j = 0; j < num_literals; j++)
+      printf("%s -%f-> %s\n", input_layer[i].tag, input_layer[i].weights[j], literal_layer[j].tag);
 
   return 0;
 }

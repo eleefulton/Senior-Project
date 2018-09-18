@@ -72,7 +72,7 @@ int build_files(int unique_words, int num_categories, char *categories[], Word f
     printf("combined_50 failed to open\n");
     return -1;
   }
-  FILE *docs_names = fopen("./50_words/docs.names", "w+");
+  FILE *docs_names = fopen("./output/docs.names", "w+");
   if(docs_names == NULL)
   {
     printf("docs_names failed to open\n");
