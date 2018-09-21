@@ -141,11 +141,11 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
       FILE *fp;                                                                // pointer to file to open
       for(int j = 0; j < num_categories; j++)
       {
-        if(file_names_array[i][strlen(directory)] == categories[j][0])
+        if(file_names_array[i][strlen(directory)] == categories[j][0])         // check what category we're in
           category = j;
       }
 
-      fp = fopen(file_names_array[i], "r");                  // load file
+      fp = fopen(file_names_array[i], "r");                                    // load file
 
       if(fp == NULL)                                                           // check file opened properly
       {
@@ -175,6 +175,11 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
       category_lengths[category] = category_lengths[category] + current_file_length;// record length of this file (words)
       current_file_length = 0;                                                 // reset current_file_length
     }
+  }
+  if(unique_words < 50)
+  {
+    printf("not enough unique words\n");
+    return -2;
   }
 
   for(int i = 0; i < num_categories; i++)                                      // compute term frequency per category

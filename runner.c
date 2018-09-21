@@ -65,19 +65,24 @@ int main(int argc, char *argv[])
   printf("\npopulation size = %d\n", population_size);
   printf("sample size = %d\n", sample_size);
   printf("training size = %d\n\n", training_size);
+  char *file_names_name = malloc(sizeof(char)*MAX_LENGTH);
+  file_names_name[0] = '\0';
+  strncat(file_names_name, input[0], strlen(input[0]));
+  strncat(file_names_name, "file_names.txt", strlen("file_names.txt"));
 
-  printf("opening file_names.txt\n");                                          // open file that contains all bbc dataset file names
-  FILE *file_names_file = fopen("./bbc_files/file_names.txt", "r");
+  FILE *file_names_file = fopen(file_names_name, "r");
   if(file_names_file == NULL)
   {
     printf("failed to open file_names.txt\n");
     return -1;
   }
+  printf("reading file names\n");
   for(int i = 0; i < population_size; i++)                                     // allocate space in file_names_array and read name
   {
     file_names_array[i] = malloc(sizeof(char)*MAX_LENGTH);
     file_names_index[i] = i;                                                   // initalize file_names_index array
     fscanf(file_names_file, "%s", file_names_array[i]);
+    printf("%s\n", file_names_array[i]);
   }
   fclose(file_names_file);
 
@@ -101,7 +106,7 @@ int main(int argc, char *argv[])
   if(tfidf(num_categories, categories, input[0], file_names_array, 
       file_names_index, training_size, population_size) < 0)                   // compute tfidf
   {
-    printf("tfidf failed\n");
+    printf("tfidf failed to open a file\n");
     return -1;
   }
   printf("tfidf complete\n");
@@ -158,22 +163,22 @@ int main(int argc, char *argv[])
   rewind(docs_data);                                                           // rewind to beginning of docs file
   Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
   initialize_input_layer(fifty_words, input_layer, num_categories * 50);        // initialize input for first file
-  for(int i = 0; i < num_categories * 50; i++)                                 // print input layer tags
+/*  for(int i = 0; i < num_categories * 50; i++)                                 // print input layer tags
   {
     printf("%s\n", input_layer[i].tag);
   }
-
+*/
   printf("\nbuilding literal layer\n");
   Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
   int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
-  for(int i = 0; i < num_literals; i++)                                        // print literal layer tags
+/*  for(int i = 0; i < num_literals; i++)                                        // print literal layer tags
   {
     printf("%s\n", literal_layer[i].tag);
-  }
-  for(int i = 0; i < num_categories*50; i++)
+  }*/
+  for(int i = 0; i < num_categories*50; i++)                                   // allocate weights in input layer to num literals
   {
     input_layer[i].weights = malloc(sizeof(float)*num_literals);
-    for(int j = 0; j < num_literals; j++)
+    for(int j = 0; j < num_literals; j++)                                      // initialize all weights to 0
     {
       input_layer[i].weights[j] = 0;
     }
@@ -182,27 +187,35 @@ int main(int argc, char *argv[])
   printf("\nbuilding conjunctive layer\n");
   Node *conjunctive_layer = malloc(sizeof(Node)*MAX_CONJUNCTS);                // create an array of Nodes for the conjunctive layer
   int num_conjuncts = initialize_conjunctive_layer(dnf_file, conjunctive_layer);// initialize the conjunctive layer
-  for(int i = 0; i < num_conjuncts; i++)                                       // print conjunctive layer tags
+  for(int i = 0; i < num_literals; i++)                                        // allocate weights in literal layer to num conjuncts
   {
-    printf("%s\n", conjunctive_layer[i].tag);
+    literal_layer[i].weights = malloc(sizeof(float)*num_conjuncts);
+    for(int j = 0; j < num_conjuncts; j++)                                      // initialize all weights to 0
+    {
+      literal_layer[i].weights[j] = 0;
+    }
   }
 
   printf("\nbuilding output layer\n");
   Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
-  for(int i = 0; i < num_categories; i++)                                      // print output layer tags
-  {
-    printf("%s\n", output_layer[i].tag);
-  }
 
   fclose(docs_data);
   printf("setting weights and biases from input to literal layer\n");
-  set_wb_input_to_literal(input_layer, num_categories * 50, literal_layer, num_literals);
-  for(int i = 0; i < num_literals; i++)
-    printf("%s bias %f\n", literal_layer[i].tag, literal_layer[i].bias);
+  set_wb_input_to_literal(input_layer, num_categories * 50, 
+                            literal_layer, num_literals);                      // set weights and biases between input and literal layer
   for(int i = 0; i < num_categories*50; i++)
     for(int j = 0; j < num_literals; j++)
-      printf("%s -%f-> %s\n", input_layer[i].tag, input_layer[i].weights[j], literal_layer[j].tag);
+      printf("%s -%f-> %s bias %f\n", input_layer[i].tag,                      // print input-weight->literal and bias
+               input_layer[i].weights[j], literal_layer[j].tag, literal_layer[j].bias);
+
+  printf("setting weights and biases from literal layer to conjunctive layer\n");
+  set_wb_literal_to_conjunctive(literal_layer, num_literals, 
+                            conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
+  for(int i = 0; i < num_literals; i++)
+    for(int j = 0; j < num_conjuncts; j++)
+      printf("%s -%f-> %s bias %f\n", literal_layer[i].tag,                      // print input-weight->literal and bias
+               literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
 
   return 0;
 }

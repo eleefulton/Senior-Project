@@ -44,6 +44,9 @@ The program takes a .input file from the command line formatted in the following
 Files in the data directory must be formatted in the following manner:
   prefix of category followed by the file's number with leading zeros.
   Example: the first file in the 'Business' category woud be 'b001.txt'.
+In addition to the data files, a file_names.txt file must exist in the same directory 
+containing each file's name starting with it's directory
+  Example of contents of file_names.txt: './bbc_files/b001.txt'
 
 Example Input File:
 ```

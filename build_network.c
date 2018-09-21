@@ -190,10 +190,35 @@ void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_lay
       }
       else                                                                     // set any other weight to +/- BETA
       {
-        int random = rand() % 10;                                              // use an equal probablility for +/-
-        if(random <= 4)
-          input_layer[i].weights[j] = BETA;
-        else input_layer[i].weights[j] = 0-BETA;
+        int random = rand() % 10;                                              // use an equal probablility for +/-      
+        input_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
+      }
+    }
+  }
+}
+
+void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *conjunctive_layer, int num_conjuncts)
+{
+  srand(time(NULL));
+  for(int i = 0; i < num_literals; i++)
+  {
+    for(int j = 0; j < num_conjuncts; j++)
+    {
+      int relatives = 0;
+      for(int k = 0; k < strlen(conjunctive_layer[j].tag); k++)
+      {
+        if(conjunctive_layer[j].tag[k] == '|')
+          relatives++;
+      }
+      if(strlen(literal_layer[i].tag) < strlen(conjunctive_layer[j].tag) &&    // literal is in conjunct
+         strstr(conjunctive_layer[j].tag, literal_layer[i].tag) != NULL)
+      {
+        literal_layer[i].weights[j] = ALPHA;
+      }
+      else
+      {
+        int random = rand() % 10;
+        literal_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
       }
     }
   }
