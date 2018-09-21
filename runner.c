@@ -195,11 +195,18 @@ int main(int argc, char *argv[])
       literal_layer[i].weights[j] = 0;
     }
   }
+  for(int i = 0; i < num_conjuncts; i++)                                        // allocate weights in conjunctive layer to num categories
+  {
+    conjunctive_layer[i].weights = malloc(sizeof(float)*num_categories);
+    for(int j = 0; j < num_categories; j++)                                     // initialize all weights to 0
+    {
+      literal_layer[i].weights[j] = 0;
+    }
+  }
 
   printf("\nbuilding output layer\n");
   Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
-
   fclose(docs_data);
   printf("setting weights and biases from input to literal layer\n");
   set_wb_input_to_literal(input_layer, num_categories * 50, 

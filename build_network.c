@@ -197,6 +197,11 @@ void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_lay
   }
 }
 
+/*
+  set all weights from literal to conjunct to 5 if literal is in conjunct
+  set all biases for conjunt nodes to (-ALPHA * (2n-1))/2 where n is the  number
+  of literals that connect to that conjunct
+*/
 void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *conjunctive_layer, int num_conjuncts)
 {
   srand(time(NULL));
@@ -204,13 +209,14 @@ void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *
   {
     for(int j = 0; j < num_conjuncts; j++)
     {
-      int relatives = 0;
-      for(int k = 0; k < strlen(conjunctive_layer[j].tag); k++)
+      float connections = 1;
+      for(int k = 0; k <strlen(conjunctive_layer[j].tag); k++)
       {
-        if(conjunctive_layer[j].tag[k] == '|')
-          relatives++;
+        if(conjunctive_layer[j].tag[k] == '&')
+          connections++;
       }
-      if(strlen(literal_layer[i].tag) < strlen(conjunctive_layer[j].tag) &&    // literal is in conjunct
+      conjunctive_layer[j].bias = (float)(((0-ALPHA)*(2*connections-1))/2);
+      if(strlen(literal_layer[i].tag) < strlen(conjunctive_layer[j].tag) &&    // if literal is in conjunct
          strstr(conjunctive_layer[j].tag, literal_layer[i].tag) != NULL)
       {
         literal_layer[i].weights[j] = ALPHA;
