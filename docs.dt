@@ -1,43 +1,39 @@
 
-C4.5 [release 8] decision tree generator	Fri Sep 21 17:38:34 2018
+C4.5 [release 8] decision tree generator	Fri Sep 21 17:51:52 2018
 ----------------------------------------
 
     Options:
 	File stem <./output/docs>
 
-ERROR:  case 50's class of '0' is illegal
+ERROR:  case 49's class of '0' is illegal
 
-Read 50 cases (250 attributes) from ./output/docs.data
+Read 49 cases (250 attributes) from ./output/docs.data
 
 Decision Tree:
 
-via > 0 : t (3.0)
-via <= 0 :
-|   allows > 0 : t (2.0)
-|   allows <= 0 :
-|   |   game > 0 : s (5.0)
-|   |   game <= 0 :
-|   |   |   doping > 0 : s (2.0)
-|   |   |   doping <= 0 :
-|   |   |   |   promised > 0 : p (4.0)
-|   |   |   |   promised <= 0 :
-|   |   |   |   |   parties > 0 : p (3.0)
-|   |   |   |   |   parties <= 0 :
-|   |   |   |   |   |   charles > 0 : e (2.0/1.0)
-|   |   |   |   |   |   charles <= 0 :
-|   |   |   |   |   |   |   got > 0 : e (5.0)
-|   |   |   |   |   |   |   got <= 0 :
-|   |   |   |   |   |   |   |   show <= 0 : b (22.0/3.0)
-|   |   |   |   |   |   |   |   show > 0 : e (2.0)
+chart > 0 : e (5.0)
+chart <= 0 :
+|   people <= 0 :
+|   |   criminally > 0 : p (2.0)
+|   |   criminally <= 0 :
+|   |   |   company > 0 : b (8.0/1.0)
+|   |   |   company <= 0 :
+|   |   |   |   prices <= 1 : s (14.0/1.0)
+|   |   |   |   prices > 1 : b (2.0)
+|   people > 0 :
+|   |   concern > 0 : p (3.0)
+|   |   concern <= 0 :
+|   |   |   election <= 0 : t (13.0/1.0)
+|   |   |   election > 0 : p (2.0)
 
 
 Tree saved
 
 
-Evaluation on training data (50 items):
+Evaluation on training data (49 items):
 
 	 Before Pruning           After Pruning
 	----------------   ---------------------------
 	Size      Errors   Size      Errors   Estimate
 
-	  19    4( 8.0%)     19    4( 8.0%)    (30.9%)   <<
+	  15    3( 6.1%)     15    3( 6.1%)    (25.9%)   <<

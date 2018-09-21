@@ -205,27 +205,54 @@ void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_lay
 void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *conjunctive_layer, int num_conjuncts)
 {
   srand(time(NULL));
-  for(int i = 0; i < num_literals; i++)
+  for(int i = 0; i < num_literals; i++)                                        // for all nodes in literal layer
   {
-    for(int j = 0; j < num_conjuncts; j++)
+    for(int j = 0; j < num_conjuncts; j++)                                     // for all weights from this node to all nodes in conjunctive layer
     {
-      float connections = 1;
+      float connections = 1;                                                   // count how many literals this conjunct should connect to
       for(int k = 0; k <strlen(conjunctive_layer[j].tag); k++)
       {
         if(conjunctive_layer[j].tag[k] == '&')
           connections++;
       }
-      conjunctive_layer[j].bias = (float)(((0-ALPHA)*(2*connections-1))/2);
-      if(strlen(literal_layer[i].tag) < strlen(conjunctive_layer[j].tag) &&    // if literal is in conjunct
+      conjunctive_layer[j].bias = (float)(((0-ALPHA)*(2*connections-1))/2);    // set bias for this conjunct
+      if(strlen(literal_layer[i].tag) < strlen(conjunctive_layer[j].tag) &&    // if literal is in this conjunct
          strstr(conjunctive_layer[j].tag, literal_layer[i].tag) != NULL)
       {
-        literal_layer[i].weights[j] = ALPHA;
+        literal_layer[i].weights[j] = ALPHA;                                   // set weight to ALPHA
       }
-      else
+      else                                                                     // otherwise set to +/- BETA
       {
         int random = rand() % 10;
         literal_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
       }
+    }
+  }
+}
+
+/*
+  set weights from conjunctive layer node to output layer node (if
+  that conjunct produces that output) to ALPHA
+  set biases of output nodes to -ALPHA * 0.5
+*/
+void set_wb_conjunctive_to_output(Node *conjunctive_layer, int num_conjuncts, Node *output_layer, int num_categories)
+{
+  srand(time(NULL));
+  for(int i = 0; i < num_conjuncts; i++)                                       // for all nodes in conjunctive layer
+  {
+    for(int j = 0; j < num_categories; j++)                                    // set all weights from this conjunct node to all output nodes
+    {
+      if(conjunctive_layer[i].tag[strlen(conjunctive_layer[i].tag)-1]          // if this conjunct leads to this output
+           == output_layer[j].tag[0])
+      {
+        conjunctive_layer[i].weights[j] = ALPHA;                                // set weight to ALPHA
+      }
+      else                                                                     // otherwise set weight to +/- BETA
+      {
+        int random = rand() % 10;
+        conjunctive_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
+      }
+      output_layer[j].bias = (float)(0-ALPHA)/(float)2;                        // set bias for this output node to -ALPHA / 2
     }
   }
 }

@@ -224,5 +224,10 @@ int main(int argc, char *argv[])
       printf("%s -%f-> %s bias %f\n", literal_layer[i].tag,                      // print input-weight->literal and bias
                literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
 
+  set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
+  for(int i = 0; i < num_conjuncts; i++)
+    for(int j = 0; j < num_categories; j++)
+      printf("%s -%f-> %s bias %f\n", conjunctive_layer[i].tag,                      // print input-weight->literal and bias
+               conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
   return 0;
 }

@@ -1,2 +1,2 @@
-got > 0 e | show > 0 e | promised > 0 p | parties > 0 p | game > 0 & allows <= 0 s | doping > 0 s | allows > 0 t | via > 0 t | show <= 0 & got <= 0 & charles <= 0 & parties <= 0 & promised <= 0 & doping <= 0 & game <= 0 & via <= 0 & allows <= 0 b 
+chart > 0 e | election > 0 p | concern > 0 p | criminally > 0 p | company > 0 & people <= 0 b | prices > 1 b | company <= 0 & prices <= 1 & chart <= 0 & people <= 0 & criminally <= 0 s | chart <= 0 & people > 0 & election <= 0 & concern <= 0 t 
  
