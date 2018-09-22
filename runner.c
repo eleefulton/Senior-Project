@@ -82,7 +82,6 @@ int main(int argc, char *argv[])
     file_names_array[i] = malloc(sizeof(char)*MAX_LENGTH);
     file_names_index[i] = i;                                                   // initalize file_names_index array
     fscanf(file_names_file, "%s", file_names_array[i]);
-    printf("%s\n", file_names_array[i]);
   }
   fclose(file_names_file);
 
@@ -163,18 +162,10 @@ int main(int argc, char *argv[])
   rewind(docs_data);                                                           // rewind to beginning of docs file
   Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
   initialize_input_layer(fifty_words, input_layer, num_categories * 50);        // initialize input for first file
-/*  for(int i = 0; i < num_categories * 50; i++)                                 // print input layer tags
-  {
-    printf("%s\n", input_layer[i].tag);
-  }
-*/
-  printf("\nbuilding literal layer\n");
+  printf("building literal layer: \n");
   Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
   int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
-/*  for(int i = 0; i < num_literals; i++)                                        // print literal layer tags
-  {
-    printf("%s\n", literal_layer[i].tag);
-  }*/
+  printf("num literals = %d\n", num_literals);
   for(int i = 0; i < num_categories*50; i++)                                   // allocate weights in input layer to num literals
   {
     input_layer[i].weights = malloc(sizeof(float)*num_literals);
@@ -183,10 +174,10 @@ int main(int argc, char *argv[])
       input_layer[i].weights[j] = 0;
     }
   }
-
-  printf("\nbuilding conjunctive layer\n");
+  printf("building conjunctive layer: \n");
   Node *conjunctive_layer = malloc(sizeof(Node)*MAX_CONJUNCTS);                // create an array of Nodes for the conjunctive layer
   int num_conjuncts = initialize_conjunctive_layer(dnf_file, conjunctive_layer);// initialize the conjunctive layer
+  printf("num conjuncts = %d\n", num_conjuncts);
   for(int i = 0; i < num_literals; i++)                                        // allocate weights in literal layer to num conjuncts
   {
     literal_layer[i].weights = malloc(sizeof(float)*num_conjuncts);
@@ -203,8 +194,7 @@ int main(int argc, char *argv[])
       literal_layer[i].weights[j] = 0;
     }
   }
-
-  printf("\nbuilding output layer\n");
+  printf("building output layer\n");
   Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
   fclose(docs_data);
@@ -224,6 +214,7 @@ int main(int argc, char *argv[])
       printf("%s -%f-> %s bias %f\n", literal_layer[i].tag,                      // print input-weight->literal and bias
                literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
 
+  printf("setting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
   for(int i = 0; i < num_conjuncts; i++)
     for(int j = 0; j < num_categories; j++)

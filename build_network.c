@@ -66,9 +66,9 @@ int initialize_literal_layer(char *file_name, Node *literal_layer)
   int index = 0;                                                               // index of location in literal string
   int num_literals = 0;
   char c = fgetc(dnf_file);                                                    // read first char in file
-  while(!feof(dnf_file))                                                       // loop until end of dnf file
+  while(c != EOF)                                                       // loop until end of dnf file
   {
-    if(c == '|' || c == '&')                                                   // if c == | or & it's the end of literal
+    if(c == '|' || c == '&')                                      // if c == | or & it's the end of literal
     {
       if(c == '|')                                                             // if c == | move index back one to remove category tag
         index--;
@@ -87,6 +87,9 @@ int initialize_literal_layer(char *file_name, Node *literal_layer)
     }
     c = fgetc(dnf_file);                                                       // get next char
   }
+  literal[index-2] = '\0';
+  strncpy(literals[num_literals], literal, strlen(literal));
+  num_literals++;
   fclose(dnf_file);                                                            // close dnf file
 
   for(int i = 0; i < num_literals; i++)                                        // move literals from string array to Nodes tags
@@ -121,23 +124,33 @@ int initialize_conjunctive_layer(char * file_name, Node *conjunctive_layer)
     }
   }
   
-  char *string;                                                                // string for fscanf to store part of conjunct in temporarily
-  char *conjunct = malloc(sizeof(char)*MAX_LENGTH*MAX_CONJUNCTS);              // string to hold conjunct
+  char conjunct[MAX_LENGTH];                                                    // string to hold parsed literal
+  conjunct[0] = '\0';                                                           // initalize beginning of literal to null
+  int index = 0;                                                               // index of location in literal string
   int num_conjuncts = 0;
-  while(!feof(dnf_file))                                                       // loop until end of dnf file
+  char c = fgetc(dnf_file);                                                    // read first char in file
+  while(c != EOF)                                                       // loop until end of dnf file
   {
-    fscanf(dnf_file, "%s", string);                                            // scan in string
-    if(strncmp(string, "|", 1))                                                // if string does not equal "|"
+    if(c == '|')                                      // if c == | or & it's the end of literal
     {
-      strncat(conjunct, string, strlen(string));                               // concatenate string to conjunct string
+      conjunct[index] = '\0';                                                   // terminate literal string with null char
+      index = 0;                                                               // reset index to zero
+      if(!in_layer_list(conjunct, conjuncts, num_conjuncts))                      // check if this literal is already in the array of found literals
+      {
+        strncpy(conjuncts[num_conjuncts], conjunct, strlen(conjunct));             // if it's not alreay found copy literal string to array
+        num_conjuncts++;                                                        // increase number of literals found
+      }
     }
-    else                                                                       // if string does equal "|"
+    else if(c != ' ')                                                          // otherwise if c != ' '
     {
-      strncpy(conjuncts[num_conjuncts], conjunct, strlen(conjunct));           // copy conjunct to array of found conjuncts
-      num_conjuncts++;                                                         // increase number of found conjuncts
-      strncpy(conjunct, "\0", 1);                                              // reset conjunct to empty
+      conjunct[index] = c;                                                      // add char to string
+      index++;                                                                 // increment index
     }
+    c = fgetc(dnf_file);                                                       // get next char
   }
+  conjunct[index-1] = '\0';
+  strncpy(conjuncts[num_conjuncts], conjunct, strlen(conjunct));
+  num_conjuncts++;
   fclose(dnf_file);                                                            // close dnf file
 
   for(int i = 0; i < num_conjuncts; i++)                                       // copy conjuncts from string array to Nodes tags

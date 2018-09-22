@@ -1,2 +1,1 @@
-chart > 0 e | election > 0 p | concern > 0 p | criminally > 0 p | company > 0 & people <= 0 b | prices > 1 b | company <= 0 & prices <= 1 & chart <= 0 & people <= 0 & criminally <= 0 s | chart <= 0 & people > 0 & election <= 0 & concern <= 0 t 
- 
+
