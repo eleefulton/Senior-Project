@@ -1,24 +1,24 @@
 
-C4.5 [release 8] decision tree generator	Mon Sep 24 17:32:42 2018
+C4.5 [release 8] decision tree generator	Mon Sep 24 17:49:47 2018
 ----------------------------------------
 
     Options:
 	File stem <./output/docs>
 
-ERROR:  case 17's class of '0' is illegal
+ERROR:  case 17's class of '2' is illegal
 
 Read 17 cases (250 attributes) from ./output/docs.data
 
 Decision Tree:
 
-film > 0 : e (2.0)
-film <= 0 :
-|   minister > 0 : p (3.0)
-|   minister <= 0 :
-|   |   his > 0 : s (3.0)
-|   |   his <= 0 :
-|   |   |   france <= 0 : b (7.0/1.0)
-|   |   |   france > 0 : t (2.0)
+title > 0 : e (2.0/1.0)
+title <= 0 :
+|   government <= 0 :
+|   |   range <= 0 : s (5.0)
+|   |   range > 0 : b (2.0/1.0)
+|   government > 0 :
+|   |   package <= 0 : p (6.0)
+|   |   package > 0 : b (2.0)
 
 
 Tree saved
@@ -30,4 +30,4 @@ Evaluation on training data (17 items):
 	----------------   ---------------------------
 	Size      Errors   Size      Errors   Estimate
 
-	   9    1( 5.9%)      9    1( 5.9%)    (38.7%)   <<
+	   9    2(11.8%)      9    2(11.8%)    (41.4%)   <<

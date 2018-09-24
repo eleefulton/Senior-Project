@@ -58,10 +58,22 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  int sum = 0;
   for(int i = 0, c = 5; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
   {
     categories[i] = input[c];
     category_docs[i] = atoi(input[c+1]);
+    sum += category_docs[i];
+  }
+  if(sum != population_size)
+  {
+    printf("population size does not match given number of files\n");
+    return -1;
+  }
+  if(population_size < num_categories || sample_size < num_categories || training_size < num_categories)
+  {
+    printf("too few files to cover all categories\n");
+    return -1;
   }
 
   printf("\npopulation size = %d\n", population_size);

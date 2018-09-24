@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -lm
-DEPS = tfidf.h build_file_name.h parse_file.h randomize.h count_50_words.h interpreter.h build_network.h runner.h
-OBJ = runner.o tfidf.o build_file_name.o parse_file.o randomize.o count_50_words.o interpreter.o build_network.o
+DEPS = ./src/tfidf.h ./src/build_file_name.h ./src/parse_file.h ./src/randomize.h ./src/count_50_words.h ./src/interpreter.h ./src/build_network.h ./src/runner.h
+OBJ = ./src/runner.o ./src/tfidf.o ./src/build_file_name.o ./src/parse_file.o ./src/randomize.o ./src/count_50_words.o ./src/interpreter.o ./src/build_network.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

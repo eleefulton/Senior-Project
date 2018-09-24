@@ -1,2 +1,2 @@
-film > 0 e | minister > 0 p | film <= 0 & his > 0 s 
+package > 0 b | package <= 0 & government > 0 p | government <= 0 & title <= 0 & range <= 0 s 
  

@@ -1,11 +1,11 @@
 
-C4.5 [release 8] rule generator	Mon Sep 24 17:32:42 2018
+C4.5 [release 8] rule generator	Mon Sep 24 17:49:47 2018
 -------------------------------
 
     Options:
 	File stem <./output/docs>
 
-ERROR:  case 17's class of '0' is illegal
+ERROR:  case 17's class of '2' is illegal
 
 Read 17 cases (250 attributes) from ./output/docs
 
@@ -14,38 +14,40 @@ Processing tree 0
 
 Final rules from tree 0:
 
-Rule 5:
-    	film > 0
-	->  class e  [50.0%]
-
-Rule 4:
-    	minister > 0
-	->  class p  [63.0%]
-
 Rule 3:
-    	film <= 0
-    	his > 0
-	->  class s  [63.0%]
+    	package > 0
+	->  class b  [50.0%]
 
-Default class: b
+Rule 2:
+    	package <= 0
+    	government > 0
+	->  class p  [79.4%]
+
+Rule 1:
+    	government <= 0
+    	title <= 0
+    	range <= 0
+	->  class s  [75.8%]
+
+Default class: t
 
 
 Evaluation on training data (17 items):
 
 Rule  Size  Error  Used  Wrong	          Advantage
 ----  ----  -----  ----  -----	          ---------
-   5     1  50.0%     2      0 (0.0%)	     2 (2|0) 	e
-   4     1  37.0%     3      0 (0.0%)	     3 (3|0) 	p
-   3     2  37.0%     3      0 (0.0%)	     3 (3|0) 	s
+   3     1  50.0%     2      0 (0.0%)	     2 (2|0) 	b
+   2     2  20.6%     6      0 (0.0%)	     6 (6|0) 	p
+   1     3  24.2%     5      0 (0.0%)	     5 (5|0) 	s
 
-Tested 17, errors 3 (17.6%)   <<
+Tested 17, errors 2 (11.8%)   <<
 
 
 	  (a)  (b)  (c)  (d)  (e)	<-classified as
 	 ---- ---- ---- ---- ----
-	    6                    	(a): class b
-	         2               	(b): class e
-	              3          	(c): class p
-	                   3     	(d): class s
-	    3                    	(e): class t
+	    2                   1	(a): class b
+	                        1	(b): class e
+	              6          	(c): class p
+	                   5     	(d): class s
+	                        2	(e): class t
 
