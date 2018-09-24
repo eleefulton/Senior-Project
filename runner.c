@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
   char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
   char *file_names_array[population_size];                                     // array to store file names
   int file_names_index[population_size];                                       // array to store a shuffled index of file names
+  int input_values[training_size][num_categories*50];
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -145,12 +146,13 @@ int main(int argc, char *argv[])
     }
     count_fifty_words(file_names_array[file_names_index[i]], fifty_words, 
                         output, num_categories * 50);                          //count 50-words
-    for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
+    for(int j = 0; j < num_categories * 50; j++)                                       // print count output to .data file
     {
       if(j+1 == num_categories * 50)                                           // if last word print new line
         fprintf(docs_data, "%d, %c\n", output[j], 
                   file_names_array[file_names_index[i]][strlen(input[0])]);
       else fprintf(docs_data, "%d, ", output[j]);
+      input_values[i][j] = output[j];
     }
   }
 
@@ -160,12 +162,12 @@ int main(int argc, char *argv[])
   if(!strncmp(dnf_file, "FAILED", 6))
     return -1;
   printf("decision tree finished\n");
-  
 
   printf("building input layer\n");
   rewind(docs_data);                                                           // rewind to beginning of docs file
   Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
   initialize_input_layer(fifty_words, input_layer, num_categories * 50);       // initialize input for first file
+
   printf("building literal layer: \n");
   Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
   int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
@@ -222,8 +224,19 @@ int main(int argc, char *argv[])
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
   for(int i = 0; i < num_conjuncts; i++)
     for(int j = 0; j < num_categories; j++)
-      printf("%s -%f-> %s bias %f\n", conjunctive_layer[i].tag,                      // print input-weight->literal and bias
+      printf("%s -%f-> %s bias %f\n", conjunctive_layer[i].tag,                // print input-weight->literal and bias
                conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
+
+
+  for(int i = 0; i < training_size; i++)                                       // for all files in training set
+  {
+    for(int j = 0; j < num_categories * 50; j++)                               // set input value for each word count for this doc
+    {
+      input_layer[i].value = input_values[i][j];
+    }
+    // run NNIDT
+  }
+
   return 0;
 }
 
@@ -240,6 +253,10 @@ int in_string_list(char* string, char *list[], int n)
   return 0;
 }
 
+/*
+  verify that randomization of files resulted in at least one
+  file from every category in the training set
+*/
 int verify_randomization(char **input, char **file_names_array, int *file_names_index, int num_categories, int training_size)
 {
   char check_cats[num_categories];
