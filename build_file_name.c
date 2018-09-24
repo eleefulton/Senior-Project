@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "runner.h"
 
 
 // build file name in form "000.txt" for n

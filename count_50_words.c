@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "parse_file.h"
+#include "runner.h"
 
 /*
   check if the given word is in the given array of 50-words

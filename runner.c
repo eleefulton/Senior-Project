@@ -3,12 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
-#include "parse_file.h"
-#include "tfidf.h"
-#include "randomize.h"
-#include "count_50_words.h"
-#include "interpreter.h"
-#include "build_network.h"
+#include "runner.h"
 
 int main(int argc, char *argv[])
 {
@@ -62,6 +57,12 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  for(int i = 0, c = 5; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
+  {
+    categories[i] = input[c];
+    category_docs[i] = atoi(input[c+1]);
+  }
+
   printf("\npopulation size = %d\n", population_size);
   printf("sample size = %d\n", sample_size);
   printf("training size = %d\n\n", training_size);
@@ -85,16 +86,13 @@ int main(int argc, char *argv[])
   }
   fclose(file_names_file);
 
-  printf("randomizing file_names_array\n");
-  randomize(file_names_index, population_size);
+  printf("randomizing file names index array\n");
+  randomize(file_names_index, population_size);                                // randomize file names index array
 
-  for(int i = 0, c = 5; i < num_categories; i++, c+=2)                         // get category names and number of docs in each
-  {
-    categories[i] = input[c];
-    category_docs[i] = atoi(input[c+1]);
-  }
-
-
+  if(!verify_randomization(input, file_names_array, file_names_index,          // verify randomization hit all categories
+       num_categories, training_size))
+    return -1;
+  
   for(int i = 0; i < num_categories * 50; i++)
   {
     fifty_words[i] = malloc(sizeof(char) * MAX_LENGTH);                        // allocate fifty_words array;
@@ -128,7 +126,7 @@ int main(int argc, char *argv[])
   fclose(combined_file);                                                       // close combined file
 
   printf("counting 50-words\n");
-  FILE *docs_data = fopen("./output/docs.data", "w+");                       // open .data file
+  FILE *docs_data = fopen("./output/docs.data", "w+");                         // open .data file
   if(docs_data == NULL)                                                        // check .data file opened correctly
   {
     printf("failed to open docs.data\n");
@@ -155,13 +153,16 @@ int main(int argc, char *argv[])
 
   printf("done counting 50-words\n");
   printf("running decision tree\n"); 
-  char *dnf_file =  interpreter("./output/", "docs");                        // run interpreter on decision tree output
+  char *dnf_file = interpreter("./output/", "docs");                           // run interpreter on decision tree output
+  if(!strncmp(dnf_file, "FAILED", 6))
+    return -1;
   printf("decision tree finished\n");
+  
 
   printf("building input layer\n");
   rewind(docs_data);                                                           // rewind to beginning of docs file
   Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
-  initialize_input_layer(fifty_words, input_layer, num_categories * 50);        // initialize input for first file
+  initialize_input_layer(fifty_words, input_layer, num_categories * 50);       // initialize input for first file
   printf("building literal layer: \n");
   Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
   int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
@@ -221,4 +222,43 @@ int main(int argc, char *argv[])
       printf("%s -%f-> %s bias %f\n", conjunctive_layer[i].tag,                      // print input-weight->literal and bias
                conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
   return 0;
+}
+
+/*
+  check the given list of size n for the given string
+*/
+int in_string_list(char* string, char *list[], int n)
+{
+  for(int i = 0; i < n; i++)
+  {
+    if(strncmp(string, list[i], MAX_LENGTH) == 0)
+      return 1;
+  }
+  return 0;
+}
+
+int verify_randomization(char **input, char **file_names_array, int *file_names_index, int num_categories, int training_size)
+{
+  char check_cats[num_categories];
+  int counted_cats = 0;
+  for(int i = 0; i < training_size; i++)
+  {
+    char temp = file_names_array[file_names_index[i]][strlen(input[0])];
+    int already_found = 0;
+    for(int j = 0; j < counted_cats; j++)
+    {
+      if(temp == check_cats[j])
+        already_found = 1;
+    }
+    if(!already_found)
+    {
+      check_cats[counted_cats] = temp;
+      counted_cats++;
+    }
+  }
+  if(counted_cats != num_categories)
+  {
+    printf("randomization failed to capture all categories\n");
+    return 0;
+  }
 }

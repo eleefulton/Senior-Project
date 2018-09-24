@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "parse_file.h"
+#include "runner.h"
 
 #define STR_LEN 50
 

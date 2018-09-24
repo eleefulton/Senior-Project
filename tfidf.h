@@ -1,24 +1,19 @@
-#define NUM_FILES 1
-#define MAX_FILES 999
-#define MAX_WORDS 100000
-#define MAX_CATEGORIES 5
-#define MAX_LENGTH 50
 
 typedef struct{
-  char string[MAX_LENGTH];
-  int count[MAX_CATEGORIES];
-  float tf[MAX_CATEGORIES];
+  char *string;
+  int *count;
+  float *tf;
   float idf;
-  float tfidf[MAX_CATEGORIES];
+  float *tfidf;
 }Word;
 
 typedef struct{
-  char string[MAX_LENGTH];
+  char *string;
   float tfidf;
 }Simple_Word;
 
 int is_in_training(int n, int arr[], int m);
-int in_list(Word found_words[], char *string, int num_words);
+int in_Word_list(Word found_words[], char *string, int num_words);
 int compar(const void *p, const void *q);
 int tfidf(int num_categories, char *categories[], char *directory, char *file_names_array[], int file_names_index[], int training_size, int population_size);
 int build_files(int unique_words, int num_categories, char *categories[], Word found_words[]);

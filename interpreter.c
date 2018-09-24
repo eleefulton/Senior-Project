@@ -10,8 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "interpreter.h"
-#include "tfidf.h"
+#include "runner.h"
 
 char* interpreter(char *path, char *name)
 {
@@ -94,6 +93,15 @@ char* interpreter(char *path, char *name)
   fseek(rules_condensed, -2L, SEEK_CUR);
   fprintf(rules_condensed, "\n");
   fclose(rules_file);
+  fseek(rules_condensed, 0, SEEK_END);
+
+  int size = ftell(rules_condensed);                                           // check that there are rules int the dnf file
+  if(size < 3)                                                                 // if less than min length for a literal file is empty
+  {
+    printf("dnf file empty\n");
+    fclose(rules_condensed);
+    return "FAILED";                                                           // decision tree failed to build rules
+  }
   fclose(rules_condensed);
-  return rules_condensed_name;
+  return rules_condensed_name;                                                 // if successful return dnf file name
 }

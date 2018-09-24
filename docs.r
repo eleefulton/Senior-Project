@@ -1,33 +1,35 @@
 
-C4.5 [release 8] rule generator	Sat Sep 22 17:18:37 2018
+C4.5 [release 8] rule generator	Sun Sep 23 22:24:27 2018
 -------------------------------
 
     Options:
 	File stem <./output/docs>
 
-Read 0 cases (250 attributes) from ./output/docs
+ERROR:  case 6's class of '0' is illegal
+
+Read 6 cases (250 attributes) from ./output/docs
 
 ------------------
 Processing tree 0
 
 Final rules from tree 0:
 
-Default class: b
+Default class: s
 
 
-Evaluation on training data (0 items):
+Evaluation on training data (6 items):
 
 Rule  Size  Error  Used  Wrong	          Advantage
 ----  ----  -----  ----  -----	          ---------
 
-Tested 0, errors 0 (-nan%)   <<
+Tested 6, errors 3 (50.0%)   <<
 
 
 	  (a)  (b)  (c)  (d)  (e)	<-classified as
 	 ---- ---- ---- ---- ----
-	                         	(a): class b
+	                   1     	(a): class b
 	                         	(b): class e
-	                         	(c): class p
-	                         	(d): class s
-	                         	(e): class t
+	                   1     	(c): class p
+	                   3     	(d): class s
+	                   1     	(e): class t
 

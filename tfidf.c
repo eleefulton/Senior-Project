@@ -12,14 +12,12 @@
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
-#include "parse_file.h"
-#include "build_file_name.h"
-#include "tfidf.h"
+#include "runner.h"
 
 
 // search array of found words for given string, if it is found
 // return its location, otherwise return -1
-int in_list(Word found_words[], char *string, int num_words)
+int in_Word_list(Word found_words[], char *string, int num_words)
 {
   for(int i = 0; i < num_words; i++)
   {
@@ -63,6 +61,8 @@ int build_files(int unique_words, int num_categories, char *categories[], Word f
   Simple_Word simple_array[unique_words];
   for(int j = 0; j < unique_words; j++)
   {
+    simple_array[j].string = malloc(sizeof(char)*MAX_LENGTH);                  // initialize simple word
+    simple_array[j].string[0] = '\0';
     strncpy(simple_array[j].string, found_words[j].string, MAX_LENGTH);        // copy string from found words to simple array
   }
 
@@ -130,6 +130,16 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
     category_lengths[i] = 0;
   }
 
+  for(int i = 0; i < MAX_WORDS; i++)                                           // intialize found_words array
+  {
+    found_words[i].string = malloc(sizeof(char)*MAX_LENGTH);
+    for(int j = 0; j < MAX_LENGTH; j++)
+      found_words[i].string[j] = '\0';
+    found_words[i].count = malloc(sizeof(int)*MAX_CATEGORIES);
+    found_words[i].tf = malloc(sizeof(float)*MAX_CATEGORIES);
+    found_words[i].tfidf = malloc(sizeof(float)*MAX_CATEGORIES);
+  }
+
   for(int i = 0; i < population_size; i++)
   {
     if(is_in_training(i, file_names_index, training_size))                     // check if word is in training set
@@ -159,7 +169,7 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
         if(string[0] != '\0')                                                  // if string is not empty
         {
           current_file_length++;
-          if((index = in_list(found_words, string, unique_words)) >= 0)        // check found_words[] for string
+          if((index = in_Word_list(found_words, string, unique_words)) >= 0)   // check found_words[] for string
           {
             found_words[index].count[category]++;                              // if in found_words[], increment count for this category
           }

@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "randomize.h"
+#include "runner.h"
 
 void swap(int *a, int *b)
 {

@@ -2,21 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "build_network.h"
-#include "tfidf.h"
+#include "runner.h"
 
-/*
-  check the given list of size n for the given string
-*/
-int in_layer_list(char* string, char *list[], int n)
-{
-  for(int i = 0; i < n; i++)
-  {
-    if(strncmp(string, list[i], MAX_LENGTH) == 0)
-      return 1;
-  }
-  return 0;
-}
 int min(int a, int b)
 {
   if(a < b) return a;
@@ -74,7 +61,7 @@ int initialize_literal_layer(char *file_name, Node *literal_layer)
         index--;
       literal[index] = '\0';                                                   // terminate literal string with null char
       index = 0;                                                               // reset index to zero
-      if(!in_layer_list(literal, literals, num_literals))                      // check if this literal is already in the array of found literals
+      if(!in_string_list(literal, literals, num_literals))                     // check if this literal is already in the array of found literals
       {
         strncpy(literals[num_literals], literal, strlen(literal));             // if it's not alreay found copy literal string to array
         num_literals++;                                                        // increase number of literals found
@@ -135,7 +122,7 @@ int initialize_conjunctive_layer(char * file_name, Node *conjunctive_layer)
     {
       conjunct[index] = '\0';                                                   // terminate literal string with null char
       index = 0;                                                               // reset index to zero
-      if(!in_layer_list(conjunct, conjuncts, num_conjuncts))                      // check if this literal is already in the array of found literals
+      if(!in_string_list(conjunct, conjuncts, num_conjuncts))                  // check if this literal is already in the array of found literals
       {
         strncpy(conjuncts[num_conjuncts], conjunct, strlen(conjunct));             // if it's not alreay found copy literal string to array
         num_conjuncts++;                                                        // increase number of literals found
