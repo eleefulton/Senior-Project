@@ -89,9 +89,12 @@ int main(int argc, char *argv[])
   printf("randomizing file names index array\n");
   randomize(file_names_index, population_size);                                // randomize file names index array
 
-  if(!verify_randomization(input, file_names_array, file_names_index,          // verify randomization hit all categories
+  while(!verify_randomization(input, file_names_array, file_names_index,       // verify randomization hit all categories
        num_categories, training_size))
-    return -1;
+  {                                              
+    printf("randomizing failed, trying again\n");                              // loop until it does
+    randomize(file_names_index, population_size);
+  }
   
   for(int i = 0; i < num_categories * 50; i++)
   {
@@ -258,7 +261,7 @@ int verify_randomization(char **input, char **file_names_array, int *file_names_
   }
   if(counted_cats != num_categories)
   {
-    printf("randomization failed to capture all categories\n");
     return 0;
   }
+  return 1;
 }
