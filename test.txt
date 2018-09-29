@@ -1,0 +1,1428 @@
+reading input file.
+
+population size = 2225
+sample size = 1000
+training size = 20
+
+reading file names
+randomizing file names index array
+computing tfidf.
+reading from ./bbc_files/b053.txt in category b
+reading from ./bbc_files/b186.txt in category b
+reading from ./bbc_files/b360.txt in category b
+reading from ./bbc_files/e067.txt in category e
+reading from ./bbc_files/e088.txt in category e
+reading from ./bbc_files/e097.txt in category e
+reading from ./bbc_files/p102.txt in category p
+reading from ./bbc_files/p355.txt in category p
+reading from ./bbc_files/p394.txt in category p
+reading from ./bbc_files/p407.txt in category p
+reading from ./bbc_files/s078.txt in category s
+reading from ./bbc_files/s252.txt in category s
+reading from ./bbc_files/s471.txt in category s
+reading from ./bbc_files/s505.txt in category s
+reading from ./bbc_files/t034.txt in category t
+reading from ./bbc_files/t216.txt in category t
+reading from ./bbc_files/t236.txt in category t
+reading from ./bbc_files/t237.txt in category t
+reading from ./bbc_files/t320.txt in category t
+reading from ./bbc_files/t376.txt in category t
+built 50-words and names file successfully
+tfidf complete
+reading 50-words.
+counting 50-words
+done counting 50-words
+running decision tree
+c4.5 -f ./output/docs > docs.dt
+c4.5rules -f ./output/docs > docs.r
+decision tree finished
+building input layer
+building literal layer: 
+num literals = 4
+building conjunctive layer: 
+num conjuncts = 4
+building output layer
+
+setting weights and biases from input to literal layer
+weak
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+copper
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+reuters
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+jet
+    -0.025000-> prices>0 bias 0.000000
+    -0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+airline
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+prices
+       -5.000000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+bn
+   --0.025000-> prices>0 bias 0.000000
+   -0.025000-> comedy>0 bias 0.000000
+   -0.025000-> brown>0 bias 0.000000
+   --0.025000-> microsoft>0 bias 0.000000
+expects
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+airways
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+shares
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+indian
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+price
+      -5.000000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+domestic
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+chile
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+cochilco
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+production
+           -0.025000-> prices>0 bias 0.000000
+           --0.025000-> comedy>0 bias 0.000000
+           -0.025000-> brown>0 bias 0.000000
+           --0.025000-> microsoft>0 bias 0.000000
+cartagena
+          --0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          -0.025000-> microsoft>0 bias 0.000000
+slipped
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+during
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+forecasts
+          --0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+rise
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+savings
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+financial
+          --0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+bankers
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+india
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+began
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+airlines
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+air
+    -0.025000-> prices>0 bias 0.000000
+    -0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+chilean
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+earnings
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+projects
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+its
+    --0.025000-> prices>0 bias 0.000000
+    -0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+revenues
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+growth
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+demand
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+industry
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+m
+  -0.025000-> prices>0 bias 0.000000
+  -0.025000-> comedy>0 bias 0.000000
+  -0.025000-> brown>0 bias 0.000000
+  -5.000000-> microsoft>0 bias 0.000000
+high
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+dollar
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+company
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+beat
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+well
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+adding
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+further
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+added
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+cost
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+look
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+state
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+hits
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+media
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+weak
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+film
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+best
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+awards
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+sequel
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+comedy
+       -0.025000-> prices>0 bias 0.000000
+       -5.000000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+ocean
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+movie
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+moore
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+star
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+box
+    -0.025000-> prices>0 bias 0.000000
+    -0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+drama
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+starring
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+top
+    -0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+cesar
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+award
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+oscar
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+ceremony
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+twelve
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+roberts
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+gibson
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+economy
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+director
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+bush
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+youth
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+paris
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+perform
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+cinema
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+l
+  -0.025000-> prices>0 bias 0.000000
+  -0.025000-> comedy>0 bias 0.000000
+  -0.025000-> brown>0 bias 0.000000
+  -0.025000-> microsoft>0 bias 0.000000
+esquive
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+kechiche
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+engagement
+           -0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           --0.025000-> brown>0 bias 0.000000
+           -0.025000-> microsoft>0 bias 0.000000
+chorus
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+directed
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+clooney
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+pitt
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+julia
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+animated
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+films
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+eleven
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+soderbergh
+           -0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           --0.025000-> brown>0 bias 0.000000
+           -0.025000-> microsoft>0 bias 0.000000
+matt
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+documentary
+            --0.025000-> prices>0 bias 0.000000
+            --0.025000-> comedy>0 bias 0.000000
+            -0.025000-> brown>0 bias 0.000000
+            -0.025000-> microsoft>0 bias 0.000000
+fahrenheit
+           -0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           --0.025000-> brown>0 bias 0.000000
+           --0.025000-> microsoft>0 bias 0.000000
+voted
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+mel
+    -0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+passion
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+christ
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+named
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+well
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+weak
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+lib
+    --0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+brown
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -5.000000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+election
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+doesn
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+blunkett
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+labour
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+tax
+    --0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+secretary
+          -0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+boateng
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+been
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+chancellor
+           -0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           -0.025000-> brown>0 bias 0.000000
+           -0.025000-> microsoft>0 bias 0.000000
+blair
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+asked
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+there
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+should
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+dems
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+inquiry
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+nanny
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+dem
+    -0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+south
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+office
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+report
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+howard
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+treasury
+         -0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+appointed
+          --0.025000-> prices>0 bias 0.000000
+          --0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+appointment
+            --0.025000-> prices>0 bias 0.000000
+            --0.025000-> comedy>0 bias 0.000000
+            --0.025000-> brown>0 bias 0.000000
+            -0.025000-> microsoft>0 bias 0.000000
+paul
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+industry
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+leading
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+minister
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+alan
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+than
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+if
+   -0.025000-> prices>0 bias 0.000000
+   --0.025000-> comedy>0 bias 0.000000
+   -0.025000-> brown>0 bias 0.000000
+   -0.025000-> microsoft>0 bias 0.000000
+cable
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+britain
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+prime
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+tony
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+line
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+tories
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+visa
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+application
+            --0.025000-> prices>0 bias 0.000000
+            -0.025000-> comedy>0 bias 0.000000
+            --0.025000-> brown>0 bias 0.000000
+            -0.025000-> microsoft>0 bias 0.000000
+average
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+whether
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+case
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+accepted
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+another
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+judge
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+trust
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+gordon
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+weak
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+race
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+ferguson
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+soderling
+          --0.025000-> prices>0 bias 0.000000
+          --0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+champion
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+united
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+capriati
+         -0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+butler
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+victory
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+cross
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+finish
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+ethiopia
+         -0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+chelsea
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+australian
+           -0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           --0.025000-> brown>0 bias 0.000000
+           --0.025000-> microsoft>0 bias 0.000000
+final
+      -0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+deal
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+putting
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+spain
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+km
+   --0.025000-> prices>0 bias 0.000000
+   -0.025000-> comedy>0 bias 0.000000
+   -0.025000-> brown>0 bias 0.000000
+   -0.025000-> microsoft>0 bias 0.000000
+women
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+failure
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+arsenal
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+side
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+fulham
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+league
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+minute
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+strike
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+fantastic
+          -0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          -0.025000-> microsoft>0 bias 0.000000
+injury
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+milan
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+seed
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+title
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+stepanek
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+tie
+    --0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+break
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+gone
+     --0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+points
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+affected
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+earning
+        --0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+some
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+beyond
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+among
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+ceremony
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+heists
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+despite
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+w
+  -0.025000-> prices>0 bias 0.000000
+  --0.025000-> comedy>0 bias 0.000000
+  -0.025000-> brown>0 bias 0.000000
+  --0.025000-> microsoft>0 bias 0.000000
+hit
+    -0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    -0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+de
+   --0.025000-> prices>0 bias 0.000000
+   -0.025000-> comedy>0 bias 0.000000
+   --0.025000-> brown>0 bias 0.000000
+   -0.025000-> microsoft>0 bias 0.000000
+she
+    --0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+strikes
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+mobile
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+google
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+search
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+trade
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+security
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+desktop
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+cell
+     -0.025000-> prices>0 bias 0.000000
+     -0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+chip
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+wi
+   -0.025000-> prices>0 bias 0.000000
+   --0.025000-> comedy>0 bias 0.000000
+   -0.025000-> brown>0 bias 0.000000
+   --0.025000-> microsoft>0 bias 0.000000
+fi
+   -0.025000-> prices>0 bias 0.000000
+   -0.025000-> comedy>0 bias 0.000000
+   --0.025000-> brown>0 bias 0.000000
+   --0.025000-> microsoft>0 bias 0.000000
+computer
+         -0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+devices
+        -0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+recognise
+          --0.025000-> prices>0 bias 0.000000
+          --0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          -0.025000-> microsoft>0 bias 0.000000
+users
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+software
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+alerts
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+how
+    -0.025000-> prices>0 bias 0.000000
+    --0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    --0.025000-> microsoft>0 bias 0.000000
+use
+    -0.025000-> prices>0 bias 0.000000
+    -0.025000-> comedy>0 bias 0.000000
+    --0.025000-> brown>0 bias 0.000000
+    -0.025000-> microsoft>0 bias 0.000000
+microsoft
+          --0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          -5.000000-> microsoft>0 bias 0.000000
+example
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+launched
+         -0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+firms
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+access
+       -0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+available
+          -0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          --0.025000-> microsoft>0 bias 0.000000
+windows
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+libraries
+          --0.025000-> prices>0 bias 0.000000
+          --0.025000-> comedy>0 bias 0.000000
+          --0.025000-> brown>0 bias 0.000000
+          -0.025000-> microsoft>0 bias 0.000000
+playstation
+            --0.025000-> prices>0 bias 0.000000
+            --0.025000-> comedy>0 bias 0.000000
+            --0.025000-> brown>0 bias 0.000000
+            --0.025000-> microsoft>0 bias 0.000000
+processor
+          -0.025000-> prices>0 bias 0.000000
+          -0.025000-> comedy>0 bias 0.000000
+          -0.025000-> brown>0 bias 0.000000
+          -0.025000-> microsoft>0 bias 0.000000
+judge
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+especially
+           --0.025000-> prices>0 bias 0.000000
+           -0.025000-> comedy>0 bias 0.000000
+           --0.025000-> brown>0 bias 0.000000
+           -0.025000-> microsoft>0 bias 0.000000
+terms
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+tell
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     -0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+similar
+        --0.025000-> prices>0 bias 0.000000
+        --0.025000-> comedy>0 bias 0.000000
+        --0.025000-> brown>0 bias 0.000000
+        --0.025000-> microsoft>0 bias 0.000000
+like
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     -0.025000-> microsoft>0 bias 0.000000
+means
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+oxford
+       --0.025000-> prices>0 bias 0.000000
+       -0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       -0.025000-> microsoft>0 bias 0.000000
+library
+        -0.025000-> prices>0 bias 0.000000
+        -0.025000-> comedy>0 bias 0.000000
+        -0.025000-> brown>0 bias 0.000000
+        -0.025000-> microsoft>0 bias 0.000000
+released
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+offer
+      --0.025000-> prices>0 bias 0.000000
+      --0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      --0.025000-> microsoft>0 bias 0.000000
+intel
+      --0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      --0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+governments
+            -0.025000-> prices>0 bias 0.000000
+            --0.025000-> comedy>0 bias 0.000000
+            --0.025000-> brown>0 bias 0.000000
+            -0.025000-> microsoft>0 bias 0.000000
+both
+     -0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+brussels
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+faster
+       -0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       --0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+virus
+      -0.025000-> prices>0 bias 0.000000
+      -0.025000-> comedy>0 bias 0.000000
+      -0.025000-> brown>0 bias 0.000000
+      -0.025000-> microsoft>0 bias 0.000000
+alerting
+         --0.025000-> prices>0 bias 0.000000
+         --0.025000-> comedy>0 bias 0.000000
+         -0.025000-> brown>0 bias 0.000000
+         --0.025000-> microsoft>0 bias 0.000000
+internet
+         --0.025000-> prices>0 bias 0.000000
+         -0.025000-> comedy>0 bias 0.000000
+         --0.025000-> brown>0 bias 0.000000
+         -0.025000-> microsoft>0 bias 0.000000
+safe
+     --0.025000-> prices>0 bias 0.000000
+     --0.025000-> comedy>0 bias 0.000000
+     --0.025000-> brown>0 bias 0.000000
+     --0.025000-> microsoft>0 bias 0.000000
+phones
+       --0.025000-> prices>0 bias 0.000000
+       --0.025000-> comedy>0 bias 0.000000
+       -0.025000-> brown>0 bias 0.000000
+       --0.025000-> microsoft>0 bias 0.000000
+e
+  -0.025000-> prices>0 bias 0.000000
+  -0.025000-> comedy>0 bias 0.000000
+  -0.025000-> brown>0 bias 0.000000
+  -0.025000-> microsoft>0 bias 0.000000
+
+setting weights and biases from literal layer to conjunctive layer
+prices>0
+         -5.000000-> prices>0b bias -2.500000
+         --0.025000-> comedy>0e bias -2.500000
+         --0.025000-> brown>0p bias -2.500000
+         --0.025000-> microsoft>0t bias -2.500000
+comedy>0
+         -0.025000-> prices>0b bias -2.500000
+         -5.000000-> comedy>0e bias -2.500000
+         -0.025000-> brown>0p bias -2.500000
+         -0.025000-> microsoft>0t bias -2.500000
+brown>0
+        --0.025000-> prices>0b bias -2.500000
+        -0.025000-> comedy>0e bias -2.500000
+        -5.000000-> brown>0p bias -2.500000
+        --0.025000-> microsoft>0t bias -2.500000
+microsoft>0
+            --0.025000-> prices>0b bias -2.500000
+            -0.025000-> comedy>0e bias -2.500000
+            -0.025000-> brown>0p bias -2.500000
+            -5.000000-> microsoft>0t bias -2.500000
+
+setting weights and biases form conjunctive layer to output layer
+prices>0b
+          -5.000000-> b bias -2.500000
+          --0.025000-> e bias -2.500000
+          --0.025000-> p bias -2.500000
+          --0.025000-> s bias -2.500000
+          -0.025000-> t bias -2.500000
+comedy>0e
+          -0.025000-> b bias -2.500000
+          -5.000000-> e bias -2.500000
+          -0.025000-> p bias -2.500000
+          --0.025000-> s bias -2.500000
+          -0.025000-> t bias -2.500000
+brown>0p
+         --0.025000-> b bias -2.500000
+         --0.025000-> e bias -2.500000
+         -5.000000-> p bias -2.500000
+         -0.025000-> s bias -2.500000
+         -0.025000-> t bias -2.500000
+microsoft>0t
+             -0.025000-> b bias -2.500000
+             -0.025000-> e bias -2.500000
+             -0.025000-> p bias -2.500000
+             -0.025000-> s bias -2.500000
+             -5.000000-> t bias -2.500000
+
+
+0.909091
+
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000
+Node 0 value 0.500000
+Node 1 value 0.500000
+Node 2 value 0.500000
+Node 3 value 0.500000

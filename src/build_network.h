@@ -2,7 +2,9 @@ typedef struct{
   char *tag;
   float value;
   float bias;
+  float error;
   float *weights;
+  float weighted_input;
 }Node;
 
 int initialize_input_layer(char *input_value_tags[], Node *input_layer, int n);

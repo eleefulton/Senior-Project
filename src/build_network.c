@@ -111,7 +111,7 @@ int initialize_conjunctive_layer(char * file_name, Node *conjunctive_layer)
     }
   }
   
-  char conjunct[MAX_LENGTH];                                                    // string to hold parsed literal
+  char conjunct[MAX_LENGTH * MAX_LENGTH];                                       // string to hold parsed literal
   conjunct[0] = '\0';                                                           // initalize beginning of literal to null
   int index = 0;                                                               // index of location in literal string
   int num_conjuncts = 0;

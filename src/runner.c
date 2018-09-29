@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
     }
     c = fgetc(input_file);                                                     // get next char
   }
-
+  float learning_rate = 0.05;
+  char *directory = input[0];
   int num_categories = atoi(input[1]);                                         // total number of categories in data set
   int population_size = atoi(input[2]);
   int sample_size = atoi(input[3]);                                            // sample size to be used from data set
@@ -50,7 +51,7 @@ int main(int argc, char *argv[])
   char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
   char *file_names_array[population_size];                                     // array to store file names
   int file_names_index[population_size];                                       // array to store a shuffled index of file names
-  int input_values[training_size][num_categories*50];
+  int input_values[training_size][num_categories*50];                          // array that stores the input values for the input layer
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -158,13 +159,16 @@ int main(int argc, char *argv[])
     }
     count_fifty_words(file_names_array[file_names_index[i]], fifty_words, 
                         output, num_categories * 50);                          //count 50-words
-    for(int j = 0; j < num_categories * 50; j++)                                       // print count output to .data file
+    for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
     {
       if(j+1 == num_categories * 50)                                           // if last word print new line
         fprintf(docs_data, "%d, %c\n", output[j], 
                   file_names_array[file_names_index[i]][strlen(input[0])]);
       else fprintf(docs_data, "%d, ", output[j]);
-      input_values[i][j] = output[j];
+    }
+    for(int j = 0; j < num_categories * 50; j++)
+    {
+      input_values[i][j] = output[j] > 0 ? 1 : 0;
     }
   }
 
@@ -214,42 +218,156 @@ int main(int argc, char *argv[])
   }
   printf("building output layer\n");
   Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
+  Node *expected_output_layer = malloc(sizeof(Node)*num_categories);
+  for(int i = 0; i < num_categories; i++)
+  {
+    expected_output_layer[i].tag = categories[i];
+  } 
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
   fclose(docs_data);
-  printf("setting weights and biases from input to literal layer\n");
+
+  printf("\nsetting weights and biases from input to literal layer\n");
   set_wb_input_to_literal(input_layer, num_categories * 50, 
                             literal_layer, num_literals);                      // set weights and biases between input and literal layer
   for(int i = 0; i < num_categories*50; i++)
+  {
+    printf("%s\n", input_layer[i].tag);
     for(int j = 0; j < num_literals; j++)
-      printf("%s -%f-> %s bias %f\n", input_layer[i].tag,                      // print input-weight->literal and bias
+      printf("%*s -%f-> %s bias %f\n", (int)strlen(input_layer[i].tag), "",         // print input-weight->literal and bias
                input_layer[i].weights[j], literal_layer[j].tag, literal_layer[j].bias);
+  }
 
-  printf("setting weights and biases from literal layer to conjunctive layer\n");
+  printf("\nsetting weights and biases from literal layer to conjunctive layer\n");
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
   for(int i = 0; i < num_literals; i++)
+  {
+    printf("%s\n", literal_layer[i].tag);
     for(int j = 0; j < num_conjuncts; j++)
-      printf("%s -%f-> %s bias %f\n", literal_layer[i].tag,                      // print input-weight->literal and bias
+      printf("%*s -%f-> %s bias %f\n", (int)strlen(literal_layer[i].tag), "",       // print input-weight->literal and bias
                literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
+  }
 
-  printf("setting weights and biases form conjunctive layer to output layer\n");
+  printf("\nsetting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
   for(int i = 0; i < num_conjuncts; i++)
+  {
+    printf("%s\n", conjunctive_layer[i].tag);
     for(int j = 0; j < num_categories; j++)
-      printf("%s -%f-> %s bias %f\n", conjunctive_layer[i].tag,                // print input-weight->literal and bias
+      printf("%*s -%f-> %s bias %f\n", (int)strlen(conjunctive_layer[i].tag), "",   // print input-weight->literal and bias
                conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
-
+  }
 
   for(int i = 0; i < training_size; i++)                                       // for all files in training set
   {
+    char expected_output =                                                     // store expected output for this doc
+           file_names_array[file_names_index[i]][strlen(directory)];
+    for(int j = 0; j < num_categories; j++)
+    {
+      if(expected_output_layer[j].tag[0] == expected_output)
+        expected_output_layer[j].value = 1;
+      else
+        expected_output_layer[j].value = 0;
+    }
+    printf("\n\n");
     for(int j = 0; j < num_categories * 50; j++)                               // set input value for each word count for this doc
     {
-      input_layer[i].value = input_values[i][j];
+      input_layer[j].value = input_values[i][j];
     }
-    // run NNIDT
-  }
 
+    // run NNIDT
+    forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+    forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+    forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+    compute_error_for_output(output_layer, expected_output_layer, num_categories, learning_rate);
+    adjust_weights(conjunctive_layer, output_layer, num_conjuncts, num_categories, learning_rate);
+    compute_error(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+    adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, learning_rate);
+    compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+    adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, learning_rate);
+    for(int j = 0; j < num_categories; j++)
+      printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
+  
+  }
   return 0;
+}
+/*
+  return result of sigmoid funciton on x
+*/
+float sigmoid(float x)
+{
+  float e = exp((float)-x);
+  return (float)1/(1 + e);
+}
+
+/*
+  return the result of the derivative of the sigmoid function with regards to x
+*/
+float sigmoid_derivative(float x)
+{
+  float e = sigmoid((float)x);
+  return (float)e * (1 - e);
+}
+
+/*
+  compute activation in right_layer based on left_layer
+*/
+void forward_propagate(Node *left_layer, Node *right_layer, int num_left, int num_right)
+{
+  for(int i = 0; i < num_right; i++)
+  {
+    float sum = 0;
+    for(int j = 0; j < num_left; j++)
+    {
+      sum += left_layer[j].weights[i]*left_layer[j].value;
+    }
+    right_layer[i].weighted_input = sum + right_layer[i].bias;
+    right_layer[i].value = sigmoid(sum);
+  }
+}
+
+/*
+  compute the error for the output layer(actual) nodes based on expected layer values
+*/
+void compute_error_for_output(Node *actual, Node *expected, int num_output, float lr)
+{
+  for(int i = 0; i < num_output; i++)
+  {
+    float roc = actual[i].value - expected[i].value;
+    actual[i].error = roc * sigmoid_derivative(actual[i].weighted_input);
+    actual[i].bias = actual[i].bias + actual[i].error * lr;
+  }
+}
+
+/*
+  compute error for left_layer based on right_layer
+*/
+void compute_error(Node *left_layer, Node *right_layer, int num_left, int num_right)
+{
+  for(int i = 0; i < num_left; i++)
+  {
+    for(int j = 0; j < num_right; j++)
+    {
+      left_layer[i].error += left_layer[i].weights[j] * right_layer[j].error;
+    }
+    left_layer[i].error = left_layer[i].error * sigmoid_derivative(left_layer[i].weighted_input);
+    left_layer[i].bias = left_layer[i].bias + left_layer[i].error;
+  }
+}
+
+/*
+  adjust weights going from left_layer to right_layer using learning rate (lr)
+*/
+void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_right, float lr)
+{
+  for(int i = 0; i < num_left; i++)
+  {
+    for(int j = 0; j < num_right; j++)
+    {
+      float change_to_cost_func = left_layer[i].value * right_layer[j].error;
+      left_layer[i].weights[j] = left_layer[i].weights[j] - (lr*change_to_cost_func);
+    }
+  }
 }
 
 /*
