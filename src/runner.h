@@ -5,6 +5,7 @@
 #include "interpreter.h"
 #include "build_network.h"
 #include "build_file_name.h"
+#include "randominitnn.h"
 #define NUM_FILES 1
 #define MAX_FILES 999
 #define MAX_WORDS 100000
@@ -12,8 +13,10 @@
 #define MAX_LENGTH 50
 #define MAX_LITERALS 500
 #define MAX_CONJUNCTS 500
-#define ALPHA 5
-#define BETA 0.025f
+#define ALPHA 0.5f
+#define BETA 0.25f
+#define LR 0.3f
+#define MOMENTUM 0.1f
 int in_string_list(char* string, char *list[], int n);
 int verify_randomization(char **input, char **file_names_array, int *file_names_index, int num_categories, int training_size);
 float sigmoid(float x);

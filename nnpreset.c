@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#define ALPHA 2.0f
+#define BETA 0.025f
 typedef struct{
   char *tag;
   float value;
@@ -59,7 +61,7 @@ void compute_error_for_output(Node *actual, Node *expected, int num_output, floa
     printf("weighted input = %f\n", actual[i].weighted_input);
     printf("sig der = %f\n", sigmoid_derivative(actual[i].weighted_input));
     actual[i].error = roc * sigmoid_derivative(actual[i].weighted_input);      // multiply roc by the derivative of the sigmoid function of the weighted input
-//    actual[i].bias = actual[i].bias + actual[i].error * lr;
+    actual[i].bias = actual[i].bias + actual[i].error * lr;
     printf("error for output [%d] = %f\n", i, actual[i].error);
   }
 }
@@ -76,7 +78,7 @@ void compute_error(Node *left_layer, Node *right_layer, int num_left, int num_ri
       left_layer[i].error += left_layer[i].weights[j] * right_layer[j].error;  // sum (all weights leaving left_layer[i] * error of corresponding node in right layer)
     }
     left_layer[i].error = left_layer[i].error * sigmoid_derivative(left_layer[i].weighted_input); // multiply error for left_layer[i] by sigmoid derivative of this nodes weighted input
-//    left_layer[i].bias = left_layer[i].bias + left_layer[i].error;
+    left_layer[i].bias = left_layer[i].bias + left_layer[i].error;
     printf("error for left_layer[%d] = %f\n", i, left_layer[i].error);
   }
 }
@@ -99,129 +101,121 @@ void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_r
 int main(int argc, char *argv)
 {
   srand(time(NULL));
-  int num_input = 250;
-  int num_hidden = 6;
-  int num_output = 5;
-  float learning_rate = 0.3;
-  float bias = 0.5;
-  FILE *input_file = fopen("sample_input.txt", "r");
-  FILE *output_file = fopen("sample_output.txt", "r");
-  int input[2000][250];
-  int expected_output[2000][5];
-  int k = 0; int p = 0;
-  char c = fgetc(input_file);
-
-  for(int i = 0; i < 2000; i++)
+  int num_input = 3;
+  int input[6][3] = 
   {
-    for(int j = 0; j < num_input; j++)
-    {
-      input[i][j] = fgetc(input_file) - 48;
-    }
-    fgetc(input_file);
-  }
-
-  for(int i = 0; i < 2000; i++)
+    {1,0,0},
+    {0,1,0},
+    {0,0,1},
+    {1,1,0},
+    {0,1,1},
+    {0,1,1}
+  };
+  float i_to_l_w[3][4] =
   {
-    for(int j = 0; j < num_output; j++)
-    {
-      expected_output[i][j] = fgetc(output_file) - 48;
-    }
-    fgetc(output_file);
-  }
+    {ALPHA, -ALPHA, BETA, -BETA},
+    {-BETA, BETA, -ALPHA, ALPHA},
+    {-BETA, BETA, -BETA, BETA}
+  }; 
+
+  int num_literal = 4;
+  float literal_biases[] = {0, 0, ALPHA, -ALPHA};
+  float l_to_c_w[4][3] =
+  {
+    {ALPHA, -BETA, BETA},
+    {BETA, ALPHA, ALPHA},
+    {-BETA, ALPHA, BETA},
+    {BETA, -BETA, ALPHA}
+  };
+ 
+  int num_conjunct = 3;
+  float conjunct_biases[] = {(-ALPHA*(1))/2, (-ALPHA * (3))/2, (-ALPHA * (3))/2};
+  float c_to_o_w[3][3] =
+  {
+    {ALPHA, BETA, -BETA},
+    {BETA, ALPHA, -BETA},
+    {-BETA, BETA, ALPHA}
+  };
+
+  int num_output = 3;
+  float output_biases[] = {-0.5*ALPHA, -0.5*ALPHA, -0.5*ALPHA};
+  float expected_output[6][3] = 
+  {
+    {1,0,0},
+    {0,1,0},
+    {0,0,1},
+    {1,0,0},
+    {0,0,1},
+    {0,1,0}
+  };
+  float learning_rate = 0.05;
+
   Node *input_layer = malloc(sizeof(Node) * num_input);
-  Node *hidden_layer = malloc(sizeof(Node)* num_hidden);
+  Node *literal_layer = malloc(sizeof(Node)* num_literal);
+  Node *conjunct_layer = malloc(sizeof(Node) * num_conjunct);
   Node *output_layer = malloc(sizeof(Node)*num_output);
   Node *expected_output_layer = malloc(sizeof(Node)*num_output);
   
   for(int i = 0; i < num_input; i++)
   {
-    input_layer[i].bias = bias;
-    input_layer[i].weights = malloc(sizeof(float)*num_hidden);
+    input_layer[i].bias = BETA;
+    input_layer[i].weights = malloc(sizeof(float)*num_literal);
   }
 
-  for(int i = 0; i < num_hidden; i++)
+  for(int i = 0; i < num_literal; i++)
   {
-    hidden_layer[i].bias = bias;
-    hidden_layer[i].weights = malloc(sizeof(float)*num_output);
+    literal_layer[i].bias = literal_biases[i];
+    literal_layer[i].weights = malloc(sizeof(float)*num_conjunct);
+  }
+
+  for(int i = 0; i < num_conjunct; i++)
+  {
+    conjunct_layer[i].bias = conjunct_biases[i];
+    conjunct_layer[i].weights = malloc(sizeof(float)*num_output);
   }
 
   for(int i = 0; i < num_output; i++)
   {
-    output_layer[i].bias = bias;
+    output_layer[i].bias = output_biases[i];
   }
 
   for(int i = 0; i < num_input; i++)
-    for(int j = 0; j < num_hidden; j++)
-      input_layer[i].weights[j] = (float)rand() / (float)(RAND_MAX);
-//      input_layer[i].weights[j] = 0.5;
+    for(int j = 0; j < num_literal; j++)
+      input_layer[i].weights[j] = i_to_l_w[i][j];
 
-  for(int i = 0; i < num_hidden; i++)
+  for(int i = 0; i < num_literal; i++)
+    for(int j = 0; j < num_conjunct; j++)
+      literal_layer[i].weights[j] = l_to_c_w[i][j];
+
+  for(int i = 0; i < num_conjunct; i++)
     for(int j = 0; j < num_output; j++)
-    hidden_layer[i].weights[j] = (float)rand() / (float)(RAND_MAX);
-  //    hidden_layer[i].weights[j] = 0.5;
+      conjunct_layer[i].weights[j] = c_to_o_w[i][j];
 
 // Neural Network
-  float correct = 0;
-for(int l = 0; l < 2000; l++)
+for(int l = 0; l < 20000; l++)
 {
-//  int a = 1;
-//  int a = rand() % 2;
-//  input_layer[0].value = a;
-//  input_layer[1].value = (a + 1) % 2;
-//  expected_output_layer[0].value = (a + 1) % 2;
-//  expected_output_layer[1].value = a;
-
   for(int i = 0; i < num_input; i++)
-    input_layer[i].value = input[l][i];
+  {
+    input_layer[i].value = input[l%6][i];
+    printf("%f\n", input_layer[i].value);
+  }
   for(int i = 0; i < num_output; i++)
-    expected_output_layer[i].value = expected_output[l][i];
+    expected_output_layer[i].value = expected_output[l%6][i];
 
-  forward_propagate(input_layer, hidden_layer, num_input, num_hidden);
-/*  for(int i = 0; i < num_input; i++)
-  {
-    printf("input node [%d]: value = %f\n", i, input_layer[i].value);
-    for(int j = 0; j < num_hidden; j++)
-      printf("  -%f-> hidden %f\n", input_layer[i].weights[j], hidden_layer[j].value);
-  }
-*/
-  forward_propagate(hidden_layer, output_layer, num_hidden, num_output);
-/*  for(int i = 0; i < num_hidden; i++)
-  {
-    printf("hidden node [%d]: value = %f\n", i, hidden_layer[i].value);
-    for(int j = 0; j < num_output; j++)
-      printf("  -%f-> output %f\n", hidden_layer[i].weights[j], output_layer[j].value);
-  }
-*/
+  forward_propagate(input_layer, literal_layer, num_input, num_literal);
+
+  forward_propagate(literal_layer, conjunct_layer, num_literal, num_conjunct);
+
+  forward_propagate(conjunct_layer, output_layer, num_conjunct, num_output);
+
   compute_error_for_output(output_layer, expected_output_layer, num_output, learning_rate);
-  adjust_weights(hidden_layer, output_layer, num_hidden, num_output, learning_rate);
-/*  for(int i = 0; i < num_hidden; i++)
-  {
-    printf("hidden node [%d]: value = %f\n", i, hidden_layer[i].value);
-    for(int j = 0; j < num_output; j++)
-      printf("  <-%f- output %f\n", hidden_layer[i].weights[j], output_layer[j].value);
-  }
-*/
-  compute_error(hidden_layer, output_layer, num_hidden, num_output);
-  adjust_weights(input_layer, hidden_layer, num_input, num_hidden, learning_rate);
-/*  for(int i = 0; i < num_input; i++)
-  {
-    printf("input node [%d]: vlaue = %f\n", i, input_layer[i].value);
-    for(int j = 0; j < num_hidden; j++)
-      printf("  <-%f- hidden %f\n", input_layer[i].weights[j], hidden_layer[j].value);
-  }
-*/
-  int max = 0;
-  int correct_max;
-  for(int i = 0; i < num_output; i++)
-    if(output_layer[i].value > output_layer[max].value)
-      max = i;
+  adjust_weights(conjunct_layer, output_layer, num_conjunct, num_output, learning_rate);
 
-  for(int i = 0; i < num_output; i++)
-    if(expected_output_layer[i].value == 1)
-      correct_max = i;
+  compute_error(conjunct_layer, output_layer, num_conjunct, num_output);
+  adjust_weights(literal_layer, conjunct_layer, num_literal, num_conjunct, learning_rate);
 
-  if(max == correct_max)
-    correct++;
+  compute_error(literal_layer, conjunct_layer, num_literal, num_conjunct);
+  adjust_weights(input_layer, literal_layer, num_input, num_literal, learning_rate);
 
   for(int i = 0; i < num_output; i++)
   {
@@ -229,8 +223,6 @@ for(int l = 0; l < 2000; l++)
   }
   printf("\n");
 }
-  correct = correct / 2000;
-  printf("correctly categoriezed documents during random initialization training = %f\n", correct);
 
 return 0;
 }

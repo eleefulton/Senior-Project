@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
     }
     c = fgetc(input_file);                                                     // get next char
   }
-  float learning_rate = 0.05;
   char *directory = input[0];
   int num_categories = atoi(input[1]);                                         // total number of categories in data set
   int population_size = atoi(input[2]);
@@ -150,6 +149,8 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  FILE *sample_input = fopen("sample_input.txt", "w+");
+
   for(int i = 0; i < training_size; i++)                                       // count 50-words in training set of sample
   {
     int output[num_categories * 50];                                           // array to store count output
@@ -169,9 +170,12 @@ int main(int argc, char *argv[])
     for(int j = 0; j < num_categories * 50; j++)
     {
       input_values[i][j] = output[j] > 0 ? 1 : 0;
+      fprintf(sample_input, "%d", input_values[i][j]);
     }
+      fprintf(sample_input, "\n");
   }
 
+  fclose(sample_input);
   printf("done counting 50-words\n");
   printf("running decision tree\n"); 
   char *dnf_file = interpreter("./output/", "docs");                           // run interpreter on decision tree output
@@ -250,6 +254,8 @@ int main(int argc, char *argv[])
 
   printf("\nsetting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
+
+  float correct = 0;
   for(int i = 0; i < num_conjuncts; i++)
   {
     printf("%s\n", conjunctive_layer[i].tag);
@@ -258,6 +264,8 @@ int main(int argc, char *argv[])
                conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
   }
 
+
+  FILE *sample_output = fopen("sample_output.txt", "w+");
   for(int i = 0; i < training_size; i++)                                       // for all files in training set
   {
     char expected_output =                                                     // store expected output for this doc
@@ -269,6 +277,11 @@ int main(int argc, char *argv[])
       else
         expected_output_layer[j].value = 0;
     }
+
+    for(int j = 0; j < num_categories; j++)
+      fprintf(sample_output, "%d", (int)expected_output_layer[j].value);
+    fprintf(sample_output, "\n");
+
     printf("\n\n");
     for(int j = 0; j < num_categories * 50; j++)                               // set input value for each word count for this doc
     {
@@ -279,18 +292,42 @@ int main(int argc, char *argv[])
     forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
     forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
     forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
-    compute_error_for_output(output_layer, expected_output_layer, num_categories, learning_rate);
-    adjust_weights(conjunctive_layer, output_layer, num_conjuncts, num_categories, learning_rate);
+    compute_error_for_output(output_layer, expected_output_layer, num_categories, LR);
+    adjust_weights(conjunctive_layer, output_layer, num_conjuncts, num_categories, LR);
     compute_error(conjunctive_layer, output_layer, num_conjuncts, num_categories);
-    adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, learning_rate);
+    adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, LR);
     compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
-    adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, learning_rate);
+    adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
+
+    int max_node = 0;                                                          // calculate percent correct during training
+    int correct_node;
     for(int j = 0; j < num_categories; j++)
+      if(expected_output_layer[j].value == 1)
+        correct_node = j;
+
+    for(int j = 0; j < num_categories; j++)
+      if(output_layer[j].value > output_layer[max_node].value)
+        max_node = j;
+    
+    if(max_node == correct_node)                                               // if the output was correct increase correct
+    {
+      correct++;
+      printf("correct\n");
+    }
+    else printf("wrong\n");
+
+    for(int j = 0; j < num_categories; j++)                                    // print output of network
       printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
   
   }
+
+  fclose(sample_output);                                                       // close sample_output file for rinn to use
+  correct = correct / training_size;                                           // compute percent correct
+  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size); // run rinn on same training set
+  printf("correctly categorized documents during training = %f\n\n", correct); // print percent correct during training
   return 0;
 }
+
 /*
   return result of sigmoid funciton on x
 */
@@ -319,10 +356,10 @@ void forward_propagate(Node *left_layer, Node *right_layer, int num_left, int nu
     float sum = 0;
     for(int j = 0; j < num_left; j++)
     {
-      sum += left_layer[j].weights[i]*left_layer[j].value;
+      sum += left_layer[j].weights[i]*left_layer[j].value;                     // sum (weights leaving left_layer[j] * left_layer[j].value)
     }
-    right_layer[i].weighted_input = sum + right_layer[i].bias;
-    right_layer[i].value = sigmoid(sum);
+    right_layer[i].weighted_input = sum + right_layer[i].bias;                 // compute weighted input
+    right_layer[i].value = sigmoid(sum);                                       // compute nodes value(output)
   }
 }
 
@@ -333,9 +370,13 @@ void compute_error_for_output(Node *actual, Node *expected, int num_output, floa
 {
   for(int i = 0; i < num_output; i++)
   {
-    float roc = actual[i].value - expected[i].value;
-    actual[i].error = roc * sigmoid_derivative(actual[i].weighted_input);
-    actual[i].bias = actual[i].bias + actual[i].error * lr;
+    float roc = actual[i].value - expected[i].value;                           // compute the rate of change of the cost function
+//    printf("roc = %f\n",roc); 
+//    printf("weighted input = %f\n", actual[i].weighted_input);
+//    printf("sig der = %f\n", sigmoid_derivative(actual[i].weighted_input));
+    actual[i].error = roc * sigmoid_derivative(actual[i].weighted_input);      // multiply roc by the derivative of the sigmoid function of the weighted input
+//    actual[i].bias = actual[i].bias + actual[i].error * lr;
+//    printf("error for output [%d] = %f\n", i, actual[i].error);
   }
 }
 
@@ -348,10 +389,11 @@ void compute_error(Node *left_layer, Node *right_layer, int num_left, int num_ri
   {
     for(int j = 0; j < num_right; j++)
     {
-      left_layer[i].error += left_layer[i].weights[j] * right_layer[j].error;
+      left_layer[i].error += left_layer[i].weights[j] * right_layer[j].error;  // sum (all weights leaving left_layer[i] * error of corresponding node in right layer)
     }
-    left_layer[i].error = left_layer[i].error * sigmoid_derivative(left_layer[i].weighted_input);
-    left_layer[i].bias = left_layer[i].bias + left_layer[i].error;
+    left_layer[i].error = left_layer[i].error * sigmoid_derivative(left_layer[i].weighted_input); // multiply error for left_layer[i] by sigmoid derivative of this nodes weighted input
+//    left_layer[i].bias = left_layer[i].bias + left_layer[i].error;
+//    printf("error for left_layer[%d] = %f\n", i, left_layer[i].error);
   }
 }
 
@@ -364,8 +406,8 @@ void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_r
   {
     for(int j = 0; j < num_right; j++)
     {
-      float change_to_cost_func = left_layer[i].value * right_layer[j].error;
-      left_layer[i].weights[j] = left_layer[i].weights[j] - (lr*change_to_cost_func);
+      float change_to_cost_func = left_layer[i].value * right_layer[j].error;  // calculate change to the cost function my multiplying this nodes value by the next layers nodes error
+      left_layer[i].weights[j] = left_layer[i].weights[j] - (lr*change_to_cost_func); // adjust weight
     }
   }
 }
