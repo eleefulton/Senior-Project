@@ -162,7 +162,7 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
         printf("failed to open %s\n", file_names_array[i]);
         return -1;
       }
-      printf("reading from %s in category %s\n", file_names_array[i], categories[category]);
+//      printf("reading from %s in category %s\n", file_names_array[i], categories[category]);
       while(!feof(fp))
       {
         string = parse_next_word(fp);                                          // parse next word

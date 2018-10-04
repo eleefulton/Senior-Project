@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
   char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
   char *file_names_array[population_size];                                     // array to store file names
   int file_names_index[population_size];                                       // array to store a shuffled index of file names
-  int input_values[training_size][num_categories*50];                          // array that stores the input values for the input layer
+  int input_values[sample_size][num_categories*50];                            // array that stores the input values for the input layer
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 
   FILE *sample_input = fopen("sample_input.txt", "w+");
 
-  for(int i = 0; i < training_size; i++)                                       // count 50-words in training set of sample
+  for(int i = 0; i < sample_size; i++)                                         // count 50-words in sample
   {
     int output[num_categories * 50];                                           // array to store count output
     for(int j = 0; j < num_categories * 50; j++)                               // initalize output array
@@ -159,15 +159,18 @@ int main(int argc, char *argv[])
       output[j] = 0;
     }
     count_fifty_words(file_names_array[file_names_index[i]], fifty_words, 
-                        output, num_categories * 50);                          //count 50-words
-    for(int j = 0; j < num_categories * 50; j++)                               // print count output to .data file
+                        output, num_categories * 50);                          // count 50-words
+    if(i < training_size)                                                      // if this is a training file
     {
-      if(j+1 == num_categories * 50)                                           // if last word print new line
-        fprintf(docs_data, "%d, %c\n", output[j], 
-                  file_names_array[file_names_index[i]][strlen(input[0])]);
-      else fprintf(docs_data, "%d, ", output[j]);
+      for(int j = 0; j < num_categories * 50; j++)                             // print count output to .data file
+      {
+        if(j+1 == num_categories * 50)                                         // if last word print new line
+          fprintf(docs_data, "%d, %c\n", output[j],                            // print category and a new line
+                    file_names_array[file_names_index[i]][strlen(input[0])]);
+        else fprintf(docs_data, "%d, ", output[j]);                            // if it's not a new line, only print count
+      }
     }
-    for(int j = 0; j < num_categories * 50; j++)
+    for(int j = 0; j < num_categories * 50; j++)                               // build input_values array for this document
     {
       input_values[i][j] = output[j] > 0 ? 1 : 0;
       fprintf(sample_input, "%d", input_values[i][j]);
@@ -233,29 +236,29 @@ int main(int argc, char *argv[])
   printf("\nsetting weights and biases from input to literal layer\n");
   set_wb_input_to_literal(input_layer, num_categories * 50, 
                             literal_layer, num_literals);                      // set weights and biases between input and literal layer
-  for(int i = 0; i < num_categories*50; i++)
+/*  for(int i = 0; i < num_categories*50; i++)
   {
     printf("%s\n", input_layer[i].tag);
     for(int j = 0; j < num_literals; j++)
       printf("%*s -%f-> %s bias %f\n", (int)strlen(input_layer[i].tag), "",         // print input-weight->literal and bias
                input_layer[i].weights[j], literal_layer[j].tag, literal_layer[j].bias);
   }
-
+*/
   printf("\nsetting weights and biases from literal layer to conjunctive layer\n");
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
-  for(int i = 0; i < num_literals; i++)
+/*  for(int i = 0; i < num_literals; i++)
   {
     printf("%s\n", literal_layer[i].tag);
     for(int j = 0; j < num_conjuncts; j++)
       printf("%*s -%f-> %s bias %f\n", (int)strlen(literal_layer[i].tag), "",       // print input-weight->literal and bias
                literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
   }
-
+*/
   printf("\nsetting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
 
-  float correct = 0;
+/*
   for(int i = 0; i < num_conjuncts; i++)
   {
     printf("%s\n", conjunctive_layer[i].tag);
@@ -263,10 +266,74 @@ int main(int argc, char *argv[])
       printf("%*s -%f-> %s bias %f\n", (int)strlen(conjunctive_layer[i].tag), "",   // print input-weight->literal and bias
                conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
   }
-
+*/
 
   FILE *sample_output = fopen("sample_output.txt", "w+");
-  for(int i = 0; i < training_size; i++)                                       // for all files in training set
+  float correct = 0;
+  printf("training NNIDT\n");
+  for(int k = 0; k < 1000; k++)
+  {
+    for(int i = 0; i < training_size; i++)                                     // for all files in training set
+    {
+      char expected_output =                                                   // store expected output for this doc
+             file_names_array[file_names_index[i]][strlen(directory)];
+      for(int j = 0; j < num_categories; j++)
+      {
+        if(expected_output_layer[j].tag[0] == expected_output)
+          expected_output_layer[j].value = 1;
+        else
+          expected_output_layer[j].value = 0;
+      }
+
+/*      for(int j = 0; j < num_categories; j++)
+        fprintf(sample_output, "%d", (int)expected_output_layer[j].value);
+      fprintf(sample_output, "\n");
+
+      printf("\n\n");
+*/
+      for(int j = 0; j < num_categories * 50; j++)                             // set input value for each word count for this doc
+      {
+        input_layer[j].value = input_values[i][j];
+      }
+
+    // run NNIDT
+      forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+      forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+      forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+      compute_error_for_output(output_layer, expected_output_layer, num_categories, LR);
+      adjust_weights(conjunctive_layer, output_layer, num_conjuncts, num_categories, LR);
+      compute_error(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+      adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, LR);
+      compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+      adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
+
+      int max = 0;                                                             // max output node index
+      int correct_index;                                                       // correct output node index
+      for(int j = 0; j < num_categories; j++)                                  // find max output node and keep track of it's index
+      {
+        if(output_layer[j].value > output_layer[max].value)
+          max = j;
+      }
+      for(int j = 0; j < num_categories; j++)                                  // find index of expected output node
+      {
+        if(expected_output_layer[j].value == 1)
+          correct_index = j;
+      }
+      if(max == correct_index)                                                 // if max and correct_index are the same, the network was correct
+        correct++;
+/*      for(int j = 0; j < num_categories; j++)                                    // print output of network
+          printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
+*/
+    }
+    correct = correct / training_size * 100;                                   // compute percent correct
+//  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size); // run rinn on same training set
+    printf("correctly categorized documents during training: %f %%\n\n", correct); // print percent correct during training
+    correct = 0;
+  }
+  
+  printf("testing NNIDT\n");
+// test NNIDT
+  for(int i = 0; i < (sample_size - training_size); i++)
   {
     char expected_output =                                                     // store expected output for this doc
            file_names_array[file_names_index[i]][strlen(directory)];
@@ -278,11 +345,6 @@ int main(int argc, char *argv[])
         expected_output_layer[j].value = 0;
     }
 
-    for(int j = 0; j < num_categories; j++)
-      fprintf(sample_output, "%d", (int)expected_output_layer[j].value);
-    fprintf(sample_output, "\n");
-
-    printf("\n\n");
     for(int j = 0; j < num_categories * 50; j++)                               // set input value for each word count for this doc
     {
       input_layer[j].value = input_values[i][j];
@@ -292,39 +354,29 @@ int main(int argc, char *argv[])
     forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
     forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
     forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
-    compute_error_for_output(output_layer, expected_output_layer, num_categories, LR);
-    adjust_weights(conjunctive_layer, output_layer, num_conjuncts, num_categories, LR);
-    compute_error(conjunctive_layer, output_layer, num_conjuncts, num_categories);
-    adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, LR);
-    compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
-    adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
 
-    int max_node = 0;                                                          // calculate percent correct during training
-    int correct_node;
+    int max = 0;
+    int correct_index;
     for(int j = 0; j < num_categories; j++)
-      if(expected_output_layer[j].value == 1)
-        correct_node = j;
-
-    for(int j = 0; j < num_categories; j++)
-      if(output_layer[j].value > output_layer[max_node].value)
-        max_node = j;
-    
-    if(max_node == correct_node)                                               // if the output was correct increase correct
     {
-      correct++;
-      printf("correct\n");
+      if(output_layer[j].value > output_layer[max].value)
+        max = j;
     }
-    else printf("wrong\n");
-
-    for(int j = 0; j < num_categories; j++)                                    // print output of network
-      printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
-  
+    for(int j = 0; j < num_categories; j++)
+    {
+      if(expected_output_layer[j].value == 1)
+        correct_index = j;
+    }
+    if(max == correct_index)
+    {
+  //    printf("correct\n");
+      correct++;
+    }
+  //  else printf("wrong\n");
   }
-
+  correct = correct / (sample_size - training_size) * 100;                     // compute percent correct
+  printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
   fclose(sample_output);                                                       // close sample_output file for rinn to use
-  correct = correct / training_size;                                           // compute percent correct
-  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size); // run rinn on same training set
-  printf("correctly categorized documents during training = %f\n\n", correct); // print percent correct during training
   return 0;
 }
 
