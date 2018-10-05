@@ -5,6 +5,7 @@
 #include <math.h>
 #include "runner.h"
 
+
 int main(int argc, char *argv[])
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
@@ -90,13 +91,15 @@ int main(int argc, char *argv[])
     printf("failed to open file_names.txt\n");
     return -1;
   }
-  printf("reading file names\n");
+
   for(int i = 0; i < population_size; i++)                                     // allocate space in file_names_array and read name
   {
+    DoProgress("reading file names: ", i+1, population_size);
     file_names_array[i] = malloc(sizeof(char)*MAX_LENGTH);
     file_names_index[i] = i;                                                   // initalize file_names_index array
     fscanf(file_names_file, "%s", file_names_array[i]);
   }
+  printf("\n");
   fclose(file_names_file);
 
   printf("randomizing file names index array\n");
@@ -115,19 +118,16 @@ int main(int argc, char *argv[])
   }
 
 
-  printf("computing tfidf.\n");
   if(tfidf(num_categories, categories, input[0], file_names_array, 
       file_names_index, training_size, population_size) < 0)                   // compute tfidf
   {
     printf("tfidf failed to open a file\n");
     return -1;
   }
-  printf("tfidf complete\n");
 
   fclose(input_file);
 
 
-  printf("reading 50-words.\n");
   FILE *combined_file = fopen("./50_words/combined_50.out", "r");              // open combined_50 file
   if(combined_file == NULL)                                                    // check if combined_50 opened properly
   {
@@ -138,10 +138,11 @@ int main(int argc, char *argv[])
   for(int i = 0; i < num_categories * 50; i++)                                 // parse 50-words from combined file and store in array
   {
     strncpy(fifty_words[i], parse_next_word(combined_file), MAX_LENGTH);
+    DoProgress("reading 50-words: ", i+1, num_categories * 50);
   }
   fclose(combined_file);                                                       // close combined file
+  printf("\n");
 
-  printf("counting 50-words\n");
   FILE *docs_data = fopen("./output/docs.data", "w+");                         // open .data file
   if(docs_data == NULL)                                                        // check .data file opened correctly
   {
@@ -176,7 +177,9 @@ int main(int argc, char *argv[])
       fprintf(sample_input, "%d", input_values[i][j]);
     }
       fprintf(sample_input, "\n");
+    DoProgress("counting 50-words: ", i+1, sample_size);
   }
+  printf("\n");
 
   fclose(sample_input);
   printf("done counting 50-words\n");
@@ -233,7 +236,7 @@ int main(int argc, char *argv[])
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
   fclose(docs_data);
 
-  printf("\nsetting weights and biases from input to literal layer\n");
+//  printf("\nsetting weights and biases from input to literal layer\n");
   set_wb_input_to_literal(input_layer, num_categories * 50, 
                             literal_layer, num_literals);                      // set weights and biases between input and literal layer
 /*  for(int i = 0; i < num_categories*50; i++)
@@ -244,7 +247,7 @@ int main(int argc, char *argv[])
                input_layer[i].weights[j], literal_layer[j].tag, literal_layer[j].bias);
   }
 */
-  printf("\nsetting weights and biases from literal layer to conjunctive layer\n");
+//  printf("\nsetting weights and biases from literal layer to conjunctive layer\n");
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
 /*  for(int i = 0; i < num_literals; i++)
@@ -255,7 +258,7 @@ int main(int argc, char *argv[])
                literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
   }
 */
-  printf("\nsetting weights and biases form conjunctive layer to output layer\n");
+//  printf("\nsetting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
 
 /*
@@ -270,8 +273,7 @@ int main(int argc, char *argv[])
 
   FILE *sample_output = fopen("sample_output.txt", "w+");
   float correct = 0;
-  printf("training NNIDT\n");
-  for(int k = 0; k < 1000; k++)
+  for(int k = 0; k < ITERATIONS; k++)
   {
     for(int i = 0; i < training_size; i++)                                     // for all files in training set
     {
@@ -325,13 +327,13 @@ int main(int argc, char *argv[])
           printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
 */
     }
+    DoProgress("training NNIDT: ", k+1, ITERATIONS);
     correct = correct / training_size * 100;                                   // compute percent correct
-//  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size); // run rinn on same training set
-    printf("correctly categorized documents during training: %f %%\n\n", correct); // print percent correct during training
+//    printf("correctly categorized documents during training: %f %%\n\n", correct); // print percent correct during training
     correct = 0;
   }
-  
-  printf("testing NNIDT\n");
+  printf("\n");
+
 // test NNIDT
   for(int i = 0; i < (sample_size - training_size); i++)
   {
@@ -373,10 +375,15 @@ int main(int argc, char *argv[])
       correct++;
     }
   //  else printf("wrong\n");
+    DoProgress("testing NNIDT: ", i+1, sample_size - training_size);
   }
+  printf("\n");
   correct = correct / (sample_size - training_size) * 100;                     // compute percent correct
   printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
   fclose(sample_output);                                                       // close sample_output file for rinn to use
+
+  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
+
   return 0;
 }
 
@@ -505,4 +512,35 @@ int verify_randomization(char **input, char **file_names_array, int *file_names_
     return 0;
   }
   return 1;
+}
+
+/*
+  https://www.codeproject.com/Tips/537904/Console-simple-progress
+  CPOL 1.02
+*/
+void DoProgress( char label[], int step, int total )
+{
+    //progress width
+    const int pwidth = 72;
+
+    //minus label len
+    int width = pwidth - strlen( label );
+    int pos = ( step * width ) / total ;
+
+    
+    int percent = ( step * 100 ) / total;
+
+    //set green text color, only on Windows
+//    SetConsoleTextAttribute(  GetStdHandle( STD_OUTPUT_HANDLE ), FOREGROUND_GREEN );
+    printf( "%s[", label );
+
+    //fill progress bar with #
+    for ( int i = 0; i < pos; i++ )  printf( "%c", '#' );
+
+    //fill progress bar with spaces
+    printf( "%*c%c", width - pos + 1, ' ', ']' );
+    printf( " %3d%%\r", percent );
+
+    //reset text color, only on Windows
+//    SetConsoleTextAttribute(  GetStdHandle( STD_OUTPUT_HANDLE ), 0x08 );
 }

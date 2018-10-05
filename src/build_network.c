@@ -194,7 +194,9 @@ void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_lay
         input_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
       }
     }
+    DoProgress("setting weights from input to literal: ", i+1, num_input);
   }
+  printf("\n");
 }
 
 /*
@@ -227,7 +229,9 @@ void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *
         literal_layer[i].weights[j] = random <= 4 ? BETA : 0 - BETA;
       }
     }
+    DoProgress("setting weights from literal to conjunctive: ", i+1, num_literals);
   }
+  printf("\n");
 }
 
 /*
@@ -254,5 +258,7 @@ void set_wb_conjunctive_to_output(Node *conjunctive_layer, int num_conjuncts, No
       }
       output_layer[j].bias = (float)(0-ALPHA)/(float)2;                        // set bias for this output node to -ALPHA / 2
     }
+    DoProgress("setting weights from conjunctive to output: ", i+1, num_conjuncts);
   }
+  printf("\n");
 }

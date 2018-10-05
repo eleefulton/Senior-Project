@@ -141,7 +141,7 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
   }
 
   for(int i = 0; i < population_size; i++)
-  {
+  {    
     if(is_in_training(i, file_names_index, training_size))                     // check if word is in training set
     {
       int category = 0;                                                        // category current doc belongs to
@@ -185,7 +185,9 @@ int tfidf(int num_categories, char *categories[], char *directory, char *file_na
       category_lengths[category] = category_lengths[category] + current_file_length;// record length of this file (words)
       current_file_length = 0;                                                 // reset current_file_length
     }
+    DoProgress("computing tfidf: ", i+1, population_size);
   }
+  printf("\n");
   if(unique_words < 50)
   {
     printf("not enough unique words\n");
