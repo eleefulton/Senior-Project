@@ -1,0 +1,15 @@
+toxic web link help viru spread
+
+viru writer have begun us the power of the web to spread their malici ware.
+
+a window viru call bofra is turn infect machin into distributor of it malici code. those click on the poison link in e-mail messag sent out by infect machin mai fall victim to the viru. the trick is be us to prevent the progam be caught by anti-viru softwar that comb through code contain in e-mail attach.
+
+the viru that us thi trick is call bofra and the first member of the famili of worm appear on 10 novemb. thei exploit a window vulner that wa discov onli a few dai earlier.
+
+like mani other recent virus, bofra plunder the address book in microsoft outlook for e-mail address and scour other file on an infect machin for fresh target address. the viru us it own mail send softwar to despatch e-mail messag to potenti victim but, unlik mani other recent virus, doe not itself travel via mail. instead the bodi of the mail messag sent out contain fake weblink that, when click on, connect back to the machin that distribut that e-mail. essenti, bofra turn infect machin into small web server that happili dole out copi of the viru. the messag try to trick peopl into click on the link by promis pornograph video and imag or by pose as payment confirm for a paypal transact.
+
+copi of the messag seen by the bbc new websit had bright yellow and green background. those click on the link will inadvert download the bofra viru which will then start search for new address to send itself to. filter firm clearswift said thi tactic of creat thousand of mini web server wa design to help the viru spread quickli and avoid attempt to shut it down. in the past other malici program have reli on a singl web server that download viral code to target machin. shut down thi central server usual stop the viru spread.
+
+clearswift said that fact that no viral code travel in the e-mail messag sent out by machin infect by bofra could hamper effect to limit it spread. finnish anti-viru firm f-secur said that, so far, it had not seen mani copi of the bofra viru and it variant in circul.
+
+tim warner, spokesman for anti-viru firm finjan, said: "you have peopl get veri creativ now to deliv the viru and get it propag." mr warner said organis need to prepar deep defenc to keep out the modern form of malici mobil code. "most firm have secur their e-mail gatewai," said mr warner, "but the ironi is that most of them let malici content through the web gatewai." he said behaviour system that monitor what user do can help to spot when virus have penetr organis and have start hunt for other victim. the bofra famili of virus, which were origin thought to be offshoot of the mydoom bug, can infect machin run window 2000, 95, 98, me, nt, xp and server 2003. user run window xp that have appli the sp2 updat ar not vulner to the loophol that bofra exploit.

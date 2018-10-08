@@ -1,0 +1,11 @@
+sun offer process by the hour
+
+sun microsystem ha launch a pai-as-you-go servic which will allow custom requir huge comput power to rent it by the hour.
+
+sun grid cost user $1 (53p) for an hour's worth of process and storag power on system maintain by sun. so-call grid comput is the latest buzz phrase in a compani which believ that comput capac is as import a commod as hardwar and softwar. sun liken grid comput to the develop of electr.
+
+the system could matur in the same wai util such as electr and water have develop, said sun's chief oper offic jonathan schwartz. "why build your own grid when you can us our for a buck an hour?" he ask in a webcast launch sun's quarterli network comput event in california. the compani will have to persuad data centr manag to adopt a new model but it said it alreadi had interest from custom in the oil, ga and financi servic industri.
+
+some of them want to book comput capac of more than 5,000 processor each, sun said. mr schwartz ran a demonstr of the servic, show how data could be process in a protein fold experi. hundr of server were us simultan, work on the problem for a few second each.
+
+although it onli took a few second, the experi cost $12 (£6.30) becaus it had us up 12 hour's worth of comput power. the sun grid reli on solari, the oper system own by sun. initi it will hous the grid in exist premis and will us idl server to test softwar befor ship it to custom. it ha not said how much the system will cost to develop but it alreadi ha a rival in ibm, which argu that it capac on-demand servic is cheaper than that offer by sun.

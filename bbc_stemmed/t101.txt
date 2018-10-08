@@ -1,0 +1,9 @@
+bush websit block outsid us
+
+surfer outsid the us have been unabl to visit the offici re-elect site of presid georg w bush.
+
+the block of browser site outsid the us began in the earli hour of mondai morn. sinc then peopl outsid the us try to brows the site get a messag sai thei ar not authoris to view it. the block doe not appear to be due to an attack by vandal or malici hacker, but as a result of a polici decis by the bush camp.
+
+the intern exclus zone around georgewbush.com wa spot by net monitor firm netcraft which keep an ey on traffic pattern across mani differ site. netcraft said that sinc the earli hour of 25 octob attempt to view the site through it monitor station in london, amsterdam and sydnei fail.
+
+by contrast netcraft's four monitor station in the us manag to view the site with no problem. the site can still be seen us anonym proxi servic that ar base in the us. some web user in canada also report that thei can brows the site. the pattern of traffic to the websit suggest that the block wa not due to an attack by vandal or polit motiv hacker. geograph block work becaus the numer address that the net us to organis itself ar hand out on a region basi. on 21 octob, the georg w bush websit began us the servic of a compani call akamai to ensur that the page, video and other content on it site reach visitor. mike prettejohn, presid of netcraft, specul that the block decis might have been taken to cut cost, and traffic, in the run-up to the elect on 2 novemb. he said the site mai see no reason to distribut content to peopl who will not be vote next week. manag traffic could also be a good wai to ensur that the site stai work in the close dai of the elect campaign. howev, simpli block non-us visitor also mean that american oversea ar bar too. akamai declin to comment, sai it could not talk about custom websit.

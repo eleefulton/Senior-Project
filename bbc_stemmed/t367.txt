@@ -1,0 +1,13 @@
+long life promis for laptop pc
+
+scientist ar work on wai to ensur laptop can stai power for an entir work dai.
+
+build batteri from new chemic mix could boost power significantli, sai industri expert. the chang includ everyth from the wai chip for laptop ar made, to trick that reduc the power consumpt of displai. ever sinc laptop appear the amount of time thei last between recharg ha been a frustrat for user.
+
+a survei carri out in 2000 by forrest research found that the short of batteri life wa the most complain about featur of laptop. "the focu back then wa more on perform and featur," said mike trainor, chief mobil technolog evangelist for chip giant intel.
+
+"for most of the 90s batteri life wa stuck on two to 2.5 hour." but now, he said, laptop can last much longer. it wa not just a case of improv batteri life by squeez more out of the lithium ion power pack, he explain. other chang ar need to get to the holi grail of a laptop run for about eight hour befor need a recharg. "lithium ion is never go to get there by itself," he said. "the industri ha done a great job of wring all possibl energi storag out of that technolog that thei can." some new batteri chemistri promis to cram more power into the same space, said mr trainor, though work still need to be done to get them successfulli from the lab to manufactur. he wa sceptic that fuel cell would develop quick enough to take over from solid batteri even though thei have the potenti to produc sever time more energi than lithium ion power pack. "in fuel cell you need to have pump and separ and evapor chamber," he said. "it's a mini energi plant that need to be shrunk and shrunk and shrunk."
+
+intel ha been work with compon maker to test energi consumpt on all the part insid a laptop and find wai to make them less power hungri.
+
+thi work ha led to the creation of the mobil pc extend batteri life (ebl) work group that share inform about build notebook that ar more parsimoni with power. some of the improv in power us come simpli becaus compon on chip ar shrink, said mr trainor. intel ha also chang the wai it creat transistor on silicon to reduc the power thei need. on a larger scale, said mr trainor, improv in the wai that voltag regul ar made can reduc the amount of power lost as heat and make a notebook more energi effici. also, said mr trainor, research is be done on wai to cut energi consumpt on displai - current the biggest power guzzler on a laptop. mani laptop maker have commit to creat 14 and 15 inch screen that draw onli three watt of power. thi is far below the power consumpt level of screen in current notebook. "if we can get close to eight hour that's a place that peopl see as extraordinarili valuabl that's what the industri ha to deliv," mr trainor said.

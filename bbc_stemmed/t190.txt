@@ -1,0 +1,9 @@
+first look at playstat 3 chip
+
+some detail of the chip insid soni's playstat 3 have been reveal.
+
+soni, ibm and toshiba have releas limit data about the so-call cell chip that will be abl to carri out trillion of calcul per second. the chip will be made of sever differ process core that work on task togeth. the playstat 3 is expect in 2006 but develop ar expect to get prototyp earli next year to tune game that will appear on it at launch.
+
+the three firm have been work on the chip sinc 2001 but befor now few detail have been releas about how it might function. in a joint statement the three firm gave hint about how the chip will work but fuller detail will be releas in februari next year at the intern solid state circuit confer in san francisco.
+
+the three firm claim that the cell chip will be up to 10 time more power than exist processor. when put insid power comput server, the cell consortium expect it to be capabl of handl 16 trillion float point oper, or calcul, everi second. the chip ha also been refin to be abl to handl the detail graphic common in game and the data demand of film and broadband media. ibm said it would start produc the chip in earli 2005 at manufactur plant in the us. the first machin off the line us the cell processor will be comput workstat and server. a work version of the ps3 is due to be shown off in mai 2005 but a full launch of the next gener consol is not expect to start until 2006. as well as be insid the playstat 3, the chip will also be us insid high-definit tv and power comput. "in the futur, all form of digit content will be converg and fuse onto the broadband network," said ken kutaragi, chief oper offic of soni. "current pc architectur is near it limit."

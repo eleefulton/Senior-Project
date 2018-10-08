@@ -1,0 +1,7 @@
+window worm travel with tetri
+
+user ar be warn about a window viru that pose as the huge popular tetri game.
+
+the celleri worm instal a playabl version of the classic fall block game on pc that it ha infect. while user plai the game, the worm spend it time us the machin to search for new victim to infect on nearbi network. the risk of infect by celleri is thought to be veri low as few copi of the worm have been found in the wild.
+
+the celleri worm doe not spread via e-mail like mani other virus. instead it brows comput network for pc that have not shut off all the insecur wai thei connect to other machin. when it infect a machin, celleri instal a version of tetri that user can plai. as the game start up the worm also start a music file to accompani it. at the same time the viru start scour network for other vulner machin. the viru doe no damag to machin but heavili infect network could slow down as scan traffic build. product mai suffer too if user spend time plai tetri. pc run window 95, 98, me, nt, 2000, and xp could be vulner to the worm. "if your compani ha a cultur of allow game to be plai in the offic, your staff mai believ thi is simpli a new game that ha been instal - rather than someth that should caus concern," said graham clulei, spokesman for anti-viru firm sopho. so far the number of peopl infect by celleri is thought to be veri small and the risk of further infect is veri low. sopho urg user and compani to updat their anti-viru softwar to keep themselv protect.

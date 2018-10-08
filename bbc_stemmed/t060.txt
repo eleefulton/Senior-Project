@@ -1,0 +1,7 @@
+microsoft releas patch
+
+microsoft ha warn pc user to updat their system with the latest secur fix for flaw in window program.
+
+in it monthli secur bulletin, it flag up eight "critic" secur hole which could leav pc open to attack if left unpatch. the number of hole consid "critic" is more than usual. thei affect window program, includ internet explor (ie), media player and instant messag. four other import fix were also releas. these were consid to be less critic, howev. if not updat, either automat or manual, pc user run the program could be vulner to virus or other malici attack design to exploit the hole. mani of the flaw could be us by viru writer to take over comput remot, instal program, chang, and delet or see data.
+
+on of the critic patch microsoft ha made avail is an import on that fix some ie flaw. stephen toulous, a microsoft secur manag, said the flaw were known about, and although the firm had not seen ani attack exploit the flaw, he did not rule them out. often, when a critic flaw is announc, spate of virus follow becaus home user and busi leav the flaw unpatch. a further patch fix a hole in media player, window messeng and msn messeng which an attack could us to take control of unprotect machin through .png file. microsoft announc ani vulner in it softwar everi month. the most import on ar those which ar class as "critic". it latest releas came the week that the compani announc it wa to bui secur softwar maker sybari softwar as part of microsoft's plan to make it own secur program.

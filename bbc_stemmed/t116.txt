@@ -1,0 +1,9 @@
+fast move phone bug appear
+
+secur firm ar warn about sever mobil phone virus that can spread much faster than similar bug.
+
+the new strain of the cabir mobil phone viru us short-rang radio technolog to leap to ani vulner phone as soon as it is in rang. the cabir viru onli affect high-end handset run the symbian seri 60 phone oper system. despit the warn, there ar so far no report of ani phone be infect by the new variant of cabir.
+
+the origin cabir worm came to light in mid-june 2004 when it wa sent to anti-viru firm as a proof-of-concept program. a mistak in the wai the origin cabir wa written meant that even if it escap from the laboratori, the bug would onli have been abl to infect on phone at a time.
+
+howev, the new cabir strain have thi mistak correct and will spread via short rang bluetooth technolog to ani vulner phone in rang. bluetooth ha an effect rang of a few ten of metr. the risk of be infect by cabir is low becaus user must give the malici program permiss to download on to their handset and then must manual instal it. user can protect themselv by alter a set on symbian phone that conceal the handset from other bluetooth us devic. finnish secur firm f-secur issu a warn about the new strain of cabir but said that the virus do not do ani damag to a phone. all thei do is block normal bluetooth activ and drain the phone's batteri. anti-viru firm sopho said the sourc code for cabir had been post on the net by a brazilian programm which might lead to even more variant of the program be creat. so far seven version of cabir ar know to exist, on of which wa insid the malici skull program that wa found in late novemb. symbian's seri 60 softwar is licenc by nokia, lg electron, lenovo, panason, samsung, sendo and siemen.

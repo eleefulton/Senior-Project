@@ -1,0 +1,11 @@
+microsoft plan 'safer id' system
+
+microsoft is plan to make window and internet explor more secur by includ softwar to give peopl more control over person inform.
+
+"info card" will help peopl manag person detail on their pc to make onlin servic safer, said microsoft. microsoft's two previou program, passport and hailstorm, aim to protect user but were criticis. id fraud is on of the uk's fastest-grow crime, with crimin net an estim £1.3bn last year. a quarter of uk adult ha either had their id stolen, via hi-tech or other mean, or know someon who ha, a recent report by which? magazin found.
+
+microsoft is develop a new version of internet explor browser and it oper system, window, which ha been code-name longhorn. michael stephenson, director in microsoft's window server divis, would not confirm howev whether the new info card id system will be built into the current window xp version or longhorn.
+
+"we're try to make the end-user experi as simpl as possibl," mr stephenson said. the system would differ from it previou attempt to make onlin transact more secur, said microsoft. while passport and hailstorm store user inform central on the net, the latest system will store data on a user's pc. "it's go to put control of digit id into the hand of an end-user, the end-user will be in full control," said mr stephenson.
+
+hailstorm wa criticis by privaci campaign for put too much sensit inform into the hand of a singl compani. passport provid a singl log-in for more than on websit and store basic person inform. but it popular suffer after secur scare. up to 200 million passport account were left vulner to onlin theft and malici hacker after a flaw in the system wa exploit in 2003. onlin auction site, ebai, stop support it in januari 2005. although the flaw wa fix, microsoft ha come under regular critic for the number of secur loophol in internet explor. last year, it releas a major secur updat for window, servic pack 2, to combat some of the secur concern. longhorn is due to be releas commerci in late 2006, but an updat version of internet explor is due for releas later thi year.

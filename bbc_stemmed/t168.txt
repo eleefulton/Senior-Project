@@ -1,0 +1,15 @@
+a decad of good websit design
+
+the web look veri differ todai than it did 10 year ago.
+
+back in 1994, yahoo had onli just launch, most websit were text-base and amazon, googl and ebai had yet to appear. but, sai usabl guru dr jakob nielsen, some thing have stai constant in that decad, name the principl of what make a site easi to us. dr nielsen ha look back at a decad of work on usabl and consid whether the 34 core guidelin drawn up back then ar relev to the web of todai. "roughli 80% of the thing we found 10 year ago ar still an issu todai," he said. "some have gone awai becaus user have chang and 10% have chang becaus technolog ha chang."
+
+some design crime, such as splash screen that get between a user and the site thei ar try to visit, and web design indulg their artist urg have almost disappear, said dr nielsen.
+
+"but there's great stabil on usabl concern," he told the bbc new websit. dr nielsen said the basic principl of usabl, centr around eas of us and clear think about a site's total design, were as import as ever. "it's necessari to be awar of these thing as issu becaus thei remain as such," he said. thei ar still import becaus the net ha not chang as much as peopl thought it would. "a lot of peopl thought that design and usabl wa onli a temporari problem becaus broadband wa take off," he said. "but there ar a veri small number of case where usabl issu go awai becaus you have broadband."
+
+dr nielsen said the success of site such as googl, amazon, ebai and yahoo show that close attent to design and user need wa import. "those four site ar extrem profit and extrem success," said dr nielsen, ad that thei have larg defin commerci success on the net.
+
+"all ar base on user empower and make it easi for peopl to do thing on the internet," he said. "thei ar make simpl but power tool avail to the user. "none of them have a fanci or glamor look," he ad, declar himself surpris that these site have not been more wide copi. in the futur, dr nielsen believ that search engin will plai an even bigger part in help peopl get to grip with the huge amount of inform onlin. "thei ar becom like the oper system to the internet," he said. but, he said, the fact that thei ar us now doe not meant that thei could not do better. current, he said, search site did not do a veri good job of describ the inform that thei return in respons to queri. often peopl had to look at a websit just to judg whether it wa us or not. tool that watch the behaviour of peopl on websit to see what thei actual find us could also help refin result. research by dr nielsen show that peopl ar get more sophist in their us of search engin. the latest statist on how mani word peopl us on search engin show that, on averag, thei us 2.2 term. in 1994 onli 1.3 word were us. "i think it's amaz that we have seen a doubl in a 10-year period of those search term," said dr nielsen.
+
+you can hear more from jakob nielsen and web design on the bbc world servic programm, go digit

@@ -1,0 +1,9 @@
+microsoft seek spywar trojan
+
+microsoft is investig a trojan program that attempt to switch off the firm's anti-spywar softwar.
+
+the spywar tool wa onli releas by microsoft in the last few week and ha been download by six million peopl. stephen toulous, a secur manag at microsoft, said the malici program wa call bankash-a trojan and wa be sent as an e-mail attach. microsoft said it did not believ the program wa widespread and recommend user to us an anti-viru program. the program attempt to disabl or delet microsoft's anti-spywar tool and suppress warn messag given to user.
+
+it mai also try to steal onlin bank password or other person inform by track user' keystrok.
+
+microsoft said in a statement it is investig what it call a crimin attack on it softwar. earlier thi week, microsoft said it would bui anti-viru softwar maker sybari softwar to improv it secur in it window and e-mail softwar. microsoft ha said it plan to offer it own paid-for anti-viru softwar but it ha not yet set a date for it releas. the anti-spywar program be target is current onli in beta form and aim to help user find and remov spywar - program which monitor internet us, caus advert pop-up and slow a pc's perform.

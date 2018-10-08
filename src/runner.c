@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
 #include "runner.h"
 
 
@@ -273,29 +275,26 @@ int main(int argc, char *argv[])
 
   FILE *sample_output = fopen("sample_output.txt", "w+");
   float correct = 0;
-  for(int k = 0; k < ITERATIONS; k++)
+  for(int i = 0; i < TRAINING_ITS; i++)
   {
-    for(int i = 0; i < training_size; i++)                                     // for all files in training set
+    for(int j = 0; j < training_size; j++)                                     // for all files in training set
     {
       char expected_output =                                                   // store expected output for this doc
-             file_names_array[file_names_index[i]][strlen(directory)];
-      for(int j = 0; j < num_categories; j++)
+             file_names_array[file_names_index[j]][strlen(directory)];
+      for(int k = 0; k < num_categories; k++)
       {
-        if(expected_output_layer[j].tag[0] == expected_output)
-          expected_output_layer[j].value = 1;
-        else
-          expected_output_layer[j].value = 0;
+        expected_output_layer[k].value = expected_output_layer[k].tag[0] == expected_output ? 1 : 0;
       }
 
-/*      for(int j = 0; j < num_categories; j++)
+      for(int j = 0; j < num_categories; j++)
         fprintf(sample_output, "%d", (int)expected_output_layer[j].value);
       fprintf(sample_output, "\n");
 
-      printf("\n\n");
-*/
-      for(int j = 0; j < num_categories * 50; j++)                             // set input value for each word count for this doc
+//      printf("\n\n");
+
+      for(int k = 0; k < num_categories * 50; k++)                             // set input value for each word count for this doc
       {
-        input_layer[j].value = input_values[i][j];
+        input_layer[k].value = input_values[j][k];
       }
 
     // run NNIDT
@@ -309,7 +308,7 @@ int main(int argc, char *argv[])
       compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
       adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
 
-      int max = 0;                                                             // max output node index
+/*      int max = 0;                                                             // max output node index
       int correct_index;                                                       // correct output node index
       for(int j = 0; j < num_categories; j++)                                  // find max output node and keep track of it's index
       {
@@ -323,14 +322,15 @@ int main(int argc, char *argv[])
       }
       if(max == correct_index)                                                 // if max and correct_index are the same, the network was correct
         correct++;
+*/
 /*      for(int j = 0; j < num_categories; j++)                                    // print output of network
           printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
 */
     }
-    DoProgress("training NNIDT: ", k+1, ITERATIONS);
-    correct = correct / training_size * 100;                                   // compute percent correct
+//    correct = correct / training_size * 100;                                   // compute percent correct
 //    printf("correctly categorized documents during training: %f %%\n\n", correct); // print percent correct during training
-    correct = 0;
+//    correct = 0;
+    DoProgress("training NNIDT: ", i+1, TRAINING_ITS);
   }
   printf("\n");
 
@@ -382,7 +382,7 @@ int main(int argc, char *argv[])
   printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
   fclose(sample_output);                                                       // close sample_output file for rinn to use
 
-  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
+//  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
 
   return 0;
 }
@@ -494,7 +494,7 @@ int verify_randomization(char **input, char **file_names_array, int *file_names_
   int counted_cats = 0;
   for(int i = 0; i < training_size; i++)
   {
-    char temp = file_names_array[file_names_index[i]][strlen(input[0])];
+    char temp = file_names_array[file_names_index[i]][(int)strlen(input[0])];
     int already_found = 0;
     for(int j = 0; j < counted_cats; j++)
     {
@@ -521,10 +521,12 @@ int verify_randomization(char **input, char **file_names_array, int *file_names_
 void DoProgress( char label[], int step, int total )
 {
     //progress width
-    const int pwidth = 72;
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    const int pwidth = w.ws_col - 10;
 
     //minus label len
-    int width = pwidth - strlen( label );
+    int width = pwidth - 50;
     int pos = ( step * width ) / total ;
 
     
@@ -532,7 +534,7 @@ void DoProgress( char label[], int step, int total )
 
     //set green text color, only on Windows
 //    SetConsoleTextAttribute(  GetStdHandle( STD_OUTPUT_HANDLE ), FOREGROUND_GREEN );
-    printf( "%s[", label );
+    printf( "%s%*c[", label, 50 - (int)strlen(label), ' ');
 
     //fill progress bar with #
     for ( int i = 0; i < pos; i++ )  printf( "%c", '#' );

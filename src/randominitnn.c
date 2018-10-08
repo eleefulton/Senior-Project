@@ -43,29 +43,33 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
   
   for(int i = 0; i < num_input; i++)                                           // set all biases in input layer +/- bias
   {
-    int r = rand() % 10;
-    input_layer[i].bias = r > 4 ? bias : -bias;
+//    int r = rand() % 10;
+ //   input_layer[i].bias = r > 4 ? bias : -bias;
+    input_layer[i].bias = bias;
     input_layer[i].weights = malloc(sizeof(float)*num_hl1);
   }
 
   for(int i = 0; i < num_hl1; i++)                                             // set all biases in literal layer to +/- bias
   {
-    int r = rand() % 10;
-    hidden_layer_one[i].bias = r > 4 ? bias : -bias;
+//    int r = rand() % 10;
+//    hidden_layer_one[i].bias = r > 4 ? bias : -bias;
+    hidden_layer_one[i].bias = bias;
     hidden_layer_one[i].weights = malloc(sizeof(float)*num_hl2);
   }
 
   for(int i = 0; i < num_hl2; i++)                                             // set all biases in the conjunct layer to +/- bias
   {
-    int r = rand() % 10;
-    hidden_layer_two[i].bias = r > 4 ? bias : -bias;
+//    int r = rand() % 10;
+//    hidden_layer_two[i].bias = r > 4 ? bias : -bias;
+    hidden_layer_two[i].bias = bias;
     hidden_layer_two[i].weights = malloc(sizeof(float)*num_output);
   }
 
   for(int i = 0; i < num_output; i++)                                          // set biases in output layer to +/- bias
   {
-    int r = rand() % 10;
-    output_layer[i].bias = r > 4 ? bias : -bias;
+//    int r = rand() % 10;
+//    output_layer[i].bias = r > 4 ? bias : -bias;
+    output_layer[i].bias = bias;
   }
 
   for(int i = 0; i < num_input; i++)                                          // set weights between input -> h1 to +/- [0,1]
@@ -97,7 +101,7 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
 
   // train RINN
   float correct = 0;
-  for(int i = 0; i < ITERATIONS; i++)
+  for(int i = 0; i < TRAINING_ITS; i++)
   {
     for(int j = 0; j < training_size; j++)
     {
@@ -139,11 +143,11 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
     }
     correct = correct / training_size * 100;                                     // compute percentage correct
 //    printf("correctly categorized documents during random initialization training = %f\n", correct);
+
     correct = 0;
-    DoProgress("training RINN: ", i+1, ITERATIONS);
+    DoProgress("training RINN: ", i+1, TRAINING_ITS);
   }
   printf("\n");
-
 
   correct = 0;
   // test RINN
@@ -185,5 +189,5 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
   correct = correct / (sample_size - training_size) * 100;                                     // compute percentage correct
   printf("correctly categorized documents during random initialization training = %f %%\n", correct);
 
-return 0;
+  return 0;
 }

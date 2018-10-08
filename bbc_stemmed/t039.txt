@@ -1,0 +1,7 @@
+secur warn over 'fbi viru'
+
+the us feder bureau of investig is warn that a comput viru is be spread via e-mail that purport to be from the fbi.
+
+the e-mail show that thei have come from an fbi.gov address and tell recipi that thei have access illeg websit. the messag warn that their internet us ha been monitor by the fbi's internet fraud complaint center. an attach in the e-mail contain the viru, the fbi said. the messag ask recipi to click on the attach and answer some question about their internet us. but rather than be a questionnair, the attach contain a viru that infect the recipi's comput, accord to the agenc. it is not clear what the viru doe onc it ha infect a comput. user ar warn never to open attach from unsolicit e-mail or from peopl thei do not know.
+
+"recipi of thi or similar solicit should know that the fbi doe not engag in the practic of send unsolicit e-mail to the public in thi manner," the fbi said in a statement. the bureau is investig the phonei e-mail. the agenc earlier thi month shut down fbi.gov account, us to commun with the public, becaus of a secur breach. a spokeswoman said the two incid appear to be unrel.

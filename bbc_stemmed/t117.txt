@@ -1,0 +1,9 @@
+joke e-mail viru trick user
+
+a viru that disguis itself as a joke is spread rapidli across the net.
+
+anti-viru firm ar issu high-level warn about the new version of the bagl e-mail program that seem to be catch a lot of peopl out. the window viru grab e-mail address from microsoft outlook and us it own mail send softwar to spread itself to new victim. when it infect a machin, the bagl variant turn off secur measur that usual protect pc.
+
+the new variant is call bagl.at, bagl.bb and bagl.au and the attach bear the viru code is label as either "joke" or "price".
+
+the bodi of the viru usual contain noth but a smilei or emoticon. the viru can strike comput run window 95, 98, me, nt, 2000 and xp. user will be infect if thei open the attach that travel with the e-mail. as well as plunder microsoft outlook for e-mail address to send itself to, bagl.at also tri to turn off the firewal and secur centr servic on window xp machin. bbc new onlin ha receiv five warn about the viru from secur compani. finnish compani f-secur gave the viru it second highest threat level. "we've had sever report all over the world," said mikko hypponen, director of anti-viru research for f-secur. secur firm network box said that it stop more than 30,000 copi an hour of the viru as the outbreak reach a peak. black spider said it had stop more than 1 million copi of bagl.at sinc the outbreak began at 0630 bst (0530 gmt). anti-viru firm urg user to be wari of unexpect e-mail messag bear attach and to updat their softwar to ensur thei ar protect against the latest threat.

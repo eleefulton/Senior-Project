@@ -1,0 +1,13 @@
+pompeii get digit make-over
+
+the old-fashion audio tour of histor place could soon be replac with comput-gener imag that bring the site to life.
+
+a european union-fund project is look at provid tourist with comput-augment version of archaeolog attract. it would allow visitor a glimps of life as it wa origin live in place such as pompeii. it could pave the wai for a new form of cultur tourism.
+
+the technolog would allow digit peopl and other comput-gener element to be combin with the actual view seen by tourist as thei walk around an histor site.
+
+the lifeplu project is part of the eu's inform societi technolog initi aim at promot user-friendli technolog and enhanc european cultur heritag. engin and research work in the europ-wide consortium have come up with a prototyp augment-realiti system. it would requir the visitor to wear a head-mount displai with a miniatur camera and a backpack comput. the camera captur the view and feed it to softwar on the comput where the visitor's viewpoint is combin with anim virtual element. at pompeii for exampl, the visitor would not just see the fresco, tavern and villa that have been excav, but also peopl go about their daili life. augment realiti ha been us to creat special effect in film such as troi and lord of the ring and in comput game.
+
+"thi technolog can now be us for much more than just comput game," said professor nadia magnenat-thalman of the swiss research group miralab.
+
+"we ar, for the first time, abl to run thi combin of softwar process to creat walk, talk peopl with believ cloth, skin and hair in real-time," she said. unlik virtual realiti, which deliv an entir comput-gener scene to the viewer, the lifeplu project is about combin digit and real view. crucial to the techniqu is the softwar that interpret the visitor's view and provid an accur match between the real and virtual element. the softwar capabl of do thi ha been develop by a uk compani, 2d3. andrew stoddart, chief scientist at 2d3, said that the eu project ha been driven by a new desir to bring the past to life. "the popular of televis documentari and dramatis us comput-gener imageri to recreat scene from ancient histori demonstr the widespread appeal of bring ancient cultur to life," he said.
