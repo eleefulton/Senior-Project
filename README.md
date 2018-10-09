@@ -32,6 +32,11 @@ value, that nodes bias and an array of all weights leaving that node. After each
 layers nodes are initialized, the program will build a structure of weights and biases 
 based on the NNIDT design.
 
+After the network is initialized with the NNIDT strategy, the program will train the 
+network on the given randomized training files over 1000 iterations (same training files 
+passed through network 1000 times) and will then test the network on the test files 
+displaying the percent of the testing files it got correct.
+
 Input Format
 The program takes a .input file from the command line formatted in the following manner
   1. The directory in which the data files reside
@@ -68,4 +73,6 @@ Program Output
 This program outputs a .out file for each of the given categories and stores them in the
 /50-words folder. It also creates a combined-50.out file, docs.names file and docs.data 
 for use with the decision tree. Once the decision tree has run it will output a docs.dnf 
-file that contains the disjunctive normal form of the decision tree.
+file that contains the disjunctive normal form of the decision tree. After the network has been 
+trained, the program will output a percentage for how many files out of the testing set it was 
+able to correctly categorize.
