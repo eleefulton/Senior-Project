@@ -333,6 +333,7 @@ int main(int argc, char *argv[])
     DoProgress("training NNIDT: ", i+1, TRAINING_ITS);
   }
   printf("\n");
+  fclose(sample_output);                                                       // close sample_output file for rinn to use
 
 // test NNIDT
   for(int i = 0; i < (sample_size - training_size); i++)
@@ -380,9 +381,8 @@ int main(int argc, char *argv[])
   printf("\n");
   correct = correct / (sample_size - training_size) * 100;                     // compute percent correct
   printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
-  fclose(sample_output);                                                       // close sample_output file for rinn to use
 
-//  random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
+  //random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
 
   return 0;
 }

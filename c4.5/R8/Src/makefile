@@ -17,7 +17,7 @@
 #	      CFLAGS = -O3 etc
 
 
-CFLAGS = -O2 -w
+CFLAGS = -O2
 
 
 #	Definitions of file sets
@@ -114,12 +114,8 @@ all:
 	make consult
 	make consultr
 	cc -o xval-prep xval-prep.c
-	cc -o average average.c -lm
+	cc -o average average.c -lm -g
 
 
 $(trees): defns.i types.i extern.i
 $(rules): defns.i types.i extern.i
-
-.PHONY: clean
-clean:
-	-rm $(OBJ) c4.5 c4.5.o besttree.o build.o info.o discr.o contin.o subset.o prune.o stats.o st-thresh.o classify.o confmat.o sort.o getnames.o getdata.o trees.o getopt.o header.o
