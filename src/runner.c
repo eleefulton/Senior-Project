@@ -10,6 +10,10 @@
 
 int main(int argc, char *argv[])
 {
+FILE *test_results = fopen("test_results.csv", "w+");
+fprintf(test_results, "validation accuracy, testing accuracy\n");
+for(int test = 0; test < 1000; test++)
+{
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
   char *input[MAX_CATEGORIES * 2 + 5];                                        // array for input strings
   if(input_file == NULL)                                                      // check input file opened propperly
@@ -273,11 +277,72 @@ int main(int argc, char *argv[])
   }
 */
 
+  Node *previous_input = malloc(sizeof(Node)*num_categories*50);
+  for(int i = 0; i < num_categories*50; i++)
+    previous_input[i].weights = malloc(sizeof(float)*num_literals);
+
+  Node *previous_literal = malloc(sizeof(Node)*num_literals);
+  for(int i = 0; i < num_literals; i++)
+    previous_literal[i].weights = malloc(sizeof(float)*num_conjuncts);
+
+  Node *previous_conjunctive = malloc(sizeof(Node)*num_conjuncts);
+  for(int i = 0; i < num_conjuncts; i++)
+    previous_conjunctive[i].weights = malloc(sizeof(float)*num_categories);
+
+  Node *previous_output = malloc(sizeof(Node)*num_categories);
+
+
+
+
   FILE *sample_output = fopen("sample_output.txt", "w+");
+  int stop = 0;
+  int completed_epochs = 0;                                                    // keep track of how many epochs the network completes
+  float previous_best = 0;                                                   // keep track of network's previous best accuracy
   float correct = 0;
-  for(int i = 0; i < TRAINING_ITS; i++)
+  int training_set_size = training_size / 10 * 9;                            // split training set into training and validation using 9:1
+  int validation_set_size = training_size / 10;
+  printf("\ntraining set size = %d\n", training_set_size);
+  printf("validation set size = %d\n", validation_set_size);
+  printf("validation threshold = %d epochs\n\n", VALIDATION_THRESHOLD);
+  for(int i = 0; i < EPOCHS && stop != 1; i++)                                     // loop through 1000 epochs or until early stop condition
   {
-    for(int j = 0; j < training_size; j++)                                     // for all files in training set
+//    printf("training set size: %d\n", training_set_size);
+//    printf("validation set size: %d\n", validation_set_size);
+
+//    if(i % 5 == 0)                                                             // store the network to be used for validation as previous network
+    {
+      for(int j = 0; j < num_categories * 50; j++)
+      {
+        previous_input[j].value = input_layer[j].value;
+        previous_input[j].bias = input_layer[j].bias;
+        for(int k = 0; k < num_literals; k++)
+          previous_input[j].weights[k] = input_layer[j].weights[k];
+      }
+
+      for(int j = 0; j < num_literals; j++)
+      {
+        previous_literal[j].value = literal_layer[j].value;
+        previous_literal[j].bias = literal_layer[j].bias;
+        for(int k = 0; k < num_conjuncts; k++)
+          previous_literal[j].weights[k] = literal_layer[j].weights[k];
+      }
+
+      for(int j = 0; j < num_conjuncts; j++)
+      {
+        previous_conjunctive[j].value = conjunctive_layer[j].value;
+        previous_conjunctive[j].bias = conjunctive_layer[j].bias;
+        for(int k = 0; k < num_categories; k++)
+          previous_conjunctive[j].weights[k] = conjunctive_layer[j].weights[k];
+      }
+
+      for(int j = 0; j < num_categories; j++)
+      {
+        previous_output[j].value = output_layer[j].value;
+        previous_output[j].bias = output_layer[j].bias;
+      }
+    }
+
+    for(int j = 0; j < training_set_size; j++)                                 // for all files in training set
     {
       char expected_output =                                                   // store expected output for this doc
              file_names_array[file_names_index[j]][strlen(directory)];
@@ -308,32 +373,72 @@ int main(int argc, char *argv[])
       compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
       adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
 
-/*      int max = 0;                                                             // max output node index
-      int correct_index;                                                       // correct output node index
-      for(int j = 0; j < num_categories; j++)                                  // find max output node and keep track of it's index
-      {
-        if(output_layer[j].value > output_layer[max].value)
-          max = j;
-      }
-      for(int j = 0; j < num_categories; j++)                                  // find index of expected output node
-      {
-        if(expected_output_layer[j].value == 1)
-          correct_index = j;
-      }
-      if(max == correct_index)                                                 // if max and correct_index are the same, the network was correct
-        correct++;
-*/
-/*      for(int j = 0; j < num_categories; j++)                                    // print output of network
-          printf("actual: %f expected: %f\n", output_layer[j].value, expected_output_layer[j].value);
-*/
     }
-//    correct = correct / training_size * 100;                                   // compute percent correct
-//    printf("correctly categorized documents during training: %f %%\n\n", correct); // print percent correct during training
-//    correct = 0;
-    DoProgress("training NNIDT: ", i+1, TRAINING_ITS);
+
+    if(i > VALIDATION_THRESHOLD)                                 // if more than validation_threshold epochs have passed and its a multiple of 5
+    {
+      for(int j = training_set_size; j < training_set_size + validation_set_size; j++)         // run validation on network
+      {
+        char expected_output =                                                     // store expected output for this doc
+             file_names_array[file_names_index[j]][strlen(directory)];
+        for(int k = 0; k < num_categories; k++)
+        {
+          if(expected_output_layer[k].tag[0] == expected_output)
+            expected_output_layer[k].value = 1;
+          else
+            expected_output_layer[k].value = 0;
+        }
+
+        for(int k = 0; k < num_categories * 50; k++)                               // set input value for each word count for this doc
+        {
+          input_layer[k].value = input_values[j][k];
+        }
+
+        // run NNIDT
+        forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+        forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+        forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+
+        int max = 0;
+        int correct_index;
+        for(int k = 0; k < num_categories; k++)                                // compute if the network got this one correct
+        {
+          if(output_layer[k].value > output_layer[max].value)
+            max = k;
+        }
+        for(int k = 0; k < num_categories; k++)
+        {
+          if(expected_output_layer[k].value == 1)
+            correct_index = k;
+        }
+        if(max == correct_index)                                               // if the network was correct, increase count of correct
+        {
+          correct++;
+        }
+      }
+      correct = correct / validation_set_size * 100;                           // convert total correct to percentage
+      printf("validation set accuracy: %f %%, previous best: %f %%\n", correct, previous_best);
+      if(correct >= previous_best)                                              // if this accuracy is higher than the previous
+      {
+        previous_best = correct;                                               // make this the previous best
+      }  
+      else
+      {
+        input_layer = previous_input;                                          // reset network to previous best
+        literal_layer = previous_literal;
+        conjunctive_layer = previous_conjunctive;
+        output_layer = previous_output;
+        completed_epochs = i;
+        stop = 1;
+      }
+      correct = 0;
+    }
+//    DoProgress("training NNIDT: ", i+1, EPOCHS);                               // print progress of training
   }
   printf("\n");
-  fclose(sample_output);                                                       // close sample_output file for rinn to use
+  printf("completed training epochs: %d\n", completed_epochs);
+  printf("validation accuracy: %f\n", previous_best);
+//  fprintf(test_results, "%f, ", previous_best);
 
 // test NNIDT
   for(int i = 0; i < (sample_size - training_size); i++)
@@ -380,10 +485,16 @@ int main(int argc, char *argv[])
   }
   printf("\n");
   correct = correct / (sample_size - training_size) * 100;                     // compute percent correct
+//  printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
+//    int all_in_range = 1;
   printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
+//  fprintf(test_results, "%f\n", correct);
 
+//  fclose(test_results);
   //random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
-
+  fclose(sample_output);                                                       // close sample_output file for rinn to use
+}
+fclose(test_results);
   return 0;
 }
 

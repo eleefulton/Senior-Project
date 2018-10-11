@@ -17,7 +17,9 @@
 #define BETA 0.25f
 #define LR 0.3f
 #define MOMENTUM 0.1f
-#define TRAINING_ITS 1000
+#define EPOCHS 100
+#define MIN_ERROR 0.001f
+#define VALIDATION_THRESHOLD 20
 int in_string_list(char* string, char *list[], int n);
 int verify_randomization(char **input, char **file_names_array, int *file_names_index, int num_categories, int training_size);
 float sigmoid(float x);

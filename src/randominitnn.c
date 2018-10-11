@@ -101,7 +101,7 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
 
   // train RINN
   float correct = 0;
-  for(int i = 0; i < TRAINING_ITS*2; i++)
+  for(int i = 0; i < EPOCHS*2; i++)
   {
     for(int j = 0; j < training_size; j++)
     {
@@ -145,7 +145,7 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
 //    printf("correctly categorized documents during random initialization training = %f\n", correct);
 
     correct = 0;
-    DoProgress("training RINN: ", i+1, TRAINING_ITS * 2);
+    DoProgress("training RINN: ", i+1, EPOCHS * 2);
   }
   printf("\n");
 
