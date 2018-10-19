@@ -11,8 +11,8 @@
 int main(int argc, char *argv[])
 {
 FILE *test_results = fopen("test_results.csv", "w+");
-fprintf(test_results, "validation accuracy, testing accuracy\n");
-for(int test = 0; test < 1000; test++)
+fprintf(test_results, "nan, testing accuracy\n");
+for(int test = 0; test < 1; test++)
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
   char *input[MAX_CATEGORIES * 2 + 5];                                        // array for input strings
@@ -197,6 +197,7 @@ for(int test = 0; test < 1000; test++)
 
   printf("building input layer\n");
   rewind(docs_data);                                                           // rewind to beginning of docs file
+
   Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
   initialize_input_layer(fifty_words, input_layer, num_categories * 50);       // initialize input for first file
 
@@ -206,19 +207,20 @@ for(int test = 0; test < 1000; test++)
   printf("num literals = %d\n", num_literals);
   for(int i = 0; i < num_categories*50; i++)                                   // allocate weights in input layer to num literals
   {
-    input_layer[i].weights = malloc(sizeof(float)*num_literals);
+    input_layer[i].weights = malloc(sizeof(double)*num_literals);
     for(int j = 0; j < num_literals; j++)                                      // initialize all weights to 0
     {
       input_layer[i].weights[j] = 0;
     }
   }
+
   printf("building conjunctive layer: \n");
   Node *conjunctive_layer = malloc(sizeof(Node)*MAX_CONJUNCTS);                // create an array of Nodes for the conjunctive layer
   int num_conjuncts = initialize_conjunctive_layer(dnf_file, conjunctive_layer);// initialize the conjunctive layer
   printf("num conjuncts = %d\n", num_conjuncts);
   for(int i = 0; i < num_literals; i++)                                        // allocate weights in literal layer to num conjuncts
   {
-    literal_layer[i].weights = malloc(sizeof(float)*num_conjuncts);
+    literal_layer[i].weights = malloc(sizeof(double)*num_conjuncts);
     for(int j = 0; j < num_conjuncts; j++)                                      // initialize all weights to 0
     {
       literal_layer[i].weights[j] = 0;
@@ -226,12 +228,13 @@ for(int test = 0; test < 1000; test++)
   }
   for(int i = 0; i < num_conjuncts; i++)                                        // allocate weights in conjunctive layer to num categories
   {
-    conjunctive_layer[i].weights = malloc(sizeof(float)*num_categories);
+    conjunctive_layer[i].weights = malloc(sizeof(double)*num_categories);
     for(int j = 0; j < num_categories; j++)                                     // initialize all weights to 0
     {
       literal_layer[i].weights[j] = 0;
     }
   }
+
   printf("building output layer\n");
   Node *output_layer = malloc(sizeof(Node)*num_categories);                    // create an array of Nodes for the output layer
   Node *expected_output_layer = malloc(sizeof(Node)*num_categories);
@@ -279,15 +282,15 @@ for(int test = 0; test < 1000; test++)
 
   Node *previous_input = malloc(sizeof(Node)*num_categories*50);
   for(int i = 0; i < num_categories*50; i++)
-    previous_input[i].weights = malloc(sizeof(float)*num_literals);
+    previous_input[i].weights = malloc(sizeof(double)*num_literals);
 
   Node *previous_literal = malloc(sizeof(Node)*num_literals);
   for(int i = 0; i < num_literals; i++)
-    previous_literal[i].weights = malloc(sizeof(float)*num_conjuncts);
+    previous_literal[i].weights = malloc(sizeof(double)*num_conjuncts);
 
   Node *previous_conjunctive = malloc(sizeof(Node)*num_conjuncts);
   for(int i = 0; i < num_conjuncts; i++)
-    previous_conjunctive[i].weights = malloc(sizeof(float)*num_categories);
+    previous_conjunctive[i].weights = malloc(sizeof(double)*num_categories);
 
   Node *previous_output = malloc(sizeof(Node)*num_categories);
 
@@ -297,8 +300,8 @@ for(int test = 0; test < 1000; test++)
   FILE *sample_output = fopen("sample_output.txt", "w+");
   int stop = 0;
   int completed_epochs = 0;                                                    // keep track of how many epochs the network completes
-  float previous_best = 0;                                                   // keep track of network's previous best accuracy
-  float correct = 0;
+  double previous_best = 0;                                                   // keep track of network's previous best accuracy
+  double correct = 0;
   int training_set_size = training_size / 10 * 9;                            // split training set into training and validation using 9:1
   int validation_set_size = training_size / 10;
   printf("\ntraining set size = %d\n", training_set_size);
@@ -306,6 +309,22 @@ for(int test = 0; test < 1000; test++)
   printf("validation threshold = %d epochs\n\n", VALIDATION_THRESHOLD);
   for(int i = 0; i < EPOCHS && stop != 1; i++)                                     // loop through 1000 epochs or until early stop condition
   {
+/*    for(int j = 0; j < num_categories * 50; j++)
+      if(input_layer[j].value < 0)
+        printf("input node %d less than zero\n", j);
+    for(int j = 0; j < num_categories * 50; j++)
+      if(input_layer[j].value != input_layer[j].value)
+        printf("nan in input node %d\n", j);
+    for(int j = 0; j < num_literals; j++)
+      if (literal_layer[j].value != literal_layer[j].value)
+        printf("nan in literal node %d\n", j);
+    for(int j = 0; j < num_conjuncts; j++)
+      if (conjunctive_layer[j].value != conjunctive_layer[j].value)
+        printf("nan in conjunctive node %d\n", j);
+    for(int j = 0; j < num_categories; j++)
+      if (output_layer[j].value != output_layer[j].value)
+        printf("nan in output node %d\n", j);
+*/
 //    printf("training set size: %d\n", training_set_size);
 //    printf("validation set size: %d\n", validation_set_size);
 
@@ -372,10 +391,32 @@ for(int test = 0; test < 1000; test++)
       adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, LR);
       compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
       adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
-
+  
+      int max = 0;
+      int correct_index = 0;
+      for(int k = 0; k < num_categories; k++)                                // compute if the network got this one correct
+      {
+        if(output_layer[k].value > output_layer[max].value)
+          max = k;
+      }
+      for(int k = 0; k < num_categories; k++)
+      {
+        if(expected_output_layer[k].value == 1)
+          correct_index = k;
+      }
+      if(max == correct_index)                                               // if the network was correct, increase count of correct
+      {
+        correct++;
+      }
     }
 
-    if(i > VALIDATION_THRESHOLD)                                 // if more than validation_threshold epochs have passed and its a multiple of 5
+    for(int i = 0; i < num_categories; i++)
+      printf("actual: %f expected: %f\n", output_layer[i].value, expected_output_layer[i].value);
+    correct = correct / training_set_size * 100;                           // convert total correct to percentage
+    printf("training set accuracy: %f %%\n", correct);
+    correct = 0;
+
+//    if(i > VALIDATION_THRESHOLD)                                 // if more than validation_threshold epochs have passed and its a multiple of 5
     {
       for(int j = training_set_size; j < training_set_size + validation_set_size; j++)         // run validation on network
       {
@@ -422,7 +463,7 @@ for(int test = 0; test < 1000; test++)
       {
         previous_best = correct;                                               // make this the previous best
       }  
-      else
+      else if(previous_best > 80)
       {
         input_layer = previous_input;                                          // reset network to previous best
         literal_layer = previous_literal;
@@ -438,6 +479,9 @@ for(int test = 0; test < 1000; test++)
   printf("\n");
   printf("completed training epochs: %d\n", completed_epochs);
   printf("validation accuracy: %f\n", previous_best);
+  if(output_layer[0].value != output_layer[0].value)
+    fprintf(test_results, "yes,");
+  else fprintf(test_results, "no,");
 //  fprintf(test_results, "%f, ", previous_best);
 
 // test NNIDT
@@ -464,7 +508,7 @@ for(int test = 0; test < 1000; test++)
     forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
 
     int max = 0;
-    int correct_index;
+    int correct_index = 0;
     for(int j = 0; j < num_categories; j++)
     {
       if(output_layer[j].value > output_layer[max].value)
@@ -485,35 +529,37 @@ for(int test = 0; test < 1000; test++)
   }
   printf("\n");
   correct = correct / (sample_size - training_size) * 100;                     // compute percent correct
-//  printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
 //    int all_in_range = 1;
-  printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during training
-//  fprintf(test_results, "%f\n", correct);
+  printf("correctly categorized documents during testing: %f %%\n\n", correct); // print percent correct during testing
+  fprintf(test_results, "%f\n", correct);
 
 //  fclose(test_results);
   //random_init_nn(num_categories * 50, num_categories, num_literals, num_conjuncts, LR, training_size, sample_size); // run rinn on same training set
   fclose(sample_output);                                                       // close sample_output file for rinn to use
 }
 fclose(test_results);
+free(test_results);
   return 0;
 }
 
 /*
   return result of sigmoid funciton on x
 */
-float sigmoid(float x)
+double sigmoid(double x)
 {
-  float e = exp((float)-x);
-  return (float)1/(1 + e);
+  double e = exp((double)-x);
+  if(1+e == 0)
+    printf("divide by zero\n");
+  return (double)1/(1 + e);
 }
 
 /*
   return the result of the derivative of the sigmoid function with regards to x
 */
-float sigmoid_derivative(float x)
+double sigmoid_derivative(double x)
 {
-  float e = sigmoid((float)x);
-  return (float)e * (1 - e);
+  double e = sigmoid((double)x);
+  return (double)e * (1 - e);
 }
 
 /*
@@ -523,7 +569,7 @@ void forward_propagate(Node *left_layer, Node *right_layer, int num_left, int nu
 {
   for(int i = 0; i < num_right; i++)
   {
-    float sum = 0;
+    double sum = 0;
     for(int j = 0; j < num_left; j++)
     {
       sum += left_layer[j].weights[i]*left_layer[j].value;                     // sum (weights leaving left_layer[j] * left_layer[j].value)
@@ -536,11 +582,11 @@ void forward_propagate(Node *left_layer, Node *right_layer, int num_left, int nu
 /*
   compute the error for the output layer(actual) nodes based on expected layer values
 */
-void compute_error_for_output(Node *actual, Node *expected, int num_output, float lr)
+void compute_error_for_output(Node *actual, Node *expected, int num_output, double lr)
 {
   for(int i = 0; i < num_output; i++)
   {
-    float roc = actual[i].value - expected[i].value;                           // compute the rate of change of the cost function
+    double roc = actual[i].value - expected[i].value;                           // compute the rate of change of the cost function
 //    printf("roc = %f\n",roc); 
 //    printf("weighted input = %f\n", actual[i].weighted_input);
 //    printf("sig der = %f\n", sigmoid_derivative(actual[i].weighted_input));
@@ -570,13 +616,13 @@ void compute_error(Node *left_layer, Node *right_layer, int num_left, int num_ri
 /*
   adjust weights going from left_layer to right_layer using learning rate (lr)
 */
-void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_right, float lr)
+void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_right, double lr)
 {
   for(int i = 0; i < num_left; i++)
   {
     for(int j = 0; j < num_right; j++)
     {
-      float change_to_cost_func = left_layer[i].value * right_layer[j].error;  // calculate change to the cost function my multiplying this nodes value by the next layers nodes error
+      double change_to_cost_func = left_layer[i].value * right_layer[j].error;  // calculate change to the cost function my multiplying this nodes value by the next layers nodes error
       left_layer[i].weights[j] = left_layer[i].weights[j] - (lr*change_to_cost_func); // adjust weight
     }
   }
