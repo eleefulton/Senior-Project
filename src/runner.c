@@ -10,8 +10,8 @@
 
 int main(int argc, char *argv[])
 {
-FILE *test_results = fopen("test_results.csv", "w+");
-fprintf(test_results, "nan, testing accuracy\n");
+FILE *test_results = fopen("test_results.csv", "a");
+//fprintf(test_results, "nan, testing accuracy\n");
 for(int test = 0; test < 1; test++)
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
@@ -482,6 +482,7 @@ for(int test = 0; test < 1; test++)
   if(output_layer[0].value != output_layer[0].value)
     fprintf(test_results, "yes,");
   else fprintf(test_results, "no,");
+  fprintf(test_results, "%d,", completed_epochs);
 //  fprintf(test_results, "%f, ", previous_best);
 
 // test NNIDT

@@ -5,9 +5,13 @@ OBJ = ./src/runner.o ./src/tfidf.o ./src/build_file_name.o ./src/parse_file.o ./
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+all: runner experiment
+
 runner: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+experiment: experiment.c
+	gcc experiment.c -o experiment
 
 .PHONY: clean
 clean:
-	-rm $(OBJ) runner
+	-rm $(OBJ) runner experiment
