@@ -309,7 +309,8 @@ for(int test = 0; test < 1; test++)
   printf("validation threshold = %d epochs\n\n", VALIDATION_THRESHOLD);
   for(int i = 0; i < EPOCHS && stop != 1; i++)                                     // loop through 1000 epochs or until early stop condition
   {
-/*    for(int j = 0; j < num_categories * 50; j++)
+
+//    for(int j = 0; j < num_categories * 50; j++)
       if(input_layer[j].value < 0)
         printf("input node %d less than zero\n", j);
     for(int j = 0; j < num_categories * 50; j++)
@@ -324,7 +325,7 @@ for(int test = 0; test < 1; test++)
     for(int j = 0; j < num_categories; j++)
       if (output_layer[j].value != output_layer[j].value)
         printf("nan in output node %d\n", j);
-*/
+//
 //    printf("training set size: %d\n", training_set_size);
 //    printf("validation set size: %d\n", validation_set_size);
 
@@ -463,7 +464,7 @@ for(int test = 0; test < 1; test++)
       {
         previous_best = correct;                                               // make this the previous best
       }  
-      else if(previous_best > 80)
+      else if(previous_best >= 80)
       {
         input_layer = previous_input;                                          // reset network to previous best
         literal_layer = previous_literal;

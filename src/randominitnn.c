@@ -7,7 +7,7 @@
 
 int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, float learning_rate, int training_size, int sample_size)
 {
-  srand(time(NULL));                                                           // initalize rand()
+/*  srand(time(NULL));                                                           // initalize rand()
   float bias = ALPHA;                                                          // set bias to ALPHA value
   FILE *input_file = fopen("sample_input.txt", "r");                           // open input file
   FILE *output_file = fopen("sample_output.txt", "r");                         // open expected output file
@@ -100,10 +100,12 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
     }
 
   // train RINN
+  int training_set_size = training_size / 10 * 9;
+  int validation_set_size = training_size / 10;
   float correct = 0;
   for(int i = 0; i < EPOCHS*2; i++)
   {
-    for(int j = 0; j < training_size; j++)
+    for(int j = 0; j < trainingi_set_size; j++)
     {
       for(int k = 0; k < num_input; k++)                                         // set input layer values
         input_layer[k].value = input[k][j];
@@ -134,14 +136,79 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
       if(max == correct_max)                                                     // if indexes are the same, the network was correct
         correct++;
 
-/*      for(int i = 0; i < num_output; i++)
+//      for(int i = 0; i < num_output; i++)
       {
         printf("%f, expected: %f\n", output_layer[i].value, expected_output_layer[i].value);
       }
       printf("\n");
-*/
+
     }
-    correct = correct / training_size * 100;                                     // compute percentage correct
+      for(int j = training_set_size; j < training_set_size + validation_set_size; j++)         // run validation on network
+      {
+        char expected_output =                                                     // store expected output for this doc
+             file_names_array[file_names_index[j]][strlen(directory)];
+        for(int k = 0; k < num_categories; k++)
+        {
+          if(expected_output_layer[k].tag[0] == expected_output)
+            expected_output_layer[k].value = 1;
+          else
+            expected_output_layer[k].value = 0;
+        }
+
+        for(int k = 0; k < num_categories * 50; k++)                               // set input value for each word count for this doc
+        {
+          input_layer[k].value = input_values[j][k];
+        }
+
+        // run NNIDT
+        forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+        forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
+        forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+
+        int max = 0;
+        int correct_index;
+        for(int k = 0; k < num_categories; k++)                                // compute if the network got this one correct
+        {
+          if(output_layer[k].value > output_layer[max].value)
+            max = k;
+        }
+        for(int k = 0; k < num_categories; k++)
+        {
+          if(expected_output_layer[k].value == 1)
+            correct_index = k;
+        }
+        if(max == correct_index)                                               // if the network was correct, increase count of correct
+        {
+          correct++;
+        }
+      }
+      correct = correct / validation_set_size * 100;                           // convert total correct to percentage
+      printf("validation set accuracy: %f %%, previous best: %f %%\n", correct, previous_best);
+      if(correct >= previous_best)                                              // if this accuracy is higher than the previous
+      {
+        previous_best = correct;                                               // make this the previous best
+      }  
+      else if(previous_best >= 80)
+      {
+        input_layer = previous_input;                                          // reset network to previous best
+        literal_layer = previous_literal;
+        conjunctive_layer = previous_conjunctive;
+        output_layer = previous_output;
+        completed_epochs = i;
+        stop = 1;
+      }
+      correct = 0;
+    }
+//    DoProgress("training NNIDT: ", i+1, EPOCHS);                               // print progress of training
+  }
+  printf("\n");
+  printf("completed training epochs: %d\n", completed_epochs);
+  printf("validation accuracy: %f\n", previous_best);
+  if(output_layer[0].value != output_layer[0].value)
+    fprintf(test_results, "yes,");
+  else fprintf(test_results, "no,");
+  fprintf(test_results, "%d,", completed_epochs);
+
 //    printf("correctly categorized documents during random initialization training = %f\n", correct);
 
     correct = 0;
@@ -176,18 +243,18 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
     if(max == correct_max)                                                     // if indexes are the same, the network was correct
       correct++;
 
-/*    for(int i = 0; i < num_output; i++)
+//    for(int i = 0; i < num_output; i++)
     {
       printf("%f, expected: %f\n", output_layer[i].value, expected_output_layer[i].value);
     }
     printf("\n");
-*/
+//
     DoProgress("testing RINN: ", i+1, sample_size - training_size);
   }
   printf("\n");
 
   correct = correct / (sample_size - training_size) * 100;                                     // compute percentage correct
   printf("correctly categorized documents during random initialization training = %f %%\n", correct);
-
+*/
   return 0;
 }
