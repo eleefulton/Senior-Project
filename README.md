@@ -73,6 +73,6 @@ Program Output
 This program outputs a .out file for each of the given categories and stores them in the
 /50-words folder. It also creates a combined-50.out file, docs.names file and docs.data 
 for use with the decision tree. Once the decision tree has run it will output a docs.dnf 
-file that contains the disjunctive normal form of the decision tree. After the network has been 
-trained, the program will output a percentage for how many files out of the testing set it was 
-able to correctly categorize.
+file that contains the disjunctive normal form of the decision tree. The program stores 
+wheter a nan was detected, the number of epochs completed during training, and the accuracy 
+of the network on the test set in test_results.csv.
