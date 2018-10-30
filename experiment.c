@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   strncat(command, argv[1], strlen(argv[1]));
   fprintf(test_results, "nan, completed epochs, accuracy\n");
   fclose(test_results);
-  for(int i = 0; i < 100; i++)
+  for(int i = 0; i < 1; i++)
     system(command);
   return 0;
 }

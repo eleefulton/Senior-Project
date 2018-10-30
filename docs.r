@@ -1,5 +1,5 @@
 
-C4.5 [release 8] rule generator	Tue Oct 23 00:28:47 2018
+C4.5 [release 8] rule generator	Tue Oct 30 17:41:27 2018
 -------------------------------
 
     Options:
@@ -14,180 +14,205 @@ Processing tree 0
 
 Final rules from tree 0:
 
-Rule 13:
+Rule 35:
     	cup > 0
-	->  class s  [92.6%]
-
-Rule 16:
-    	championship > 0
-	->  class s  [92.2%]
-
-Rule 8:
-    	arsen > 0
-	->  class s  [88.2%]
-
-Rule 15:
-    	striker > 0
-	->  class s  [85.7%]
-
-Rule 10:
-    	driscol > 0
-	->  class s  [82.0%]
-
-Rule 11:
-    	phillip > 0
-	->  class s  [75.8%]
-
-Rule 55:
-    	softwar > 0
-	->  class t  [94.2%]
-
-Rule 54:
-    	web > 0
-	->  class t  [93.3%]
-
-Rule 49:
-    	devic > 0
-	->  class t  [90.6%]
-
-Rule 20:
-    	handset > 0
-	->  class t  [85.7%]
-
-Rule 21:
-    	gadget > 0
-	->  class t  [85.7%]
-
-Rule 47:
-    	analyst > 0
-    	chart > 0
-	->  class t  [63.0%]
-
-Rule 40:
-    	analyst <= 0
-    	music > 0
-    	unit <= 0
-    	softwar <= 0
-    	devic <= 0
-	->  class e  [90.9%]
-
-Rule 37:
-    	comedi > 0
-	->  class e  [90.6%]
-
-Rule 38:
-    	actress > 0
-	->  class e  [89.9%]
-
-Rule 39:
-    	oscar > 0
-	->  class e  [89.9%]
-
-Rule 34:
-    	boi > 0
-	->  class e  [80.9%]
-
-Rule 56:
-    	tori > 0
-	->  class p  [95.8%]
+	->  class s  [95.0%]
 
 Rule 33:
-    	product <= 0
-    	shadow > 0
-	->  class p  [92.2%]
-
-Rule 26:
-    	blair > 0
-	->  class p  [90.9%]
-
-Rule 30:
-    	manifesto > 0
-	->  class p  [87.1%]
+    	coach > 0
+	->  class s  [92.6%]
 
 Rule 29:
-    	ukip > 0
-	->  class p  [75.8%]
+    	rugby > 0
+	->  class s  [90.6%]
 
-Rule 28:
-    	goldsmith > 0
-	->  class p  [70.7%]
+Rule 34:
+    	tournament > 0
+	->  class s  [90.6%]
 
-Rule 19:
-    	strike > 0
-	->  class p  [50.0%]
+Rule 15:
+    	grand > 0
+    	computers <= 0
+	->  class s  [89.1%]
 
-Rule 53:
-    	bn > 1
-    	tori <= 0
-    	softwar <= 0
-    	web <= 0
-	->  class b  [94.6%]
-
-Rule 46:
-    	economi > 1
-    	tori <= 0
-	->  class b  [89.9%]
-
-Rule 44:
-    	analyst > 0
-    	chart <= 0
-    	softwar <= 0
-    	web <= 0
-	->  class b  [86.6%]
-
-Rule 42:
-    	oil > 0
-	->  class b  [86.0%]
+Rule 32:
+    	champion > 0
+    	device <= 0
+	->  class s  [87.1%]
 
 Rule 31:
-    	economist > 0
-	->  class b  [82.2%]
+    	arsenal > 0
+	->  class s  [85.7%]
 
-Default class: s
+Rule 19:
+    	seed > 0
+	->  class s  [84.1%]
+
+Rule 20:
+    	injury > 1
+	->  class s  [84.1%]
+
+Rule 40:
+    	pc > 0
+	->  class t  [91.7%]
+
+Rule 38:
+    	computers > 0
+	->  class t  [88.2%]
+
+Rule 37:
+    	images > 0
+	->  class t  [87.1%]
+
+Rule 39:
+    	device > 0
+	->  class t  [87.1%]
+
+Rule 22:
+    	analysts > 1
+    	tv > 0
+	->  class t  [79.4%]
+
+Rule 18:
+    	spam > 0
+	->  class t  [75.8%]
+
+Rule 28:
+    	comedy > 0
+	->  class e  [91.2%]
+
+Rule 26:
+    	actor > 0
+	->  class e  [89.1%]
+
+Rule 27:
+    	singer > 0
+    	mp <= 0
+	->  class e  [89.1%]
+
+Rule 25:
+    	ceremony > 0
+    	arsenal <= 0
+	->  class e  [88.2%]
+
+Rule 30:
+    	stars > 0
+	->  class e  [86.7%]
+
+Rule 24:
+    	chart > 0
+    	computers <= 0
+	->  class e  [85.7%]
+
+Rule 14:
+    	actress > 1
+	->  class e  [84.1%]
+
+Rule 13:
+    	prize > 1
+    	tournament <= 0
+	->  class e  [79.4%]
+
+Rule 42:
+    	tories > 0
+	->  class p  [93.0%]
+
+Rule 41:
+    	liberal > 0
+	->  class p  [92.2%]
+
+Rule 36:
+    	mp > 0
+    	images <= 0
+	->  class p  [89.1%]
+
+Rule 23:
+    	blair > 1
+	->  class p  [84.3%]
+
+Rule 17:
+    	eu > 6
+	->  class p  [70.7%]
+
+Rule 12:
+    	referendum > 0
+	->  class p  [63.0%]
+
+Rule 10:
+    	analysts > 0
+    	tv <= 0
+    	tories <= 0
+    	computers <= 0
+    	images <= 0
+	->  class b  [95.0%]
+
+Rule 11:
+    	prices > 0
+    	tv <= 0
+    	liberal <= 0
+    	mp <= 0
+    	computers <= 0
+    	device <= 0
+	->  class b  [94.2%]
+
+Rule 16:
+    	bn > 0
+    	eu <= 6
+    	ceremony <= 0
+    	tories <= 0
+    	liberal <= 0
+    	device <= 0
+    	images <= 0
+	->  class b  [90.3%]
+
+Default class: b
 
 
 Evaluation on training data (338 items):
 
 Rule  Size  Error  Used  Wrong	          Advantage
 ----  ----  -----  ----  -----	          ---------
-  13     1   7.4%    18      0 (0.0%)	     0 (0|0) 	s
-  16     1   7.8%    14      0 (0.0%)	     0 (0|0) 	s
-   8     1  11.8%     8      0 (0.0%)	     1 (1|0) 	s
-  15     1  14.3%     2      0 (0.0%)	     0 (0|0) 	s
-  10     1  18.0%     4      0 (0.0%)	     0 (0|0) 	s
-  11     1  24.2%     3      0 (0.0%)	     0 (0|0) 	s
-  55     1   5.8%    23      0 (0.0%)	    10 (10|0) 	t
-  54     1   6.7%    11      0 (0.0%)	     8 (8|0) 	t
-  49     1   9.4%     6      0 (0.0%)	     2 (2|0) 	t
-  20     1  14.3%     4      0 (0.0%)	     4 (4|0) 	t
-  21     1  14.3%     2      0 (0.0%)	     2 (2|0) 	t
-  47     2  37.0%     3      0 (0.0%)	     3 (3|0) 	t
-  40     5   9.1%    27      0 (0.0%)	    15 (15|0) 	e
-  37     1   9.4%     9      0 (0.0%)	     4 (4|0) 	e
-  38     1  10.1%     7      0 (0.0%)	     3 (3|0) 	e
-  39     1  10.1%     3      0 (0.0%)	     3 (3|0) 	e
-  34     1  19.1%     3      0 (0.0%)	     3 (3|0) 	e
-  56     1   4.2%    32      0 (0.0%)	    11 (11|0) 	p
-  33     2   7.8%     8      0 (0.0%)	     5 (5|0) 	p
-  26     1   9.1%     8      1 (12.5%)	     3 (4|1) 	p
-  30     1  12.9%     4      0 (0.0%)	     3 (3|0) 	p
-  29     1  24.2%     3      0 (0.0%)	     3 (3|0) 	p
-  28     1  29.3%     3      0 (0.0%)	     3 (3|0) 	p
-  19     1  50.0%     2      0 (0.0%)	     2 (2|0) 	p
-  53     4   5.4%    25      0 (0.0%)	    12 (12|0) 	b
-  46     2  10.1%    12      0 (0.0%)	     2 (2|0) 	b
-  44     4  13.4%    13      1 (7.7%)	    11 (11|0) 	b
-  42     1  14.0%     6      0 (0.0%)	     6 (6|0) 	b
-  31     1  17.8%     2      0 (0.0%)	     2 (2|0) 	b
+  35     1   5.0%    27      0 (0.0%)	    11 (11|0) 	s
+  33     1   7.4%    12      0 (0.0%)	     5 (5|0) 	s
+  29     1   9.4%     5      0 (0.0%)	     3 (3|0) 	s
+  34     1   9.4%     7      0 (0.0%)	     1 (1|0) 	s
+  15     2  10.9%     4      0 (0.0%)	     2 (2|0) 	s
+  32     2  12.9%     4      0 (0.0%)	     3 (3|0) 	s
+  31     1  14.3%     5      0 (0.0%)	     5 (5|0) 	s
+  19     1  15.9%     3      0 (0.0%)	     3 (3|0) 	s
+  20     1  15.9%     3      0 (0.0%)	     3 (3|0) 	s
+  40     1   8.3%    16      0 (0.0%)	     7 (7|0) 	t
+  38     1  11.8%     7      0 (0.0%)	     6 (6|0) 	t
+  37     1  12.9%     7      0 (0.0%)	     6 (6|0) 	t
+  39     1  12.9%     7      0 (0.0%)	     7 (7|0) 	t
+  22     2  20.6%     3      0 (0.0%)	     3 (3|0) 	t
+  18     1  24.2%     3      0 (0.0%)	     3 (3|0) 	t
+  28     1   8.8%    15      0 (0.0%)	     4 (4|0) 	e
+  26     1  10.9%     7      0 (0.0%)	     3 (3|0) 	e
+  27     2  10.9%     8      0 (0.0%)	     3 (3|0) 	e
+  25     2  11.8%     6      0 (0.0%)	     4 (4|0) 	e
+  30     1  13.3%     7      1 (14.3%)	     5 (5|0) 	e
+  24     2  14.3%     6      0 (0.0%)	     6 (6|0) 	e
+  14     1  15.9%     2      0 (0.0%)	     2 (2|0) 	e
+  13     2  20.6%     2      0 (0.0%)	     2 (2|0) 	e
+  42     1   7.0%    19      0 (0.0%)	     9 (9|0) 	p
+  41     1   7.8%    11      0 (0.0%)	     4 (4|0) 	p
+  36     2  10.9%     8      0 (0.0%)	     7 (7|0) 	p
+  23     1  15.7%     5      1 (20.0%)	     2 (3|1) 	p
+  17     1  29.3%     2      0 (0.0%)	     2 (2|0) 	p
+  12     1  37.0%     2      0 (0.0%)	     2 (2|0) 	p
+  10     5   5.0%    27      0 (0.0%)	     0 (0|0) 	b
+  11     6   5.8%    15      0 (0.0%)	     0 (0|0) 	b
+  16     7   9.7%    32      3 (9.4%)	     0 (0|0) 	b
 
-Tested 338, errors 51 (15.1%)   <<
+Tested 338, errors 42 (12.4%)   <<
 
 
 	  (a)  (b)  (c)  (d)  (e)	<-classified as
 	 ---- ---- ---- ---- ----
-	   57             10     	(a): class b
-	        49        11     	(b): class e
-	             59   16     	(c): class p
-	              1   73     	(d): class s
-	    1             12   49	(e): class t
+	   85         1          	(a): class b
+	   10   52               	(b): class e
+	   13        46          	(c): class p
+	    5    1        70     	(d): class s
+	   12                  43	(e): class t
 

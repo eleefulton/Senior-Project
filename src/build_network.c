@@ -167,7 +167,7 @@ int initialize_output_layer(char *categories[], Node *output_layer, int n)
 */
 void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_layer, int num_literals)
 {
-  srand(time(NULL));
+//  srand(time(NULL));
   for(int i = 0; i < num_input; i++)                                           // loop through all inputs
   {
     for(int j = 0; j < num_literals; j++)                                      // loop through all literals
@@ -206,7 +206,7 @@ void set_wb_input_to_literal(Node *input_layer, int num_input, Node *literal_lay
 */
 void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *conjunctive_layer, int num_conjuncts)
 {
-  srand(time(NULL));
+//  srand(time(NULL));
   for(int i = 0; i < num_literals; i++)                                        // for all nodes in literal layer
   {
     for(int j = 0; j < num_conjuncts; j++)                                     // for all weights from this node to all nodes in conjunctive layer
@@ -241,7 +241,7 @@ void set_wb_literal_to_conjunctive(Node *literal_layer, int num_literals, Node *
 */
 void set_wb_conjunctive_to_output(Node *conjunctive_layer, int num_conjuncts, Node *output_layer, int num_categories)
 {
-  srand(time(NULL));
+//  srand(time(NULL));
   for(int i = 0; i < num_conjuncts; i++)                                       // for all nodes in conjunctive layer
   {
     for(int j = 0; j < num_categories; j++)                                    // set all weights from this conjunct node to all output nodes

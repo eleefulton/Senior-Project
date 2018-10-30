@@ -7,7 +7,7 @@
 
 int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, float learning_rate, int training_size, int sample_size)
 {
-/*  srand(time(NULL));                                                           // initalize rand()
+  srand(time(NULL));                                                           // initalize rand()
   float bias = ALPHA;                                                          // set bias to ALPHA value
   FILE *input_file = fopen("sample_input.txt", "r");                           // open input file
   FILE *output_file = fopen("sample_output.txt", "r");                         // open expected output file
@@ -34,6 +34,20 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
     }
     fgetc(output_file);
   }
+  Node *previous_input = malloc(sizeof(Node)*num_input);
+  for(int i = 0; i < num_input; i++)
+    previous_input[i].weights = malloc(sizeof(double)*num_hl1);
+
+  Node *previous_literal = malloc(sizeof(Node)*num_hl1);
+  for(int i = 0; i < num_hl1; i++)
+    previous_literal[i].weights = malloc(sizeof(double)*num_hl2);
+
+  Node *previous_conjunctive = malloc(sizeof(Node)*num_hl2);
+  for(int i = 0; i < num_hl2; i++)
+    previous_conjunctive[i].weights = malloc(sizeof(double)*num_output);
+
+  Node *previous_output = malloc(sizeof(Node)*num_output);
+
 
   Node *input_layer = malloc(sizeof(Node) * num_input);                        // allocate input layer
   Node *hidden_layer_one = malloc(sizeof(Node) * num_hl1);                     // allocate literal layer
@@ -103,9 +117,42 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
   int training_set_size = training_size / 10 * 9;
   int validation_set_size = training_size / 10;
   float correct = 0;
-  for(int i = 0; i < EPOCHS*2; i++)
-  {
-    for(int j = 0; j < trainingi_set_size; j++)
+  double previous_best = 0;
+  int completed_epochs = EPOCHS;
+  int stop = 0;
+  for(int i = 0; i < EPOCHS && stop != 1; i++)
+  {   
+      for(int j = 0; j < num_input; j++)
+      {
+        previous_input[j].value = input_layer[j].value;
+        previous_input[j].bias = input_layer[j].bias;
+        for(int k = 0; k < num_hl1; k++)
+          previous_input[j].weights[k] = input_layer[j].weights[k];
+      }
+
+      for(int j = 0; j < num_hl1; j++)
+      {
+        previous_literal[j].value = hidden_layer_one[j].value;
+        previous_literal[j].bias = hidden_layer_one[j].bias;
+        for(int k = 0; k < num_hl2; k++)
+          previous_literal[j].weights[k] = hidden_layer_one[j].weights[k];
+      }
+
+      for(int j = 0; j < num_hl2; j++)
+      {
+        previous_conjunctive[j].value = hidden_layer_two[j].value;
+        previous_conjunctive[j].bias = hidden_layer_two[j].bias;
+        for(int k = 0; k < num_output; k++)
+          previous_conjunctive[j].weights[k] = hidden_layer_two[j].weights[k];
+      }
+
+      for(int j = 0; j < num_output; j++)
+      {
+        previous_output[j].value = output_layer[j].value;
+        previous_output[j].bias = output_layer[j].bias;
+      }
+
+    for(int j = 0; j < training_set_size; j++)
     {
       for(int k = 0; k < num_input; k++)                                         // set input layer values
         input_layer[k].value = input[k][j];
@@ -145,34 +192,24 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
     }
       for(int j = training_set_size; j < training_set_size + validation_set_size; j++)         // run validation on network
       {
-        char expected_output =                                                     // store expected output for this doc
-             file_names_array[file_names_index[j]][strlen(directory)];
-        for(int k = 0; k < num_categories; k++)
+        for(int k = 0; k < num_input; k++)                               // set input value for each word count for this doc
         {
-          if(expected_output_layer[k].tag[0] == expected_output)
-            expected_output_layer[k].value = 1;
-          else
-            expected_output_layer[k].value = 0;
-        }
-
-        for(int k = 0; k < num_categories * 50; k++)                               // set input value for each word count for this doc
-        {
-          input_layer[k].value = input_values[j][k];
+          input_layer[k].value = input[j][k];
         }
 
         // run NNIDT
-        forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
-        forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
-        forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
+        forward_propagate(input_layer, hidden_layer_one, num_input, num_hl1);
+        forward_propagate(hidden_layer_one, hidden_layer_two, num_hl1, num_hl2);
+        forward_propagate(hidden_layer_two, output_layer, num_hl2, num_output);
 
         int max = 0;
         int correct_index;
-        for(int k = 0; k < num_categories; k++)                                // compute if the network got this one correct
+        for(int k = 0; k < num_output; k++)                                // compute if the network got this one correct
         {
           if(output_layer[k].value > output_layer[max].value)
             max = k;
         }
-        for(int k = 0; k < num_categories; k++)
+        for(int k = 0; k < num_output; k++)
         {
           if(expected_output_layer[k].value == 1)
             correct_index = k;
@@ -191,8 +228,8 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
       else if(previous_best >= 80)
       {
         input_layer = previous_input;                                          // reset network to previous best
-        literal_layer = previous_literal;
-        conjunctive_layer = previous_conjunctive;
+        hidden_layer_one = previous_literal;
+        hidden_layer_two = previous_conjunctive;
         output_layer = previous_output;
         completed_epochs = i;
         stop = 1;
@@ -200,7 +237,7 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
       correct = 0;
     }
 //    DoProgress("training NNIDT: ", i+1, EPOCHS);                               // print progress of training
-  }
+//  }
   printf("\n");
   printf("completed training epochs: %d\n", completed_epochs);
   printf("validation accuracy: %f\n", previous_best);
@@ -212,7 +249,7 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
 //    printf("correctly categorized documents during random initialization training = %f\n", correct);
 
     correct = 0;
-    DoProgress("training RINN: ", i+1, EPOCHS * 2);
+//    DoProgress("training RINN: ", i+1, EPOCHS * 2);
   }
   printf("\n");
 
@@ -255,6 +292,5 @@ int random_init_nn(int num_input, int num_output, int num_hl1, int num_hl2, floa
 
   correct = correct / (sample_size - training_size) * 100;                                     // compute percentage correct
   printf("correctly categorized documents during random initialization training = %f %%\n", correct);
-*/
   return 0;
 }

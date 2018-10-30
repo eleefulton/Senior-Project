@@ -4,14 +4,16 @@
 #include <string.h>
 #include <math.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/ioctl.h>
 #include "runner.h"
 
 
 int main(int argc, char *argv[])
 {
+//  srand(time(NULL));
+
 FILE *test_results = fopen("test_results.csv", "a");
-//fprintf(test_results, "nan, testing accuracy\n");
 for(int test = 0; test < 1; test++)
 {
   FILE *input_file = fopen(argv[1], "r");                                     // file that contains info about categories and docs
@@ -244,41 +246,62 @@ for(int test = 0; test < 1; test++)
   } 
   initialize_output_layer(categories, output_layer, num_categories);           // initalize output layer tags
   fclose(docs_data);
-
-//  printf("\nsetting weights and biases from input to literal layer\n");
-  set_wb_input_to_literal(input_layer, num_categories * 50, 
-                            literal_layer, num_literals);                      // set weights and biases between input and literal layer
-/*  for(int i = 0; i < num_categories*50; i++)
-  {
-    printf("%s\n", input_layer[i].tag);
-    for(int j = 0; j < num_literals; j++)
-      printf("%*s -%f-> %s bias %f\n", (int)strlen(input_layer[i].tag), "",         // print input-weight->literal and bias
-               input_layer[i].weights[j], literal_layer[j].tag, literal_layer[j].bias);
-  }
+/*
+   uncomment to run NNIDT
 */
-//  printf("\nsetting weights and biases from literal layer to conjunctive layer\n");
+/*  set_wb_input_to_literal(input_layer, num_categories * 50, 
+                            literal_layer, num_literals);                      // set weights and biases between input and literal layer
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
-/*  for(int i = 0; i < num_literals; i++)
-  {
-    printf("%s\n", literal_layer[i].tag);
-    for(int j = 0; j < num_conjuncts; j++)
-      printf("%*s -%f-> %s bias %f\n", (int)strlen(literal_layer[i].tag), "",       // print input-weight->literal and bias
-               literal_layer[i].weights[j], conjunctive_layer[j].tag, conjunctive_layer[j].bias);
-  }
-*/
-//  printf("\nsetting weights and biases form conjunctive layer to output layer\n");
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
-
+*/
 /*
+   uncomment to run RINN
+*/
+  for(int i = 0; i < num_categories*50; i++)                                          // set weights between input -> literal to +/- [0,1]
+  {
+    for(int j = 0; j < num_literals; j++)
+    {
+      int r = rand() % 10;
+      if(r < 5)
+        input_layer[i].weights[j] = (float)rand() / (float)(RAND_MAX);
+      else input_layer[i].weights[j] = 0 - (float)rand() / (float)(RAND_MAX);
+    }
+    int r = rand() % 10;
+    input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
+  }
+  for(int i = 0; i < num_literals; i++)                                          // set weights between literal -> conjunctive to +/- [0,1]
+  {
+    for(int j = 0; j < num_conjuncts; j++)
+    {
+      int r = rand() % 10;
+      if(r < 5)
+        literal_layer[i].weights[j] = (float)rand() / (float)(RAND_MAX);
+      else literal_layer[i].weights[j] = 0 - (float)rand() / (float)(RAND_MAX);
+    }
+    int r = rand() % 10;
+    input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
+  }
+  for(int i = 0; i < num_conjuncts; i++)                                          // set weights between conjunctive -> output to +/- [0,1]
+  {
+    for(int j = 0; j < num_categories; j++)
+    {
+      int r = rand() % 10;
+      if(r < 5)
+        conjunctive_layer[i].weights[j] = (float)rand() / (float)(RAND_MAX);
+      else conjunctive_layer[i].weights[j] = 0 - (float)rand() / (float)(RAND_MAX);
+    }
+    int r = rand() % 10;
+    input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
+  }
+
+
   for(int i = 0; i < num_conjuncts; i++)
   {
-    printf("%s\n", conjunctive_layer[i].tag);
     for(int j = 0; j < num_categories; j++)
-      printf("%*s -%f-> %s bias %f\n", (int)strlen(conjunctive_layer[i].tag), "",   // print input-weight->literal and bias
-               conjunctive_layer[i].weights[j], output_layer[j].tag, output_layer[j].bias);
+      printf("%f\n", conjunctive_layer[i].weights[j]);
   }
-*/
+
 
   Node *previous_input = malloc(sizeof(Node)*num_categories*50);
   for(int i = 0; i < num_categories*50; i++)
@@ -299,7 +322,7 @@ for(int test = 0; test < 1; test++)
 
   FILE *sample_output = fopen("sample_output.txt", "w+");
   int stop = 0;
-  int completed_epochs = 0;                                                    // keep track of how many epochs the network completes
+  int completed_epochs = EPOCHS;                                              // keep track of how many epochs the network completes
   double previous_best = 0;                                                   // keep track of network's previous best accuracy
   double correct = 0;
   int training_set_size = training_size / 10 * 9;                            // split training set into training and validation using 9:1
@@ -485,6 +508,11 @@ for(int test = 0; test < 1; test++)
   else fprintf(test_results, "no,");
   fprintf(test_results, "%d,", completed_epochs);
 //  fprintf(test_results, "%f, ", previous_best);
+  for(int i = 0; i < num_conjuncts; i++)
+  {
+    for(int j = 0; j < num_categories; j++)
+      printf("%f\n", conjunctive_layer[i].weights[j]);
+  }
 
 // test NNIDT
   for(int i = 0; i < (sample_size - training_size); i++)
