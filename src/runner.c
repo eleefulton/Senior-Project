@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-//  srand(time(NULL));
+  srand(time(NULL));
 
 FILE *test_results = fopen("test_results.csv", "a");
 for(int test = 0; test < 1; test++)
@@ -249,16 +249,16 @@ for(int test = 0; test < 1; test++)
 /*
    uncomment to run NNIDT
 */
-/*  set_wb_input_to_literal(input_layer, num_categories * 50, 
+  set_wb_input_to_literal(input_layer, num_categories * 50, 
                             literal_layer, num_literals);                      // set weights and biases between input and literal layer
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
   set_wb_conjunctive_to_output(conjunctive_layer, num_conjuncts, output_layer, num_categories);
-*/
+
 /*
    uncomment to run RINN
 */
-  for(int i = 0; i < num_categories*50; i++)                                          // set weights between input -> literal to +/- [0,1]
+/*  for(int i = 0; i < num_categories*50; i++)                                          // set weights between input -> literal to +/- [0,1]
   {
     for(int j = 0; j < num_literals; j++)
     {
@@ -294,7 +294,7 @@ for(int test = 0; test < 1; test++)
     int r = rand() % 10;
     input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
   }
-
+*/
 
   for(int i = 0; i < num_conjuncts; i++)
   {

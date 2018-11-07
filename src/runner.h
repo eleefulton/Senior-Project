@@ -13,7 +13,7 @@
 #define MAX_LENGTH 50
 #define MAX_LITERALS 500
 #define MAX_CONJUNCTS 500
-#define ALPHA 0.05
+#define ALPHA 1
 #define BETA 0.025
 #define LR 0.01
 #define EPOCHS 10000
