@@ -51,6 +51,7 @@ for(int test = 0; test < 1; test++)
   }
   char *directory = input[0];
   int num_categories = atoi(input[1]);                                         // total number of categories in data set
+  int num_input = num_categories * 50;
   int population_size = atoi(input[2]);
   int sample_size = atoi(input[3]);                                            // sample size to be used from data set
   int training_size = atoi(input[4]);
@@ -59,7 +60,6 @@ for(int test = 0; test < 1; test++)
   char *fifty_words[num_categories * 50];                                      // array to hold all 50-words once computed
   char *file_names_array[population_size];                                     // array to store file names
   int file_names_index[population_size];                                       // array to store a shuffled index of file names
-  int input_values[sample_size][num_categories*50];                            // array that stores the input values for the input layer
 
   if(num_categories > MAX_CATEGORIES)                                          // check there aren't too many categories
   {
@@ -159,27 +159,27 @@ for(int test = 0; test < 1; test++)
   }
 
   FILE *sample_input = fopen("sample_input.txt", "w+");
-
+  int input_values[sample_size][num_input];                            // array that stores the input values for the input layer
   for(int i = 0; i < sample_size; i++)                                         // count 50-words in sample
   {
-    int output[num_categories * 50];                                           // array to store count output
-    for(int j = 0; j < num_categories * 50; j++)                               // initalize output array
+    int output[num_input];                                           // array to store count output
+    for(int j = 0; j < num_input; j++)                               // initalize output array
     {  
       output[j] = 0;
     }
-    count_fifty_words(file_names_array[file_names_index[i]], fifty_words, 
-                        output, num_categories * 50);                          // count 50-words
+    count_fifty_words(file_names_array[file_names_index[i]], fifty_words,
+                        output, num_input);                          // count 50-words
     if(i < training_size)                                                      // if this is a training file
     {
-      for(int j = 0; j < num_categories * 50; j++)                             // print count output to .data file
+      for(int j = 0; j < num_input; j++)                             // print count output to .data file
       {
-        if(j+1 == num_categories * 50)                                         // if last word print new line
+        if(j+1 == num_input)                                         // if last word print new line
           fprintf(docs_data, "%d, %c\n", output[j],                            // print category and a new line
                     file_names_array[file_names_index[i]][strlen(input[0])]);
         else fprintf(docs_data, "%d, ", output[j]);                            // if it's not a new line, only print count
       }
     }
-    for(int j = 0; j < num_categories * 50; j++)                               // build input_values array for this document
+    for(int j = 0; j < num_input; j++)                               // build input_values array for this document
     {
       input_values[i][j] = output[j] > 0 ? 1 : 0;
       fprintf(sample_input, "%d", input_values[i][j]);
@@ -191,23 +191,54 @@ for(int test = 0; test < 1; test++)
 
   fclose(sample_input);
   printf("done counting 50-words\n");
+
   printf("running decision tree\n"); 
   char *dnf_file = interpreter("./output/", "docs");                           // run interpreter on decision tree output
   if(!strncmp(dnf_file, "FAILED", 6))
     return -1;
   printf("decision tree finished\n");
 
+
+  FILE *docs_dnf = fopen(dnf_file, "r");                                       // open dnf_file to count attributes
+  char *attributes[num_input];                                                 // create array of string to store dnf attributes
+  for(int i = 0; i < num_input; i++)
+  {
+    attributes[i] = malloc(sizeof(char)*MAX_LENGTH);
+    for(int j = 0; j < MAX_LENGTH; j++)
+    {
+      attributes[i][j] = '\0';
+    }
+  }
+  int num_attributes = count_attributes(docs_dnf, attributes);                 // count attributes and store strings in array
+  fclose(docs_dnf);                                                            // close dnf file
+
+  // rebuild input_values to only contain words in attributes
+  int input_attributes[sample_size][num_attributes];
+  for(int i = 0; i < sample_size; i++)
+  {
+    for(int j = 0; j < num_attributes; j++)
+    {
+      for(int k = 0; k < num_input; k++)
+      {
+        if(strcmp(fifty_words[k], attributes[j]) == 0)
+        {
+          input_attributes[i][j] = input_values[i][k];
+        }
+      }
+    }
+  }
+
   printf("building input layer\n");
   rewind(docs_data);                                                           // rewind to beginning of docs file
 
-  Node *input_layer = malloc(sizeof(Node)*num_categories * 50);                // create an array of Nodes for the input layer (250 words)
-  initialize_input_layer(fifty_words, input_layer, num_categories * 50);       // initialize input for first file
+  Node *input_layer = malloc(sizeof(Node)*num_attributes);                // create an array of Nodes for the input layer (250 words)
+  initialize_input_layer(attributes, input_layer, num_attributes);       // initialize input for first file
 
   printf("building literal layer: \n");
   Node *literal_layer = malloc(sizeof(Node)*MAX_LITERALS);                     // create an array of Nodes for the literal layer
   int num_literals = initialize_literal_layer(dnf_file, literal_layer);        // initialize literal layer
   printf("num literals = %d\n", num_literals);
-  for(int i = 0; i < num_categories*50; i++)                                   // allocate weights in input layer to num literals
+  for(int i = 0; i < num_attributes; i++)                                   // allocate weights in input layer to num literals
   {
     input_layer[i].weights = malloc(sizeof(double)*num_literals);
     for(int j = 0; j < num_literals; j++)                                      // initialize all weights to 0
@@ -220,6 +251,7 @@ for(int test = 0; test < 1; test++)
   Node *conjunctive_layer = malloc(sizeof(Node)*MAX_CONJUNCTS);                // create an array of Nodes for the conjunctive layer
   int num_conjuncts = initialize_conjunctive_layer(dnf_file, conjunctive_layer);// initialize the conjunctive layer
   printf("num conjuncts = %d\n", num_conjuncts);
+
   for(int i = 0; i < num_literals; i++)                                        // allocate weights in literal layer to num conjuncts
   {
     literal_layer[i].weights = malloc(sizeof(double)*num_conjuncts);
@@ -233,7 +265,7 @@ for(int test = 0; test < 1; test++)
     conjunctive_layer[i].weights = malloc(sizeof(double)*num_categories);
     for(int j = 0; j < num_categories; j++)                                     // initialize all weights to 0
     {
-      literal_layer[i].weights[j] = 0;
+      conjunctive_layer[i].weights[j] = 0;
     }
   }
 
@@ -249,7 +281,7 @@ for(int test = 0; test < 1; test++)
 /*
    uncomment to run NNIDT
 */
-  set_wb_input_to_literal(input_layer, num_categories * 50, 
+  set_wb_input_to_literal(input_layer, num_attributes, 
                             literal_layer, num_literals);                      // set weights and biases between input and literal layer
   set_wb_literal_to_conjunctive(literal_layer, num_literals, 
                             conjunctive_layer, num_conjuncts);                 // set weights and biases between input and literal layer
@@ -292,19 +324,13 @@ for(int test = 0; test < 1; test++)
       else conjunctive_layer[i].weights[j] = 0 - (float)rand() / (float)(RAND_MAX);
     }
     int r = rand() % 10;
-    input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
+   input_layer[i].bias = r > 4 ? ALPHA : -ALPHA;
   }
 */
 
-  for(int i = 0; i < num_conjuncts; i++)
-  {
-    for(int j = 0; j < num_categories; j++)
-      printf("%f\n", conjunctive_layer[i].weights[j]);
-  }
 
-
-  Node *previous_input = malloc(sizeof(Node)*num_categories*50);
-  for(int i = 0; i < num_categories*50; i++)
+  Node *previous_input = malloc(sizeof(Node)*num_attributes);
+  for(int i = 0; i < num_attributes; i++)
     previous_input[i].weights = malloc(sizeof(double)*num_literals);
 
   Node *previous_literal = malloc(sizeof(Node)*num_literals);
@@ -332,7 +358,6 @@ for(int test = 0; test < 1; test++)
   printf("validation threshold = %d epochs\n\n", VALIDATION_THRESHOLD);
   for(int i = 0; i < EPOCHS && stop != 1; i++)                                     // loop through 1000 epochs or until early stop condition
   {
-
 //    for(int j = 0; j < num_categories * 50; j++)
       if(input_layer[j].value < 0)
         printf("input node %d less than zero\n", j);
@@ -354,7 +379,7 @@ for(int test = 0; test < 1; test++)
 
 //    if(i % 5 == 0)                                                             // store the network to be used for validation as previous network
     {
-      for(int j = 0; j < num_categories * 50; j++)
+      for(int j = 0; j < num_attributes; j++)
       {
         previous_input[j].value = input_layer[j].value;
         previous_input[j].bias = input_layer[j].bias;
@@ -400,13 +425,13 @@ for(int test = 0; test < 1; test++)
 
 //      printf("\n\n");
 
-      for(int k = 0; k < num_categories * 50; k++)                             // set input value for each word count for this doc
+      for(int k = 0; k < num_attributes; k++)                             // set input value for each word count for this doc
       {
-        input_layer[k].value = input_values[j][k];
+        input_layer[k].value = input_attributes[j][k];
       }
 
     // run NNIDT
-      forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+      forward_propagate(input_layer, literal_layer, num_attributes, num_literals);
       forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
       forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
       compute_error_for_output(output_layer, expected_output_layer, num_categories, LR);
@@ -414,7 +439,7 @@ for(int test = 0; test < 1; test++)
       compute_error(conjunctive_layer, output_layer, num_conjuncts, num_categories);
       adjust_weights(literal_layer, conjunctive_layer, num_literals, num_conjuncts, LR);
       compute_error(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
-      adjust_weights(input_layer, literal_layer, num_categories * 50, num_literals, LR);
+      adjust_weights(input_layer, literal_layer, num_attributes, num_literals, LR);
   
       int max = 0;
       int correct_index = 0;
@@ -454,13 +479,13 @@ for(int test = 0; test < 1; test++)
             expected_output_layer[k].value = 0;
         }
 
-        for(int k = 0; k < num_categories * 50; k++)                               // set input value for each word count for this doc
+        for(int k = 0; k < num_attributes; k++)                               // set input value for each word count for this doc
         {
-          input_layer[k].value = input_values[j][k];
+          input_layer[k].value = input_attributes[j][k];
         }
 
         // run NNIDT
-        forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+        forward_propagate(input_layer, literal_layer, num_attributes, num_literals);
         forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
         forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
 
@@ -527,13 +552,13 @@ for(int test = 0; test < 1; test++)
         expected_output_layer[j].value = 0;
     }
 
-    for(int j = 0; j < num_categories * 50; j++)                               // set input value for each word count for this doc
+    for(int j = 0; j < num_attributes; j++)                               // set input value for each word count for this doc
     {
-      input_layer[j].value = input_values[i][j];
+      input_layer[j].value = input_attributes[i][j];
     }
 
     // run NNIDT
-    forward_propagate(input_layer, literal_layer, num_categories * 50, num_literals);
+    forward_propagate(input_layer, literal_layer, num_attributes, num_literals);
     forward_propagate(literal_layer, conjunctive_layer, num_literals, num_conjuncts);
     forward_propagate(conjunctive_layer, output_layer, num_conjuncts, num_categories);
 
@@ -656,6 +681,36 @@ void adjust_weights(Node *left_layer, Node *right_layer, int num_left, int num_r
       left_layer[i].weights[j] = left_layer[i].weights[j] - (lr*change_to_cost_func); // adjust weight
     }
   }
+}
+
+int count_attributes(FILE *dnf_file, char *attributes[])
+{
+  int num = 0;
+  int found = 0;
+  while(!feof(dnf_file))
+  {
+    char *temp = parse_next_word(dnf_file);
+    if(strncmp(temp, "e", strlen(temp)) == 0 || strncmp(temp, "b", strlen(temp)) == 0 
+      || strncmp(temp, "s", strlen(temp)) == 0 || strncmp(temp, "t", strlen(temp)) == 0 
+      || strncmp(temp, "p", strlen(temp)) == 0)
+        found = 1;
+
+    for(int i = 0; i < num; i++)
+    {
+      if(strncmp(attributes[i], temp, strlen(temp)) == 0)
+      {
+        found = 1;
+      }
+    }
+    if(!found)
+    {
+      strncpy(attributes[num], temp, strlen(temp));
+      num++;
+    }
+    found = 0;
+  }
+  rewind(dnf_file);
+  return num;
 }
 
 /*

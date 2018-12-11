@@ -28,4 +28,5 @@ void compute_error(Node *left_layer, Node *right_layer, int num_left, int num_ri
 void forward_propagate(Node *left_layer, Node *right_layer, int num_left, int num_right);
 void compute_error_for_output(Node *actual, Node *expected, int num_output, double lr);
 void DoProgress( char label[], int step, int total );
+int count_attributes(FILE *dnf_file, char *attributes[]);
 

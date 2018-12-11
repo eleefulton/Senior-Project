@@ -1,5 +1,5 @@
 
-C4.5 [release 8] decision tree generator	Fri Nov  2 15:47:21 2018
+C4.5 [release 8] decision tree generator	Tue Dec 11 12:47:00 2018
 ----------------------------------------
 
     Options:
@@ -11,144 +11,134 @@ Read 338 cases (250 attributes) from ./output/docs.data
 
 Decision Tree:
 
-user > 0 : t (31.0)
-user <= 0 :
-|   tori > 0 : p (33.0)
-|   tori <= 0 :
-|   |   machin > 0 : t (9.0)
-|   |   machin <= 0 :
-|   |   |   oppos > 0 : p (8.0)
-|   |   |   oppos <= 0 :
-|   |   |   |   mp <= 0 :
-|   |   |   |   |   growth > 0 : b (25.0)
-|   |   |   |   |   growth <= 0 :
-|   |   |   |   |   |   singer > 0 : e (16.0)
-|   |   |   |   |   |   singer <= 0 :
-|   |   |   |   |   |   |   oscar > 0 : e (13.0)
-|   |   |   |   |   |   |   oscar <= 0 :
-|   |   |   |   |   |   |   |   inquiri > 0 : p (4.0)
-|   |   |   |   |   |   |   |   inquiri <= 0 :
-|   |   |   |   |   |   |   |   |   web > 0 : t (4.0)
-|   |   |   |   |   |   |   |   |   web <= 0 :
-|   |   |   |   |   |   |   |   |   |   gamer > 0 : t (4.0)
-|   |   |   |   |   |   |   |   |   |   gamer <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   movi > 0 : e (8.0)
-|   |   |   |   |   |   |   |   |   |   |   movi <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   music <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   bn > 0 : b (20.0/1.0)
+users > 0 : t (25.0)
+users <= 0 :
+|   gaming > 0 : t (11.0)
+|   gaming <= 0 :
+|   |   tory > 0 : p (25.0)
+|   |   tory <= 0 :
+|   |   |   websites > 0 : t (6.0)
+|   |   |   websites <= 0 :
+|   |   |   |   commons > 0 : p (9.0)
+|   |   |   |   commons <= 0 :
+|   |   |   |   |   films > 0 : e (21.0/1.0)
+|   |   |   |   |   films <= 0 :
+|   |   |   |   |   |   mobiles > 0 : t (5.0)
+|   |   |   |   |   |   mobiles <= 0 :
+|   |   |   |   |   |   |   music <= 0 :
+|   |   |   |   |   |   |   |   actor > 0 : e (5.0)
+|   |   |   |   |   |   |   |   actor <= 0 :
+|   |   |   |   |   |   |   |   |   democrats > 0 : p (6.0)
+|   |   |   |   |   |   |   |   |   democrats <= 0 :
+|   |   |   |   |   |   |   |   |   |   mps > 1 : p (5.0)
+|   |   |   |   |   |   |   |   |   |   mps <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   comedy > 0 : e (4.0)
+|   |   |   |   |   |   |   |   |   |   |   comedy <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   human > 0 : p (6.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   human <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   bn > 0 : b (39.0/2.0)
 |   |   |   |   |   |   |   |   |   |   |   |   |   bn <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   engin > 0 : t (3.0)
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   engin <= 0 :[S1]
-|   |   |   |   |   |   |   |   |   |   |   |   music > 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   without <= 0 : e (10.0)
-|   |   |   |   |   |   |   |   |   |   |   |   |   without > 0 : t (2.0)
-|   |   |   |   mp > 0 :
-|   |   |   |   |   music <= 1 : p (9.0)
-|   |   |   |   |   music > 1 : t (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   charts > 0 : e (3.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   charts <= 0 :[S1]
+|   |   |   |   |   |   |   music > 0 :
+|   |   |   |   |   |   |   |   audio <= 0 : e (20.0)
+|   |   |   |   |   |   |   |   audio > 0 : t (2.0)
 
 
 Subtree [S1]
 
-phone > 0 : t (4.0/1.0)
-phone <= 0 :
-|   di > 0 : e (3.0/1.0)
-|   di <= 0 :
-|   |   market > 0 : b (15.0/3.0)
-|   |   market <= 0 :
-|   |   |   price > 0 : b (3.0)
-|   |   |   price <= 0 :
-|   |   |   |   sharehold > 0 : b (3.0/1.0)
-|   |   |   |   sharehold <= 0 :
-|   |   |   |   |   x > 0 : s (4.0/2.0)
-|   |   |   |   |   x <= 0 :
-|   |   |   |   |   |   champion > 0 : s (25.0)
-|   |   |   |   |   |   champion <= 0 :
-|   |   |   |   |   |   |   artist > 0 : e (2.0)
-|   |   |   |   |   |   |   artist <= 0 :
-|   |   |   |   |   |   |   |   bank > 1 : b (2.0)
-|   |   |   |   |   |   |   |   bank <= 1 :
-|   |   |   |   |   |   |   |   |   telegraph > 0 : b (2.0)
-|   |   |   |   |   |   |   |   |   telegraph <= 0 :
-|   |   |   |   |   |   |   |   |   |   consum > 0 : b (2.0)
-|   |   |   |   |   |   |   |   |   |   consum <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   opportun > 1 : p (2.0)
-|   |   |   |   |   |   |   |   |   |   |   opportun <= 1 :
-|   |   |   |   |   |   |   |   |   |   |   |   actor > 0 : e (2.0/1.0)
-|   |   |   |   |   |   |   |   |   |   |   |   actor <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   pull > 0 : e (2.0/1.0)
-|   |   |   |   |   |   |   |   |   |   |   |   |   pull <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   student > 2 : p (2.0/1.0)
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   student <= 2 :[S2]
-
-
-Subtree [S2]
-
-without <= 0 : s (58.0/12.0)
-without > 0 :
-|   cup <= 0 : p (2.0)
-|   cup > 0 : s (3.0)
+conservative > 0 : p (3.0)
+conservative <= 0 :
+|   growth > 0 : b (22.0/1.0)
+|   growth <= 0 :
+|   |   prices > 0 : b (4.0)
+|   |   prices <= 0 :
+|   |   |   sales > 1 : b (3.0)
+|   |   |   sales <= 1 :
+|   |   |   |   shares > 1 : b (3.0)
+|   |   |   |   shares <= 1 :
+|   |   |   |   |   economic > 0 : b (3.0)
+|   |   |   |   |   economic <= 0 :
+|   |   |   |   |   |   analysts > 0 : b (3.0/1.0)
+|   |   |   |   |   |   analysts <= 0 :
+|   |   |   |   |   |   |   companies <= 0 :
+|   |   |   |   |   |   |   |   movie > 0 : e (2.0)
+|   |   |   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   |   |   rock > 0 : p (2.0)
+|   |   |   |   |   |   |   |   |   rock <= 0 :
+|   |   |   |   |   |   |   |   |   |   democracy > 1 : p (2.0)
+|   |   |   |   |   |   |   |   |   |   democracy <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   personal > 1 : e (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   personal <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   |   positive > 0 : s (5.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   positive <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   do <= 2 : s (81.0/15.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   do > 2 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   arsenal <= 1 : b (2.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   arsenal > 1 : s (2.0)
+|   |   |   |   |   |   |   companies > 0 :
+|   |   |   |   |   |   |   |   do <= 0 : b (4.0/1.0)
+|   |   |   |   |   |   |   |   do > 0 : t (3.0/1.0)
 
 
 Simplified Decision Tree:
 
-user > 0 : t (31.0/1.4)
-user <= 0 :
-|   tori > 0 : p (33.0/1.4)
-|   tori <= 0 :
-|   |   machin > 0 : t (9.0/1.3)
-|   |   machin <= 0 :
-|   |   |   oppos > 0 : p (8.0/1.3)
-|   |   |   oppos <= 0 :
-|   |   |   |   mp <= 0 :
-|   |   |   |   |   growth > 0 : b (25.0/1.3)
-|   |   |   |   |   growth <= 0 :
-|   |   |   |   |   |   singer > 0 : e (16.0/1.3)
-|   |   |   |   |   |   singer <= 0 :
-|   |   |   |   |   |   |   oscar > 0 : e (13.0/1.3)
-|   |   |   |   |   |   |   oscar <= 0 :
-|   |   |   |   |   |   |   |   inquiri > 0 : p (4.0/1.2)
-|   |   |   |   |   |   |   |   inquiri <= 0 :
-|   |   |   |   |   |   |   |   |   web > 0 : t (4.0/1.2)
-|   |   |   |   |   |   |   |   |   web <= 0 :
-|   |   |   |   |   |   |   |   |   |   gamer > 0 : t (4.0/1.2)
-|   |   |   |   |   |   |   |   |   |   gamer <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   movi > 0 : e (8.0/1.3)
-|   |   |   |   |   |   |   |   |   |   |   movi <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   music <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   bn > 0 : b (20.0/2.5)
+users > 0 : t (25.0/1.3)
+users <= 0 :
+|   gaming > 0 : t (11.0/1.3)
+|   gaming <= 0 :
+|   |   tory > 0 : p (25.0/1.3)
+|   |   tory <= 0 :
+|   |   |   websites > 0 : t (6.0/1.2)
+|   |   |   websites <= 0 :
+|   |   |   |   commons > 0 : p (9.0/1.3)
+|   |   |   |   commons <= 0 :
+|   |   |   |   |   films > 0 : e (21.0/2.5)
+|   |   |   |   |   films <= 0 :
+|   |   |   |   |   |   mobiles > 0 : t (5.0/1.2)
+|   |   |   |   |   |   mobiles <= 0 :
+|   |   |   |   |   |   |   music <= 0 :
+|   |   |   |   |   |   |   |   actor > 0 : e (5.0/1.2)
+|   |   |   |   |   |   |   |   actor <= 0 :
+|   |   |   |   |   |   |   |   |   democrats > 0 : p (6.0/1.2)
+|   |   |   |   |   |   |   |   |   democrats <= 0 :
+|   |   |   |   |   |   |   |   |   |   mps > 1 : p (5.0/1.2)
+|   |   |   |   |   |   |   |   |   |   mps <= 1 :
+|   |   |   |   |   |   |   |   |   |   |   comedy > 0 : e (4.0/1.2)
+|   |   |   |   |   |   |   |   |   |   |   comedy <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   human > 0 : p (6.0/2.3)
+|   |   |   |   |   |   |   |   |   |   |   |   human <= 0 :
+|   |   |   |   |   |   |   |   |   |   |   |   |   bn > 0 : b (39.0/3.8)
 |   |   |   |   |   |   |   |   |   |   |   |   |   bn <= 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   engin > 0 : t (3.0/1.1)
-|   |   |   |   |   |   |   |   |   |   |   |   |   |   engin <= 0 :[S1]
-|   |   |   |   |   |   |   |   |   |   |   |   music > 0 :
-|   |   |   |   |   |   |   |   |   |   |   |   |   without <= 0 : e (10.0/1.3)
-|   |   |   |   |   |   |   |   |   |   |   |   |   without > 0 : t (2.0/1.0)
-|   |   |   |   mp > 0 :
-|   |   |   |   |   music <= 1 : p (9.0/1.3)
-|   |   |   |   |   music > 1 : t (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   charts > 0 : e (3.0/1.1)
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   charts <= 0 :[S1]
+|   |   |   |   |   |   |   music > 0 :
+|   |   |   |   |   |   |   |   audio <= 0 : e (20.0/1.3)
+|   |   |   |   |   |   |   |   audio > 0 : t (2.0/1.0)
 
 
 Subtree [S1]
 
-phone > 0 : t (4.0/2.2)
-phone <= 0 :
-|   di > 0 : e (3.0/2.1)
-|   di <= 0 :
-|   |   market > 0 : b (15.0/4.7)
-|   |   market <= 0 :
-|   |   |   price > 0 : b (3.0/1.1)
-|   |   |   price <= 0 :
-|   |   |   |   artist > 0 : e (2.0/1.0)
-|   |   |   |   artist <= 0 :
-|   |   |   |   |   bank > 1 : b (2.0/1.0)
-|   |   |   |   |   bank <= 1 :
-|   |   |   |   |   |   telegraph > 0 : b (2.0/1.0)
-|   |   |   |   |   |   telegraph <= 0 :
-|   |   |   |   |   |   |   consum > 0 : b (2.0/1.0)
-|   |   |   |   |   |   |   consum <= 0 :
-|   |   |   |   |   |   |   |   opportun > 1 : p (2.0/1.0)
-|   |   |   |   |   |   |   |   opportun <= 1 :
-|   |   |   |   |   |   |   |   |   actor <= 0 : s (99.0/23.4)
-|   |   |   |   |   |   |   |   |   actor > 0 : e (2.0/1.8)
+conservative > 0 : p (3.0/1.1)
+conservative <= 0 :
+|   growth > 0 : b (22.0/2.5)
+|   growth <= 0 :
+|   |   sales > 1 : b (3.0/1.1)
+|   |   sales <= 1 :
+|   |   |   shares > 1 : b (4.0/1.2)
+|   |   |   shares <= 1 :
+|   |   |   |   analysts > 0 : b (3.0/2.1)
+|   |   |   |   analysts <= 0 :
+|   |   |   |   |   companies <= 0 :
+|   |   |   |   |   |   movie > 0 : e (2.0/1.0)
+|   |   |   |   |   |   movie <= 0 :
+|   |   |   |   |   |   |   rock > 0 : p (2.0/1.0)
+|   |   |   |   |   |   |   rock <= 0 :
+|   |   |   |   |   |   |   |   democracy <= 1 : s (93.0/23.4)
+|   |   |   |   |   |   |   |   democracy > 1 : p (2.0/1.0)
+|   |   |   |   |   companies > 0 :
+|   |   |   |   |   |   do <= 0 : b (9.0/2.4)
+|   |   |   |   |   |   do > 0 : t (3.0/2.1)
 
 
 Tree saved
@@ -160,4 +150,4 @@ Evaluation on training data (338 items):
 	----------------   ---------------------------
 	Size      Errors   Size      Errors   Estimate
 
-	  69   24( 7.1%)     55   27( 8.0%)    (18.6%)   <<
+	  65   26( 7.7%)     53   28( 8.3%)    (18.8%)   <<
